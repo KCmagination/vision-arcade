@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+dist/
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
+*.pem
+.DS_Store
+# Calculator source and private archives must never be added here.
+server/private/
+*PRIVATE*
+legacy-salvage/
