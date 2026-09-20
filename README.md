@@ -1,6 +1,6 @@
 # Vi$ion Arcade
 
-Financial awareness, built for play. Choose a Mech or Tree, shape your avatar with four financial corners, compare a what-if, and take that loadout into two playable games.
+Financial awareness, built for play. Choose a Mech or Tree, shape your avatar with four financial corners, compare a what-if, and take that loadout into the arcade.
 
 [Try the live MVP](https://vision-financial-map.rettke75.chatgpt.site)
 
@@ -12,8 +12,8 @@ The hangar, mobile interface, original character artwork and models, model gener
 | --- | --- | --- |
 | Cash flow | Weapon | Leaves |
 | Capital / liquid reserves | Shield | Trunk thickness |
-| Collateral / equity | Battery | Roots |
-| Credit | Head antenna | Tree height |
+| Collateral / equity | Chest armor | Roots |
+| Credit | Antenna and wings | Canopy |
 
 Each corner remains independent. There is no combined grade, purchase recommendation, credit prediction, or penalty for low income. All loadouts are playable. Games cannot change real finances.
 
@@ -34,19 +34,27 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. The live MVP uses the same interface, assets and game code with a Cloudflare-compatible server. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This release ports the Site v36 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
-- **Debtbreak:** three drone waves, a Core encounter, weapon/energy/shield/signal loadout, dash, automatic recovery, touch and keyboard controls.
-- **Pulse Range:** a 45-second training arena with the same financial corner mappings.
-- **Canopy:** a labeled future concept, not a playable game.
+- **Debtbreaker:** turret defense driven by the selected Current or What If hangar snapshot. Aim at weaving Debtonator squads, fund obligations or reserves, and review each period. Manual fire starts enabled as the control mode; autofire and aim assist start off. Failure persists until retry.
+- **Debtbreak Classic and challenges:** fictional debt-payoff scenarios with period allocation, Snowball/Avalanche choices and five four-corner missions. Their scenario choices are separate from hangar-driven turret mode.
+- **Debt Invaders:** firing cadence, shields, barriers and ship size respond to the four corners.
+- **Wants vs Needs:** a side-scrolling shooter with Utilities boosts, directional aiming, ad planes and three bosses.
+- **Pulse Range:** a 45-second training arena.
 
-The mobile hangar supports touch controls, explicit model interaction, safe-area navigation, lower rendering cost and paused offscreen scenes. Liquid reserves have a −$1,000 entry minimum. Hover, keyboard focus or tap explains asset resale value and total debt.
+The `/welcome` page explains the four concepts and includes a developer example, captioned preview and educator resources. The hangar includes responsive pillar/avatar feedback, credit-grade labels and zeroed What If changes. Unknown credit stays labeled. Mobile controls and the Debtbreaker compatibility renderer are included.
+
+The turret mode does not predict interest, principal payoff or future credit scores. It uses aggregate monthly obligations and holds the selected credit grade fixed. All financial calculations remain in the hosted service; public game ledgers are fictional simulations.
+
+## Source version
+
+Public package **0.3.0** ports reviewed application files from Site **version 36**, source `e18f26e3e20a93dcb39e86ecfb9010cc1a72f0fd`. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 
-Financial inputs are sent over HTTPS to Vi$ion for calculation. Application code does not persist or log those payloads. Entries reset on refresh; only the chosen avatar is saved locally. Hosting providers still process requests. No bank or credit-provider connection is included.
+Financial inputs are sent over HTTPS to Vi$ion for calculation. Application code does not persist or log those payloads. Entries reset on refresh; only avatar and introductory UI preferences are saved locally. Hosting providers still process requests. No bank or credit-provider connection is included.
 
 Edits are briefly debounced and obsolete requests cancelled. While updating, the last calculated picture is explicitly labeled; game launch waits for a current result. If the service fails, entries remain available and a retry is shown. There is no hidden local scoring fallback.
 
