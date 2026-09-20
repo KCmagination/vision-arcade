@@ -1,0 +1,25 @@
+import type { CornerStrengths } from "../components/avatar-stage";
+export const RUNNER_HEIGHT: number;
+export const RUNNER_GROUND: number;
+export const RUNNER_LENGTH: number;
+export const RUNNER_GRAVITY: number;
+export const RUNNER_ENEMY_COUNT: number;
+export const RUNNER_LEVELS: Array<{name:string;line:string;place:string;color:string;hp:number}>;
+export type RunnerLoadout = {fireRate:number;shieldsMax:number;jumpVelocity:number;speed:number;unknown:string[]};
+export type RunnerState = {
+  phase:"ready"|"playing"|"paused"|"bossIntro"|"levelClear"|"failed"|"complete";
+  level:number;score:number;levelStartScore:number;elapsed:number;viewWidth:number;
+  x:number;y:number;vy:number;facing:number;moving:boolean;grounded:boolean;jumpHeld:boolean;
+  aim:0|45|90;launchPlatform:number|null;rapidFire:number;boostsCollected:number;
+  powerups:Array<{x:number;y:number;platform:number}>;
+  coyote:number;jumpBuffer:number;camera:number;cooldown:number;invulnerable:number;lives:number;shields:number;
+  shotsFired:number;wantsCleared:number;cause:string;
+  platforms:Array<{x:number;y:number;w:number}>;
+  enemies:Array<{id:number;kind:"coffee"|"burger"|"utility"|"plane";x:number;y:number;home:number;w:number;h:number;hp:number;maxHp:number;active:boolean;cooldown:number;flash:number;tick:number;platform?:number}>;
+  shots:Array<{x:number;y:number;vx:number;vy:number;life:number;enemy:boolean;kind:string}>;
+  particles:Array<{x:number;y:number;vx:number;vy:number;life:number;color:string}>;
+  boss:{x:number;y:number;w:number;h:number;hp:number;maxHp:number;active:boolean;tick:number;cooldown:number;volley:number;flash:number;warning:number};
+};
+export function createRunnerLoadout(corners:CornerStrengths):RunnerLoadout;
+export function createRunner(loadout:RunnerLoadout,level?:number,score?:number,viewWidth?:number):RunnerState;
+export function stepRunner(state:RunnerState,controls:{move:number;jump:boolean;fire:boolean;aim?:0|45|90},loadout:RunnerLoadout,seconds:number):void;

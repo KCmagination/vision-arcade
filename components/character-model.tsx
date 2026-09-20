@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { useFrame, useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import type { AvatarKind, CornerStrengths } from "./avatar-stage";
+import type { AvatarKind, AvatarVisualState, CornerStrengths } from "./avatar-stage";
 
 export type CharacterMotion = { moving: number; firing: boolean; shield: boolean; dash: boolean };
 const IDLE: CharacterMotion = { moving: 0, firing: false, shield: false, dash: false };
@@ -16,12 +16,12 @@ const NODES = {
   tree: { credit: "credit_canopy", collateral: "equity_roots", cashFlow: "cash_leaves", capital: "reserve_trunk" },
 };
 
-export function CharacterModel({ avatar, strengths, selected, motion, reducedMotion = false, onReady }: {
+export function CharacterModel({ avatar, strengths, visualState, selected, motion, reducedMotion = false, mounted = false, onReady }: {
   avatar: AvatarKind; strengths: CornerStrengths; selected?: keyof CornerStrengths | null;
-  motion?: MutableRefObject<CharacterMotion>; reducedMotion?: boolean; onReady?: () => void;
+  visualState?: AvatarVisualState; motion?: MutableRefObject<CharacterMotion>; reducedMotion?: boolean; mounted?: boolean; onReady?: () => void;
 }) {
   const asset = useLoader(GLTFLoader, avatar === "mech" ? "/models/sentinel.glb" : "/models/verdant.glb");
-  const state = useRef({ credit: .5, collateral: .5, cashFlow: .5, capital: .5, clock: 0, stride: 0 });
+  const state = useRef({ credit: .5, collateral: .5, cashFlow: .5, capital: .5, clock: 0, stride: 0, creditBurst: 0, cashBurst: 0, lastGrade: visualState?.creditGrade, lastDtiBand: visualState?.dti == null ? null : Math.floor(visualState.dti * 10) });
   const { scene, nodes, materials, rests, partMaterials, gradient } = useMemo(() => {
     const scene = asset.scene.clone(true);
     const mats: THREE.Material[] = [];
@@ -48,6 +48,27 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
         if (avatar === "mech" && node.material instanceof THREE.MeshToonMaterial && node.material.emissiveIntensity < 1.2) outlined.push(node);
       }
     });
+    const partMaterials: Record<string, Array<{ mat: LitMaterial; color: THREE.Color; intensity: number }>> = {};
+    if (avatar === "mech") {
+      const battery = nodes.get("equity_battery");
+      if (battery) battery.visible = false;
+      const torso = nodes.get("torso");
+      if (torso) {
+        const armor = new THREE.Group(); armor.name = "equity_armor"; torso.add(armor); nodes.set(armor.name, armor);
+        const armorMaterial = new THREE.MeshStandardMaterial({ name: "equity armor", color: "#7f8994", metalness: .88, roughness: .25, emissive: "#ff9e3d", emissiveIntensity: .08 });
+        const energyMaterial = new THREE.MeshBasicMaterial({ name: "equity armor energy", color: "#ffc16e", transparent: true, opacity: .7 });
+        mats.push(armorMaterial, energyMaterial);
+        const addPlate = (name: string, position: [number, number, number], scale: [number, number, number], tier: number) => {
+          const plate = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), armorMaterial); plate.name = name; plate.position.set(...position); plate.scale.set(...scale); plate.rotation.x = -.08; plate.userData.equityTier = tier; plate.userData.baseScale = [...scale]; armor.add(plate); nodes.set(name, plate);
+          const seam = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), energyMaterial); seam.name = `${name}_energy`; seam.position.copy(plate.position); seam.position.z += scale[2] + .008; seam.scale.set(scale[0] * .72, .018, .012); seam.userData.equityTier = tier; seam.userData.baseScale = [scale[0] * .72, .018, .012]; armor.add(seam); nodes.set(seam.name, seam);
+        };
+        addPlate("equity_armor_core", [0, .60, .43], [.28, .24, .055], 0);
+        addPlate("equity_armor_l", [-.39, .78, .35], [.18, .28, .06], 1); addPlate("equity_armor_r", [.39, .78, .35], [.18, .28, .06], 1);
+        addPlate("equity_armor_collar", [0, 1.08, .35], [.38, .12, .06], 2);
+        addPlate("equity_armor_lattice", [0, .34, .43], [.22, .09, .065], 3);
+        partMaterials.collateral = [{ mat: armorMaterial, color: armorMaterial.emissive.clone(), intensity: armorMaterial.emissiveIntensity }];
+      }
+    }
     if (outlined.length) {
       const ink = new THREE.MeshBasicMaterial({ color: "#050b14", side: THREE.BackSide, depthWrite: false });
       ink.name = "Illustrated contour";
@@ -56,9 +77,8 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
       mats.push(ink);
       for (const parent of outlined) { const contour = new THREE.Mesh(parent.geometry, ink); contour.name = "illustrated_contour"; parent.add(contour); }
     }
-    const partMaterials: Record<string, Array<{ mat: LitMaterial; color: THREE.Color; intensity: number }>> = {};
     Object.entries(NODES[avatar]).forEach(([key, name]) => {
-      partMaterials[key] = [];
+      partMaterials[key] ??= [];
       nodes.get(name)?.traverse(node => {
         if (!(node instanceof THREE.Mesh)) return;
         (Array.isArray(node.material) ? node.material : [node.material]).forEach(mat => {
@@ -70,9 +90,18 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
   }, [asset, avatar]);
   useEffect(() => () => { materials.forEach(m => m.dispose()); gradient?.dispose(); }, [materials, gradient]);
   useEffect(() => { onReady?.(); }, [asset, onReady]);
+  useEffect(() => {
+    // Only this model instance puts its hand-held equipment away at the controls.
+    for (const name of ["cash_blade", "reserve_shield"]) { const node=nodes.get(name);if(node)node.visible=!mounted; }
+  }, [nodes, mounted]);
   useFrame((_, delta) => {
     const dt = Math.min(delta, .05), s = state.current, movement = motion?.current ?? IDLE;
     s.clock += dt; s.stride += dt * (movement.moving > .1 ? 8 : 1.2);
+    const nextBand = visualState?.dti == null ? null : Math.floor(visualState.dti * 10);
+    if (s.lastGrade !== undefined && s.lastGrade !== visualState?.creditGrade) s.creditBurst = 1;
+    if (s.lastDtiBand !== null && nextBand !== null && s.lastDtiBand !== nextBand) s.cashBurst = 1;
+    s.lastGrade = visualState?.creditGrade; s.lastDtiBand = nextBand;
+    s.creditBurst = Math.max(0, s.creditBurst - dt * 1.35); s.cashBurst = Math.max(0, s.cashBurst - dt * 1.55);
     const animate = !reducedMotion;
     const rotate = (name: string, x = 0, y = 0, z = 0) => { const node = nodes.get(name), rest = rests.get(name); if (node && rest) node.rotation.set(rest.rotation.x + x, rest.rotation.y + y, rest.rotation.z + z); };
     const gait = animate ? Math.sin(s.stride) * movement.moving * (avatar === "tree" ? .45 : 1) : 0;
@@ -84,6 +113,13 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
     rotate("arm_r", movement.firing ? -1.05 + Math.sin(s.clock * 45) * .025 : gait * .25);
     rotate("forearm_r", movement.firing ? -.16 : -.07);
     rotate("hand_r", 0, 0, avatar === "mech" && movement.firing ? -.96 : 0);
+    if(mounted){
+      const kick=movement.firing&&animate?.035:0;
+      rotate("torso", .09+kick);rotate("head",-.08);
+      rotate("arm_l",-.95+kick,0,-.12);rotate("arm_r",-.95+kick,0,.12);
+      rotate("forearm_l",-.3);rotate("forearm_r",-.3);rotate("hand_r");
+      rotate("leg_l",-.07);rotate("leg_r",.07);
+    }
     scene.position.y = animate ? Math.sin(s.clock * 1.8) * .014 + Math.abs(gait) * .035 : 0;
     for (const key of Object.keys(COLORS) as Array<keyof CornerStrengths>) {
       s[key] = reducedMotion ? strengths[key] ?? .5 : THREE.MathUtils.damp(s[key], strengths[key] ?? .5, 5, dt);
@@ -104,7 +140,24 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
     }
     if (avatar === "mech") {
       const blade = nodes.get("cash_blade"), rest = rests.get("cash_blade");
-      if (blade && rest) { blade.scale.copy(rest.scale); blade.scale.y *= .78 + s.cashFlow * .4; }
+      if (blade && rest) {
+        const dti = visualState?.dti ?? (1 - s.cashFlow * .9);
+        const quality = THREE.MathUtils.clamp((.70 - dti) / .55, 0, 1);
+        blade.scale.copy(rest.scale); blade.scale.y *= .42 + quality * 1.45; blade.scale.x *= .52 + quality * .85; blade.scale.z *= .65 + quality * .48;
+      }
+      for (const name of ["shoulder_wing_l", "shoulder_wing_r"]) {
+        const wing = nodes.get(name), rest = rests.get(name); if (!wing || !rest) continue;
+        const elite = THREE.MathUtils.clamp(((visualState?.creditScore ?? 720) - 720) / 40, 0, 1);
+        wing.scale.copy(rest.scale).multiplyScalar(1 + elite * .28);
+      }
+      const armor = nodes.get("equity_armor");
+      armor?.traverse(node => {
+        if (!(node instanceof THREE.Mesh)) return;
+        const tier = Number(node.userData.equityTier ?? 0), threshold = [0, .2, .48, .76][tier] ?? 0;
+        node.visible = s.collateral >= threshold;
+        const grow = .88 + s.collateral * .28, base = node.userData.baseScale as [number, number, number];
+        node.scale.set(base[0] * grow, base[1] * grow, base[2]);
+      });
     }
     const seen = new Set<LitMaterial>();
     for (const key of Object.keys(COLORS) as Array<keyof CornerStrengths>) {
@@ -114,7 +167,8 @@ export function CharacterModel({ avatar, strengths, selected, motion, reducedMot
         const isCash = partMaterials.cashFlow?.some(p => p.mat === mat);
         const highlight = lit ? .22 + (animate ? Math.sin(s.clock * 2.5) * .06 : 0) : 0;
         mat.emissive.copy(color).lerp(EMISSIVE_COLORS[selected ?? key], lit ? .65 : 0);
-        mat.emissiveIntensity = intensity + highlight + (isCash ? s.cashFlow * .35 + (movement.firing ? .7 : 0) : 0);
+        const burst = key === "credit" ? s.creditBurst * 2.3 : key === "cashFlow" ? s.cashBurst * 2.5 : 0;
+        mat.emissiveIntensity = intensity + highlight + burst + (isCash ? s.cashFlow * .35 + (movement.firing ? .7 : 0) : 0);
       });
     }
   });

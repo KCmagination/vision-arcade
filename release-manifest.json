@@ -1,0 +1,38 @@
+{
+  "publicVersion": "0.3.0",
+  "publicBaseCommit": "563ea8f6572c2259d5d361369f71331c0d55abe9",
+  "siteVersion": 37,
+  "siteSourceCommit": "e31be3160ca08c02d27e711a6eb425e55449e021",
+  "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
+  "syncMethod": "Reviewed public application copy; no Site history imported",
+  "futureUpdatesRequireOwnerApproval": true,
+  "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",
+  "protectedFiles": {
+    "server/calculator-service.js": "16477b418219ac6d6088cb6f51ef45fa5909ab6278505af042a88df38f43f6ae",
+    "server/calculator-proxy.js": "cc5a6d5ba11795aaf645042099f34472f3134d06fe4a55558535d232d91d7558",
+    "server/calculator-http.js": "603187b9f9a255c5701d9a16c0507efd6671e0cdd632c4ff4bc35a91bbebd886",
+    "app/api/vision/calculate/route.ts": "18e4768c58dd36637bc0568c20c7889c85d8f8975b63ce6e89910a22c62ff138",
+    "hooks/use-calculator.ts": "7400f9b56d95cd50d4f460439ba41ca6b5fa9efb8e2650cbf440315bc0487513",
+    "lib/calculator-client.js": "17becffa89f0be0fa96657a39a07839ca8df65f84a56c69eabb5953ccc59e25c",
+    "lib/calculator-client.d.ts": "6c75f2e31a29e78eb34af8cc5ccaefb895770c8566c10086a8670965e2884f38",
+    "lib/vision-contract.d.ts": "615b13c616595d82bc791b933cf9d4d3de58a82835429c60589f19ba3951539d",
+    "next.config.ts": "9a7fc0dcd5c8649edd8ebdf970455bd71660dd588904a2e0ab5e5b394426fcee",
+    "LICENSE": "ac6038c1bf71e7bdb34a119074f5be759184a0f7fde61ef63f25570a6ce8e2e0",
+    "THIRD_PARTY_NOTICES.md": "758ab4314dfc89712951147f98bd8d5503d14fa1f1f688e66710bd912f0e8810"
+  },
+  "publicAdaptations": [
+    "Standard Next.js build and API route retained",
+    "Synthetic gameplay fixtures replace engine-dependent tests",
+    "Narrow public output-read guard exceptions with regression checks",
+    "Shared game help corrected to distinguish modes"
+  ],
+  "validation": {
+    "automatedTests": 122,
+    "automatedTestsPassed": 122,
+    "build": "Next.js production build and TypeScript passed",
+    "browser": "Cloud browser rejected local preview URL; no fresh visual/touch playthrough claimed",
+    "http": "Home, welcome, video and both PDFs returned 200; welcome content and links checked",
+    "hostedCalculator": "Public proxy returned 200 and scoringVersion vision-1.0 with fictional example inputs",
+    "outputPrivacyScan": "No proprietary engine signatures in built output"
+  }
+}
