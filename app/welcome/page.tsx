@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { ArrowDown, ArrowUpRight, Code2, Download, Mail, MessageCircle, Play, Shield, Swords, Landmark, Radio } from "lucide-react";
+import { ArrowUpRight, Code2, Download, Mail, MessageCircle, Play, Shield, Swords, Landmark, Radio } from "lucide-react";
 import { DeveloperDemo } from "@/components/developer-demo";
 import { SentinelShowcase } from "@/components/sentinel-showcase";
 import { BuildVisionLink, LandingHowLink, VisionWelcome } from "@/components/vision-welcome";
 import "./welcome.css";
 
 export const metadata: Metadata = {
-  title: "Vi$ion — Learn to read your money | Casey S. Rettke",
-  description: "See your finances. Change the picture. Play the consequences. Vi$ion turns Cash Flow, Capital, Collateral, and Credit into a visual avatar and financial games.",
+  title: "Vi$ion Games — Gamified Budgeting and Financial Education",
+  description: "Welcome to Vi$ion Games — Gamified Budgeting and Financial Education. Explore Cash Flow, Capital, Collateral, and Credit through your avatar and financial games.",
 };
 
 const contact = "mailto:rettkecomms@gmail.com";
@@ -31,30 +31,33 @@ export default function Welcome() {
       </header>
 
       <main id="welcome-main">
+        <div className="vl-welcome-banner"><p className="vl-wrap"><strong>Welcome to Vi$ion Games</strong><span aria-hidden="true"> — </span><span>Gamified Budgeting and Financial Education</span></p></div>
         <section className="vl-hero vl-wrap" aria-labelledby="vl-title">
-          <div className="vl-hero-copy">
-            <p className="vl-kicker">WELCOME TO VI$ION GAMES</p>
-            <h1 id="vl-title">See your finances.<br />Change the picture.<br /><em>Play the consequences.</em></h1>
-            <p className="vl-lead">Vi$ion turns Cash Flow, Capital, Collateral, and Credit into a visual avatar and financial games so you can understand how the pieces of your financial life interact.</p>
-            <div className="vl-actions"><BuildVisionLink className="vl-button">Build My Vi$ion <ArrowUpRight size={20} aria-hidden="true" /></BuildVisionLink><LandingHowLink className="vl-text-link">How It Works <ArrowDown size={17} aria-hidden="true" /></LandingHowLink></div>
-            <a className="vl-preview-link vl-text-link" href="#play-preview"><Play size={15} aria-hidden="true" /> Watch the 30-second preview</a>
-            <p className="vl-hero-note">An independent financial-literacy game project by Casey S. Rettke.</p>
+          <h1 id="vl-title">Vi$ion turns Cash Flow, Capital, Collateral, and Credit into a visual avatar and financial games so you can understand how the pieces of your financial life interact.</h1>
+          <div className="vl-concepts" id="how-it-works" tabIndex={-1} aria-labelledby="corners-title">
+            <span id="philosophy" />
+            <h2 id="corners-title">How Vi$ion Works</h2>
+            <div className="vl-corner-grid" id="four-corners">{corners.map(({ id, number, title, icon: Icon, color, body }) => <article className={`vl-corner vl-${color}`} id={id} key={id}><div className="vl-corner-top"><Icon size={28} strokeWidth={1.4} aria-hidden="true" /><span>{number}</span></div><h3>{title}</h3><p>{body}</p></article>)}</div>
           </div>
-          <figure className="vl-hero-art">
-            <div className="vl-art-index"><span>THE FOUR CORNERS</span><span>ONE CONNECTED PICTURE</span></div>
-            <SentinelShowcase />
-            <div className="vl-art-label vl-art-flow"><Swords size={19} aria-hidden="true" /><span>01 / CASH FLOW</span></div>
-            <div className="vl-art-label vl-art-capital"><Shield size={19} aria-hidden="true" /><span>02 / CAPITAL</span></div>
-            <div className="vl-art-label vl-art-collateral"><Landmark size={19} aria-hidden="true" /><span>03 / COLLATERAL</span></div>
-            <div className="vl-art-label vl-art-credit"><Radio size={19} aria-hidden="true" /><span>04 / CREDIT</span></div>
-            <figcaption>Meet Sentinel. Explore your own four corners in the hangar.</figcaption>
-          </figure>
+          <div className="vl-avatar-column">
+            <figure className="vl-hero-art">
+              <div className="vl-art-index"><span>THE FOUR CORNERS</span><span>ONE CONNECTED PICTURE</span></div>
+              <SentinelShowcase />
+              <div className="vl-art-label vl-art-flow"><Swords size={19} aria-hidden="true" /><span>01 / CASH FLOW</span></div>
+              <div className="vl-art-label vl-art-capital"><Shield size={19} aria-hidden="true" /><span>02 / CAPITAL</span></div>
+              <div className="vl-art-label vl-art-collateral"><Landmark size={19} aria-hidden="true" /><span>03 / COLLATERAL</span></div>
+              <div className="vl-art-label vl-art-credit"><Radio size={19} aria-hidden="true" /><span>04 / CREDIT</span></div>
+              <figcaption>Meet Sentinel. Explore your own four corners in the hangar.</figcaption>
+            </figure>
+            <div className="vl-avatar-actions">
+              <BuildVisionLink className="vl-button">Build My Vi$ion <ArrowUpRight size={20} aria-hidden="true" /></BuildVisionLink>
+              <a className="vl-preview-link vl-text-link" href="#play-preview"><Play size={15} aria-hidden="true" /> Watch the 30-second preview</a>
+            </div>
+          </div>
+          <p className="vl-hero-note">An independent financial-literacy game project by Casey S. Rettke.</p>
         </section>
 
-        <section className="vl-corners vl-welcome-explanation vl-wrap vl-section" id="how-it-works" tabIndex={-1} aria-labelledby="corners-title">
-          <span id="philosophy" />
-          <div className="vl-section-heading"><p className="vl-kicker">01 / SEE THE CONNECTIONS</p><h2 id="corners-title">How Vi$ion Works</h2><p>Vi$ion is built around four fundamental parts of your financial picture:</p></div>
-          <div className="vl-corner-grid" id="four-corners">{corners.map(({ id, number, title, icon: Icon, color, body }) => <article className={`vl-corner vl-${color}`} id={id} key={id}><div className="vl-corner-top"><Icon size={28} strokeWidth={1.4} aria-hidden="true" /><span>{number}</span></div><h3>{title}</h3><p>{body}</p></article>)}</div>
+        <section className="vl-welcome-explanation vl-wrap vl-section" aria-label="Explore the four concepts together">
           <div className="vl-principle"><span>No single one tells the whole story.</span><p><strong>Read all four together and the picture becomes much clearer.</strong></p></div>
           <div className="vl-first-decision"><p>And once you can see the picture, you can start asking better questions:</p><ul className="vl-questions"><li>What happens if I pay this debt down?</li><li>Can I afford this purchase?</li><li>Would more reserves help me more than paying extra debt?</li><li>What changes if I use a Snowball instead of an Avalanche strategy?</li></ul><h3>That is the purpose of Vi$ion.</h3><p>Explore the tradeoffs; Vi$ion does not recommend a purchase or make financial decisions for you.</p></div>
         </section>

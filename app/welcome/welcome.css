@@ -21,15 +21,26 @@
 
 @media(max-width:560px){.vl-corner-grid{grid-template-columns:1fr}.vl-corner{border-right:0;padding:28px}.vl-corner-role,.vl-corner .vl-corner-question{min-height:0}.vl-corner-role{margin-bottom:10px}}
 
-.vl-hero-copy{min-width:0}
-.vl-hero{grid-template-columns:1.25fr 1fr;min-height:650px;gap:32px}
-.vl-hero h1{font-size:clamp(2.6rem,4.65vw,4rem);line-height:1.07;letter-spacing:-.045em;max-width:680px}
-.vl-hero .vl-lead{max-width:610px;font-size:1.0625rem}
-.vl-hero-art{height:590px}
-.vl-hero .vl-actions{gap:18px}
-.vl-welcome-explanation{border-top:1px solid #27353e;padding-top:70px}
-.vl-welcome-explanation:focus-visible{outline:2px solid var(--vl-cyan);outline-offset:-4px}
-.vl-welcome-explanation .vl-corner h3{margin-bottom:18px}
+.vl-welcome-banner{background:linear-gradient(100deg,#12333a,#173c39);border-bottom:1px solid #37605e;color:#dffbf4}
+.vl-welcome-banner p{padding-top:22px;padding-bottom:22px;text-align:center;font-size:clamp(1.125rem,1.8vw,1.5rem);line-height:1.5}
+.vl-welcome-banner strong{font-weight:750;color:var(--vl-cyan)}
+.vl-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);min-height:0;gap:32px 56px;padding-top:40px;padding-bottom:30px;align-items:center}
+.vl-hero h1{grid-column:1/-1;font-size:clamp(1.75rem,2.85vw,2.5rem);font-weight:750;line-height:1.25;letter-spacing:-.025em;max-width:none;margin:0 0 8px}
+.vl-concepts,.vl-avatar-column{min-width:0}
+.vl-concepts:focus-visible{outline:2px solid var(--vl-cyan);outline-offset:8px}
+.vl-concepts h2{font-size:clamp(1.5rem,2.2vw,1.875rem);font-weight:700;line-height:1.2;letter-spacing:-.035em;margin:0 0 22px}
+.vl-concepts .vl-corner-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;border:0;border-radius:0;overflow:visible}
+.vl-concepts .vl-corner{aspect-ratio:1;min-height:245px;padding:22px;border:1px solid #2d424d;border-top:3px solid var(--corner);border-radius:6px}
+.vl-concepts .vl-corner-top{margin-bottom:18px}
+.vl-concepts .vl-corner h3{font-size:1.625rem;font-weight:650;letter-spacing:-.03em;margin:0 0 12px}
+.vl-concepts .vl-corner>p{font-size:1rem;line-height:1.55}
+.vl-hero-art{height:530px}
+.vl-avatar-actions{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:18px}
+.vl-avatar-actions>.vl-button{min-width:230px;font-size:1rem}
+.vl-hero .vl-preview-link{font-size:.875rem;min-height:44px;margin:0}
+.vl-hero-note{grid-column:1/-1;font-size:.875rem;max-width:none;margin:0;text-align:center}
+.vl-welcome-explanation{border-top:1px solid #27353e;padding-top:34px}
+.vl-welcome-explanation .vl-principle{border-top:0;margin-top:0;padding-top:0}
 .vl-questions{padding-left:22px;margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px 35px;color:#e0edef;font-size:1rem;line-height:1.65;font-style:italic}
 .vl-principle>span{font-family:inherit;font-size:1rem;letter-spacing:0;line-height:1.6;text-transform:none}
 .vl-section-heading>p:not(.vl-kicker){max-width:720px;color:var(--vl-muted);margin-top:22px}
@@ -38,10 +49,11 @@
 .vl-classic-note{margin-top:28px;padding:24px;border:1px solid #3a5661;border-radius:5px;background:#0a1820}
 .vl-classic-note h3{color:#9eecdc;font-size:1rem;line-height:1.5}
 .vl-classic-note p{color:#b2c5cf;font-size:1rem;line-height:1.65;margin-top:14px}
-.vl-hero .vl-preview-link{font-size:.875rem;min-height:44px;margin-top:12px}
-@media(max-width:1100px){.vl-hero{gap:25px}.vl-hero h1{font-size:clamp(2.6rem,4.7vw,3.5rem)}.vl-header{gap:18px}.vl-header nav{gap:16px}.vl-hero-art{height:530px}}
-@media(max-width:760px){.vl-hero{grid-template-columns:1fr;min-height:0;padding-top:30px}.vl-hero h1{font-size:clamp(2rem,7.6vw,3.25rem);line-height:1.1;margin:18px 0;letter-spacing:-.04em}.vl-hero .vl-lead{font-size:1rem}.vl-hero .vl-actions{margin-top:22px;gap:16px}.vl-hero-note{margin-top:12px}.vl-hero-art{height:470px}.vl-questions{grid-template-columns:1fr}.vl-welcome-explanation{padding-top:46px}.vl-header nav{font-size:.875rem;flex-wrap:wrap;gap:12px 18px}.vl-header .vl-button-small{font-size:.875rem;padding:11px 13px}.vl-art-label{max-width:100%}}
-@media(max-width:380px){.vl-hero .vl-actions{gap:12px}.vl-hero .vl-button{padding:14px 15px}.vl-hero .vl-text-link{font-size:.875rem}.vl-hero-art{height:430px}.vl-art-index{letter-spacing:0}}
+@media(max-width:1100px){.vl-hero{gap:30px}.vl-concepts .vl-corner{padding:18px}.vl-header{gap:18px}.vl-header nav{gap:16px}.vl-hero-art{height:510px}}
+@media(max-width:900px){.vl-hero{grid-template-columns:1fr;gap:30px}.vl-concepts .vl-corner{min-height:0;padding:25px;aspect-ratio:auto}.vl-concepts .vl-corner-grid{gap:14px}.vl-avatar-column{width:100%;max-width:560px;justify-self:center}.vl-hero-art{height:500px;max-width:none}.vl-hero-note{margin:0}}
+@media(max-width:760px){.vl-welcome-banner p{padding-top:18px;padding-bottom:18px}.vl-welcome-banner strong,.vl-welcome-banner span:last-child{display:block}.vl-welcome-banner span[aria-hidden]{display:none}.vl-hero{padding-top:28px}.vl-hero h1{font-size:clamp(1.625rem,4.8vw,2.125rem);line-height:1.3;margin:0;letter-spacing:-.025em}.vl-hero-art{height:470px}.vl-questions{grid-template-columns:1fr}.vl-welcome-explanation{padding-top:35px}.vl-header nav{font-size:.875rem;flex-wrap:wrap;gap:12px 18px}.vl-header .vl-button-small{font-size:.875rem;padding:11px 13px}.vl-art-label{max-width:100%}.vl-concepts .vl-corner{padding:20px}.vl-concepts .vl-corner h3{font-size:1.5rem}}
+@media(max-width:560px){.vl-header nav{gap:8px}.vl-concepts .vl-corner-grid{gap:10px}.vl-concepts .vl-corner{padding:17px 13px}.vl-concepts .vl-corner-top{margin-bottom:16px}.vl-concepts .vl-corner h3{font-size:1.25rem;letter-spacing:-.02em}.vl-concepts .vl-corner>p{line-height:1.5}.vl-avatar-actions>.vl-button{width:100%}}
+@media(max-width:380px){.vl-hero-art{height:430px}.vl-art-index{letter-spacing:0}}
 
 .vl-sentinel{position:absolute;inset:28px 0 32px;min-width:0}.vl-sentinel-visual{position:absolute;inset:0 0 52px}.vl-sentinel-poster{width:100%;height:100%;object-fit:contain;mask-image:linear-gradient(to bottom,#000 83%,transparent);filter:saturate(.82);opacity:.95}.vl-sentinel-canvas{position:absolute;inset:0;opacity:0;pointer-events:none}.vl-sentinel-canvas canvas{touch-action:pan-y pinch-zoom}.vl-sentinel[data-render-state=ready] .vl-sentinel-poster{visibility:hidden}.vl-sentinel[data-render-state=ready] .vl-sentinel-canvas{opacity:1}.vl-sentinel-controls{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 16px;min-height:44px}.vl-sentinel-status{font:12px var(--font-mono);letter-spacing:1px;color:#b4cbd5}.vl-sentinel-toggle{min-height:44px;color:#d8eee8;border:1px solid #3b5c60;border-radius:4px;font-size:14px;gap:8px;padding:8px 12px}.vl-sentinel-toggle:hover{background:#17302d;color:#a1ffeb}.vl-sentinel-toggle:focus-visible{outline:2px solid var(--vl-cyan);outline-offset:4px}.vl-art-label{pointer-events:none}
 @media(max-width:760px){.vl-hero-art figcaption{font-size:12px;line-height:1.5}.vl-sentinel-status{font-size:12px;letter-spacing:.5px}}

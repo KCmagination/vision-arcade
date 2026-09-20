@@ -2,7 +2,7 @@
 
 ## 0.3.0 — 2026-09-20
 
-Public application sync from Vi$ion Site v36 (`e18f26e3e20a93dcb39e86ecfb9010cc1a72f0fd`), based on public commit `563ea8f6572c2259d5d361369f71331c0d55abe9`.
+Public application sync from Vi$ion Site v37 (`e31be3160ca08c02d27e711a6eb425e55449e021`), based on public commit `563ea8f6572c2259d5d361369f71331c0d55abe9`.
 
 - Add hangar-driven Debtbreaker, Classic and challenge modes, Debt Invaders, and Wants vs Needs.
 - Port reactive avatar/pillar presentation, zeroed What If defaults, landing page, first-visit welcome, developer demo, media and educator resources.

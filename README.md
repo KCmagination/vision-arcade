@@ -34,7 +34,7 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This release ports the Site v36 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This release ports the Site v37 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
@@ -50,7 +50,7 @@ The turret mode does not predict interest, principal payoff or future credit sco
 
 ## Source version
 
-Public package **0.3.0** ports reviewed application files from Site **version 36**, source `e18f26e3e20a93dcb39e86ecfb9010cc1a72f0fd`. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.3.0** ports reviewed application files from Site **version 37**, source `e31be3160ca08c02d27e711a6eb425e55449e021`. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 

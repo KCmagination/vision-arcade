@@ -1,8 +1,8 @@
 {
   "publicVersion": "0.3.0",
   "publicBaseCommit": "563ea8f6572c2259d5d361369f71331c0d55abe9",
-  "siteVersion": 36,
-  "siteSourceCommit": "e18f26e3e20a93dcb39e86ecfb9010cc1a72f0fd",
+  "siteVersion": 37,
+  "siteSourceCommit": "e31be3160ca08c02d27e711a6eb425e55449e021",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
   "syncMethod": "Reviewed public application copy; no Site history imported",
   "futureUpdatesRequireOwnerApproval": true,
