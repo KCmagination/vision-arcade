@@ -50,6 +50,7 @@ import { SectorWorld, readHud, ARENA_PILLARS, type InputState } from "./debtbrea
 import { DebtbreakChallenges } from "./debtbreak-challenges";
 import { DebtbreakerTurret } from "./debtbreaker-turret";
 import type { Snapshot } from "@/lib/vision-contract.js";
+import type { ResolvedDetails } from "@/lib/advanced-finances.js";
 import type { AvatarVisualState } from "./avatar-stage";
 
 const dollars = (cents: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: cents % 100 ? 2 : 0 }).format(cents / 100);
@@ -260,9 +261,9 @@ export function DebtbreakClassic({ avatar, strengths, onExit }: { avatar: Avatar
  </div>;
 }
 
-export function DebtbreakArena(props: Parameters<typeof DebtbreakClassic>[0] & {hangar:Snapshot;visualState:AvatarVisualState}) {
+export function DebtbreakArena(props: Parameters<typeof DebtbreakClassic>[0] & {hangar:Snapshot;visualState:AvatarVisualState;details?:ResolvedDetails}) {
  const [mode,setMode]=useState<'turret'|'challenges'|'classic'>('turret');
-  if(mode==='turret') return <DebtbreakerTurret avatar={props.avatar} strengths={props.strengths} hangar={props.hangar} visualState={props.visualState} onExit={props.onExit} onChallenges={()=>setMode('challenges')} onClassic={()=>setMode('classic')}/>;
+  if(mode==='turret') return <DebtbreakerTurret avatar={props.avatar} strengths={props.strengths} hangar={props.hangar} visualState={props.visualState} details={props.details} onExit={props.onExit} onChallenges={()=>setMode('challenges')} onClassic={()=>setMode('classic')}/>;
  if(mode==='classic') return <div className="db-classic-wrap"><Button className="db-classic-back" onClick={()=>setMode('turret')}>← Debtbreaker</Button><DebtbreakClassic {...props}/></div>;
  return <div className="db-classic-wrap"><Button className="db-classic-back" onClick={()=>setMode('turret')}>← Debtbreaker</Button><DebtbreakChallenges {...props} renderClassic={back => <><Button className="db-classic-back" onClick={back}>← Challenges</Button><DebtbreakClassic {...props}/></>}/></div>;
 }

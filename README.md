@@ -34,7 +34,7 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This release ports the Site v37 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This release ports the Site v45 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
@@ -46,11 +46,13 @@ The public package uses standard Next.js for portability. This release ports the
 
 The `/welcome` page explains the four concepts and includes a developer example, captioned preview and educator resources. The hangar includes responsive pillar/avatar feedback, credit-grade labels and zeroed What If changes. Unknown credit stays labeled. Mobile controls and the Debtbreaker compatibility renderer are included.
 
-The turret mode does not predict interest, principal payoff or future credit scores. It uses aggregate monthly obligations and holds the selected credit grade fixed. All financial calculations remain in the hosted service; public game ledgers are fictional simulations.
+Use **Advanced: debts & living costs** in the hangar to enter named accounts and living-cost categories. Review each total before applying changes; partial details can leave positive unspecified remainders. What If additions stay separate. The battlefield divides each monthly obligation across more targets without multiplying the amount owed. Four $25 shots replace each former $100 firing interval while preserving nominal dollar allocation capacity.
+
+Account balances stay payments-only by default. Explicitly opted-in accounts with a known rate held constant and a known non-debt payment portion can use simplified monthly estimates. Included costs are paid first, then interest, then principal. Extra payments are available at checkpoints after mission obligations are covered. The model assumes no new borrowing, rate changes, additional fees or interest on unpaid interest; remaining term does not promise payoff. Estimates never change the entered picture or captured pillar loadout. Future credit scores are not projected. Proprietary four-corner scoring remains exclusively in the hosted calculator; the public game ledgers are simulations.
 
 ## Source version
 
-Public package **0.3.0** ports reviewed application files from Site **version 37**, source `e31be3160ca08c02d27e711a6eb425e55449e021`. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.4.0** ports reviewed application files from Site **version 45**, source `ec6461c3d2c7a6114e326f15ca9e133d193881c5`. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 

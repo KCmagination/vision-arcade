@@ -73,7 +73,7 @@ export function VisionWelcome({ onBuild, onHow, landing = false }: { onBuild?: (
         } else if (target === "how") {
           if (onHow) onHow();
           else focusWelcomeSection("how-it-works");
-        } else document.querySelector<HTMLElement>(landing ? ".vl-hero .vl-button" : ".intro-actions button")?.focus({ preventScroll: true });
+        } else document.querySelector<HTMLElement>(landing ? ".vl-hero .vl-button" : "#picture")?.focus({ preventScroll: true });
       });
     }}>
       <DialogHeader>

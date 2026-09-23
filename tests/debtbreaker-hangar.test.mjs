@@ -30,8 +30,8 @@ test('hangar dollar inputs replace every static wallet, obligation and upkeep',(
   assert.deepEqual(s.debts,[]);assert.deepEqual(s.loans,[]);
   assert.ok(s.defenses.every(d=>d.upkeep===0&&d.securedBalance===0&&d.baseValue===0));
   const actors=combatActors(createCombat(s)).filter(a=>a.target.lane!=='reserve');
-  assert.equal(actors.length,10);
-  assert.equal(actors.reduce((sum,a)=>sum+a.remaining,0),recurringOutflow(s),'five bodies divide each obligation');
+  assert.equal(actors.length,40);
+  assert.equal(actors.reduce((sum,a)=>sum+a.remaining,0),recurringOutflow(s),'twenty bodies divide each obligation');
 });
 
 test('What if consumes resolved API inputs once and never modifies the hangar',()=>{

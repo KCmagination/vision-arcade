@@ -73,7 +73,7 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
         const recent=w.effects.some(e=>e.actorId===p.id&&w.time-e.born<.12),z=p.z+(recent&&!reduced?.15:0);
         const hovering=.55+(!reduced?Math.sin(w.time*3+p.slot)*.07:0);
         ctx.fillStyle='#09172288';const shadow=point(p.x,z+.25);ctx.beginPath();ctx.ellipse(shadow[0],shadow[1],scale*(friendly?1.15:.62),scale*.22,0,0,Math.PI*2);ctx.fill();
-        if(!friendly){
+        if(t.lane==='credit'){
           const bank=Math.cos(w.time*1.8+p.slot+p.index)*.1;
           polygon([point(p.x,z-.6,hovering),point(p.x+.78,z,hovering+bank),point(p.x+.3,z+.48,hovering),point(p.x-.3,z+.48,hovering),point(p.x-.78,z,hovering-bank)],t.lane==='credit'?'#646179':'#806650');
           box(p.x,z,.5,.65,hovering+.22,recent?'#e8e6c3':color);
@@ -82,6 +82,10 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
             line(point(p.x+side*.44,z+.1,hovering),point(p.x+side*.5,z+.33,hovering),color,2);
           }
           line(point(p.x-.17,z+.35,hovering+.12),point(p.x+.17,z+.35,hovering+.12),t.overdue?'#ff7465':'#ffe3ba',2);
+        }else if(!friendly){
+          for(const side of [-1,1]){box(p.x+side*.43,z,.19,1.04,.28,'#263846');for(let n=-.4;n<.5;n+=.2)line(point(p.x+side*.35,z+n,.3),point(p.x+side*.54,z+n,.3),'#7c898d',1);}
+          box(p.x,z,.75,.84,.54,recent?'#ffdf9e':color);box(p.x,z,.5,.5,.77,'#a88961');
+          line(point(p.x,z+.15,.8),point(p.x,z+.65,.8),'#423d36',Math.max(3,scale*.13));
         }else{
           box(p.x-.83,z,.44,1.8,.36,"#293e48");box(p.x+.83,z,.44,1.8,.36,"#293e48");
           for(const side of [-1,1])for(let n=-.6;n<.8;n+=.4)line(point(p.x+side*.8,z+n,.39),point(p.x+side*1.04,z+n,.39),"#77959e",2);
@@ -89,8 +93,11 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
           if(friendly){line(point(p.x-.3,z,1.2),point(p.x+.3,z,1.2),"#e6fff5",4);line(point(p.x,z-.5,1.2),point(p.x,z+.5,1.2),"#e6fff5",4);}
           else for(const side of [-1,1])line(point(p.x+side*.48,z+.3,1),point(p.x+side*.48,z+1,1),"#414d58",Math.max(3,scale*.16));
         }
-        const name=friendly?'DEPOSIT • INCOME ONLY':`${t.lane==='living'?'COST':w.ledger.hangar?'DEBT':p.index===1?'LOAN':'CARD'} ${p.slot+1} · $${Math.ceil(p.remaining/100).toLocaleString()}`;
-        label(name,p.x,z,friendly?1.75:1.18,t.overdue?'#ff9e84':color,10);
+        if(friendly||w.drones.find(d=>d.targetId===t.id&&d.remaining>0)?.id===p.id){
+          const amount=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:t.remaining%100?2:0}).format(t.remaining/100);
+          const name=friendly?'DEPOSIT • INCOME ONLY':`${t.label.slice(0,16)} · ${amount} GROUP`;
+          label(name,p.x,z,friendly?1.75:1.2,t.overdue?'#ff9e84':color,10);
+        }
       });
       const pillars:[number,number,string,string][]=[[-4.1,5,"CASH FLOW","#79edc8"],[4.1,5,"CAPITAL","#83d7ff"],[-4.1,8,"COLLATERAL","#ffd099"],[4.1,8,"CREDIT","#c4acff"]];
       for(const [x,z,name,color] of pillars){box(x,z,1.3,1.2,.2,"#4b6573");box(x,z,.7,.7,1.9,"#587583");line(point(x,z+.4,.4),point(x,z+.4,1.8),color,Math.max(2,scale*.11));label(name,x+(z===5?(x<0?-1.7:1.7):0),z+.9,0,color,12);}

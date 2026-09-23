@@ -18,6 +18,9 @@ const approvedOutputLines = new Map([
   ["tests/debtbreaker-hangar.test.mjs", new Set([
     "raw:key==='collateral'?{debtToValue:.7}:{},",
   ])],
+  ["tests/advanced-finances.test.mjs", new Set([
+    "raw:key==='collateral'?{debtToValue:.7}:{},",
+  ])],
 ]);
 const forbiddenSource = /RESERVE_ANCHORS|reserveStrength\s*\(|cashFlowSignal\s*\(|creditSignal\s*\(|debtToValue|equityMargin|(?:\.\.\/|\.\/)private\/|server\/private/;
 function hasForbiddenSource(name, source) {
@@ -41,6 +44,10 @@ if (process.argv.includes("--self-test")) {
   assert.equal(hasForbiddenSource("lib/debtbreaker-engine.js", allowed), false);
   assert.equal(hasForbiddenSource("lib/other.js", allowed), true);
   assert.equal(hasForbiddenSource("lib/debtbreaker-engine.js", allowed + "\nconst debtToValue = totalDebt / assetValue;"), true);
+  const fixture = "raw:key==='collateral'?{debtToValue:.7}:{},";
+  assert.equal(hasForbiddenSource("tests/advanced-finances.test.mjs", fixture), false);
+  assert.equal(hasForbiddenSource("tests/advanced-finances.test.mjs", fixture + "\nconst debtToValue = totalDebt / assetValue;"), true);
+  assert.equal(hasForbiddenSource("tests/unreviewed.test.mjs", fixture), true);
   for (const marker of ["RESERVE_ANCHORS", "reserveStrength(", "cashFlowSignal(", "creditSignal(", "equityMargin", "../server/private/engine.js"])
     assert.equal(hasForbiddenSource("lib/debtbreaker-engine.js", marker), true);
   console.log("Public release guard regression checks passed.");
