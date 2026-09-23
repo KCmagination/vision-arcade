@@ -1,13 +1,14 @@
 import type { Snapshot } from './vision-contract.js';
 import type { Loadout } from './arcade-engine.js';
+import type { ResolvedDetails,AccountReview } from './advanced-finances.js';
 
-export type Threat = {id:string;lane:'living'|'credit'|'reserve';label:string;original:number;remaining:number;progress:number;speed:number;eligible:boolean;intercepted:boolean;overdue:boolean;impacted:boolean;paidAt:number|null;incomePaid:number;reservePaid:number};
+export type Threat = {id:string;lane:'living'|'credit'|'reserve';label:string;original:number;remaining:number;progress:number;speed:number;eligible:boolean;intercepted:boolean;overdue:boolean;impacted:boolean;paidAt:number|null;incomePaid:number;reservePaid:number;accountId?:string;formation?:number;formationOffset?:number};
 export type Defense = {id:string;name:string;tier:number;owned:boolean;condition:number;baseValue:number;upkeep:number;securedBalance:number};
 export type Debt = {id:string;name:string;balance:number;apr:number;payment:number;revolving:boolean;limit?:number};
-export type PeriodReview = {period:number;startingReserves:number;endingReserves:number;openingIncome:number;carriedIncome:number;incomeReceived:number;unallocatedIncome:number;endingMonths:number;incomeSpent:number;reserveSpent:number;reserveDeposited:number;interest:number|null;principalPaid:number|null;arrears:number;damage:number;grade:string;gradeReason:string;earned:number[];onTime:boolean};
+export type PeriodReview = {accounts:AccountReview[];extraIncomePaid?:number;extraReservePaid?:number;period:number;startingReserves:number;endingReserves:number;openingIncome:number;carriedIncome:number;incomeReceived:number;unallocatedIncome:number;endingMonths:number;incomeSpent:number;reserveSpent:number;reserveDeposited:number;interest:number|null;principalPaid:number|null;arrears:number;damage:number;grade:string;gradeReason:string;earned:number[];onTime:boolean};
 export type CashActivity = {incomeRepairs:number;reserveRepairs:number;equipment:number;sales:number};
 export type DebtbreakerState = {
-  hangar?:{snapshot:Snapshot;grade:string|null;loadout:Loadout;monthlyDebtPayments:number;totalDebt:number;assetValue:number};
+  hangar?:{snapshot:Snapshot;grade:string|null;loadout:Loadout;monthlyDebtPayments:number;totalDebt:number;assetValue:number;details?:ResolvedDetails};
   period:number;maxPeriods:number;startingIncome:number;incomeWallet:number;baseLiving:number;reserves:number;arrears:number;
   paused:boolean;phase:'briefing'|'playing'|'review'|'complete'|'gameover';selectedId:string|null;elapsed:number;notice:string;
   debts:Debt[];loans:Debt[];defenses:Defense[];threats:Threat[];gradeIndex:number;gradeReason:string;unlockedTier:number;earnedMilestones:number[];latePeriods:number;
@@ -22,7 +23,10 @@ export const DUE_LINE: number;
 export const IMPACT_LINE: number;
 export const MAX_PERIODS: number;
 export function createCampaign(options?: {income?:number;baseLiving?:number;reserveMonths?:number}): DebtbreakerState;
-export function createHangarCampaign(snapshot:Snapshot,grade?:string|null): DebtbreakerState;
+export function createHangarCampaign(snapshot:Snapshot,grade?:string|null,details?:ResolvedDetails): DebtbreakerState;
+export function shotValue(state:DebtbreakerState):number;
+export function firingRate(state:DebtbreakerState):number;
+export function extraDebtPayment(state:DebtbreakerState,id:string,source:'income'|'reserve',requested:number):DebtbreakerState;
 export function recurringOutflow(state:DebtbreakerState):number;
 export function reserveCoverage(state:DebtbreakerState):number;
 export function replacementPrice(state:DebtbreakerState,tier:number):number;

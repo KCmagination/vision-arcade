@@ -1,8 +1,8 @@
 {
-  "publicVersion": "0.3.0",
-  "publicBaseCommit": "563ea8f6572c2259d5d361369f71331c0d55abe9",
-  "siteVersion": 37,
-  "siteSourceCommit": "e31be3160ca08c02d27e711a6eb425e55449e021",
+  "publicVersion": "0.4.0",
+  "publicBaseCommit": "75b8f11c7af78defc09c6de15dcd62d179ccf7c7",
+  "siteVersion": 45,
+  "siteSourceCommit": "ec6461c3d2c7a6114e326f15ca9e133d193881c5",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
   "syncMethod": "Reviewed public application copy; no Site history imported",
   "futureUpdatesRequireOwnerApproval": true,
@@ -23,16 +23,20 @@
   "publicAdaptations": [
     "Standard Next.js build and API route retained",
     "Synthetic gameplay fixtures replace engine-dependent tests",
-    "Narrow public output-read guard exceptions with regression checks",
-    "Shared game help corrected to distinguish modes"
+    "Narrow public output-read guard exceptions with regression checks; advanced account fixture uses synthetic public API output only",
+    "Prior public game-help corrections preserved while merging the hangar changes",
+    "Vite is a development-only dependency for the imported Sentinel model regression test"
   ],
   "validation": {
-    "automatedTests": 122,
-    "automatedTestsPassed": 122,
+    "status": "local public-release verification passed",
+    "automatedTests": 142,
+    "automatedTestsPassed": 142,
     "build": "Next.js production build and TypeScript passed",
-    "browser": "Cloud browser rejected local preview URL; no fresh visual/touch playthrough claimed",
-    "http": "Home, welcome, video and both PDFs returned 200; welcome content and links checked",
-    "hostedCalculator": "Public proxy returned 200 and scoringVersion vision-1.0 with fictional example inputs",
-    "outputPrivacyScan": "No proprietary engine signatures in built output"
+    "sourcePrivacyScan": "Hosted-adapter boundary and exact-line guard regression checks passed",
+    "outputPrivacyScan": "No proprietary engine signatures found in built output",
+    "http": "Public Next.js home and welcome routes returned 200",
+    "siteTests": "158 passed before Site v45 publication",
+    "browser": "Site v45 compatibility renderer: account entry, total reconciliation, calculator updates, desktop manual shots, visible pillars and return to unchanged hangar passed. Public Next.js browser playthrough, physical touch, controller and WebGL were not performed.",
+    "hostedCalculator": "Public Next.js proxy returned 200 using fictional inputs; current and scenario snapshots both returned scoringVersion vision-1.0. Adapter bytes remain unchanged."
   }
 }

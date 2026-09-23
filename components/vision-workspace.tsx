@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ArrowDown,
   ArrowRight,
   Check,
   ChevronRight,
@@ -47,6 +46,8 @@ import {
   type CornerSignal,
 } from "@/lib/vision-contract.js";
 import { useCalculator } from "@/hooks/use-calculator";
+import { AdvancedFinancialSetup } from "./advanced-financial-setup";
+import { resolveDetails, type AdvancedSetup } from "@/lib/advanced-finances.js";
 import { useWebGLSupport } from "@/hooks/use-webgl-support";
 import { PracticePictures } from "@/components/practice-pictures";
 import { BetaFeedback } from "@/components/beta-feedback";
@@ -318,6 +319,8 @@ function InputField({
 export function VisionWorkspace() {
   const webGL = useWebGLSupport();
   const [current, setCurrent] = useState<CurrentInputs>({ ...DEFAULT_CURRENT });
+  const [advanced, setAdvanced] = useState<AdvancedSetup|null>(null);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [scenario, setScenario] = useState<ScenarioInputs>({
     ...DEFAULT_SCENARIO,
   });
@@ -336,7 +339,6 @@ export function VisionWorkspace() {
   const [concept, setConcept] = useState<"canopy" | null>(null);
   const [plannedFeature, setPlannedFeature] = useState<"budget" | "guide" | null>(null);
   const inputPanelRef = useRef<HTMLElement>(null);
-  const howItWorksRef = useRef<HTMLElement>(null);
   const [edited, setEdited] = useState(false);
   const [exampleName, setExampleName] = useState("Starting example");
   const [announcement, setAnnouncement] = useState("");
@@ -358,8 +360,12 @@ export function VisionWorkspace() {
   }, []);
   const moveTo = (target: "inputs" | "how") => {
     markWelcomeSeen();
-    if (target === "inputs") setSnapshot("current");
-    requestAnimationFrame(() => focusWelcomeSection(target === "inputs" ? "monthlyIncome" : "how-it-works"));
+    if (target === "how") {
+      window.location.assign("/welcome#how-it-works");
+      return;
+    }
+    setSnapshot("current");
+    requestAnimationFrame(() => focusWelcomeSection("monthlyIncome"));
   };
   const chooseAvatar = (next: AvatarKind) => {
     setAvatar(next);
@@ -372,6 +378,7 @@ export function VisionWorkspace() {
     scenario,
   );
   const active = comparison[snapshot];
+  const details = useMemo(()=>advanced?resolveDetails(advanced,current,active):undefined,[advanced,current,active]);
   const strengths = useMemo(
     () =>
       Object.fromEntries(
@@ -444,6 +451,7 @@ export function VisionWorkspace() {
   const updateScenario = (key: keyof ScenarioInputs, value: number | null) =>
     setScenario((p) => ({ ...p, [key]: value ?? 0 }));
   const reset = () => {
+    setAdvanced(null);
     setCurrent({ ...DEFAULT_CURRENT });
     setScenario({ ...DEFAULT_SCENARIO });
     setEdited(false);
@@ -451,6 +459,7 @@ export function VisionWorkspace() {
     setSnapshot("current");
   };
   const choosePicture = (inputs: CurrentInputs, name: string) => {
+    setAdvanced(null);
     setCurrent(inputs); setScenario({ ...DEFAULT_SCENARIO }); setSnapshot("current");
     setExampleName(name); setEdited(false);
   };
@@ -479,20 +488,7 @@ export function VisionWorkspace() {
           AVATAR LAB <span>03</span>
         </span>
       </header>
-      <section className="intro" id="hangar">
-        <div className="intro-copy">
-          <p className="eyebrow">
-            <span className="tiny-line" /> VI$ION / AVATAR LAB
-          </p>
-          <h1>See your finances. Change the picture. <span>Play the consequences.</span></h1>
-          <p>Vi$ion turns Cash Flow, Capital, Collateral, and Credit into a visual avatar and financial games so you can understand how the pieces of your financial life interact.</p>
-          <div className="intro-actions">
-            <Button className="primary-action" onClick={() => moveTo("inputs")}>Build My Vi$ion <ArrowRight size={17} /></Button>
-            <Button variant="outline" onClick={() => moveTo("how")}>How It Works <ArrowDown size={17} /></Button>
-          </div>
-        </div>
-        <div className="first-play"><Button className="primary-action" disabled={!ready} onClick={() => setSectorOpen(true)}><Gamepad2 size={19} /> Start Debtbreak <ArrowRight size={17} /></Button><p>Your selected picture powers Debtbreaker. Practice without moving real money.</p><a href="#arcade">Explore all games <ArrowDown size={14} /></a></div>
-      </section>
+      <h1 className="sr-only" id="hangar-title">Vi$ion avatar hangar</h1>
       <div
         className={`calculator-status ${error ? "has-error" : ""}`}
         role="status"
@@ -522,7 +518,7 @@ export function VisionWorkspace() {
           </span>
         )}
       </div>
-      <div className="hangar-grid" aria-busy={pending}>
+      <div className="hangar-grid" id="hangar" role="region" aria-labelledby="hangar-title" tabIndex={-1} aria-busy={pending}>
         <aside className="setup-panel" id="picture" ref={inputPanelRef} tabIndex={-1}>
           <div className="section-heading">
             <span className="step-number">01</span>
@@ -672,6 +668,8 @@ export function VisionWorkspace() {
               </p>
             </TabsContent>
           </Tabs>
+          <Button className="adv-launch" variant="outline" onClick={()=>setAdvancedOpen(true)}><SlidersHorizontal size={16}/>Advanced: debts &amp; living costs</Button>
+          {advanced&&<p className="adv-status" data-error={!!details?.issues.length}>{details?.issues.length?details.issues.join(' '):`${advanced.debts.length} debts · ${advanced.expenses.length} living costs · ${advanced.date}${snapshot==='scenario'?' · What-if additions stay unassigned':''}`}</p>}
           <p className="input-footnote">
             Entries are sent to Vi$ion’s calculator to update your avatar. This
             app does not save them. Entries reset on refresh. No bank
@@ -945,64 +943,6 @@ export function VisionWorkspace() {
           </a>
         </aside>
       </div>
-      <section
-        className="comparison-section"
-        aria-labelledby="comparison-title"
-      >
-        <div className="comparison-label">
-          <p className="eyebrow">THE RIPPLE EFFECT</p>
-          <h2 id="comparison-title">What changes?</h2>
-          <p>Current picture → your what-if.</p>
-        </div>
-        <div className="comparison-values">
-          {CORNERS.map((c) => (
-            <div key={c.key} style={{ "--corner": c.color } as CSSProperties}>
-              <p>{c.title}</p>
-              <strong>
-                {percent(comparison.current.corners[c.key].strength)}{" "}
-                <ArrowRight size={17} />{" "}
-                {percent(comparison.scenario.corners[c.key].strength)}
-              </strong>
-              <span>{rawLabel(c.key, comparison.scenario.corners[c.key])}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="how-it-works" id="how-it-works" ref={howItWorksRef} tabIndex={-1} aria-labelledby="how-it-works-title">
-        <div className="how-heading">
-          <p className="eyebrow">HOW VI$ION WORKS</p>
-          <h2 id="how-it-works-title">Read all four together and the picture becomes much clearer.</h2>
-          <p>Vi$ion is built around four fundamental parts of your financial picture. No single one tells the whole story.</p>
-        </div>
-        <div className="concept-grid">
-          <article><span>01</span><h3>Cash Flow</h3><p>Understand the relationship between money coming in and money going out.</p></article>
-          <article><span>02</span><h3>Capital</h3><p>Learn to think about savings and reserves not just as dollars, but as <strong>time</strong> — how long your resources can support you.</p></article>
-          <article><span>03</span><h3>Collateral</h3><p>Understand the relationship between what you own, what it is worth, and what you still owe against it.</p></article>
-          <article><span>04</span><h3>Credit</h3><p>Go beyond the score and understand credit as a way of communicating your borrowing history and financial behavior.</p></article>
-        </div>
-        <div className="question-panel">
-          <p>Once you can see the picture, you can start asking better questions:</p>
-          <ul><li>What happens if I pay this debt down?</li><li>Can I afford this purchase?</li><li>Would more reserves help me more than paying extra debt?</li><li>What changes if I use a Snowball instead of an Avalanche strategy?</li></ul>
-          <strong>That is the purpose of Vi$ion.</strong>
-        </div>
-        <div className="explanation-grid">
-          <article>
-            <p className="eyebrow">BUILD YOUR AVATAR</p>
-            <h3>Turn the numbers into a picture.</h3>
-            <p>Start with <strong>seven basic inputs</strong> about your current financial situation. Planning a purchase? Open <strong>What If</strong> for five additional inputs and compare the scenario without changing your current picture.</p>
-            <dl><div><dt>Cash Flow → Weapon</dt><dd>More room between take-home income and combined living and debt expenses means greater offensive strength.</dd></div><div><dt>Capital → Shield</dt><dd>More months of available reserves means stronger protection.</dd></div><div><dt>Collateral → Armor</dt><dd>More equity relative to debt strengthens your armor.</dd></div><div><dt>Credit → Antenna &amp; Wings</dt><dd>Your entered credit profile changes your avatar’s credit equipment and abilities.</dd></div></dl>
-            <p>The point isn’t to make a “good” or “bad” character. <strong>The avatar gives you a way to see financial relationships that are normally trapped inside spreadsheets, percentages, and credit reports.</strong></p>
-          </article>
-          <article>
-            <p className="eyebrow">THEN PLAY YOUR FINANCIAL PICTURE</p>
-            <h3>Your avatar isn’t just decoration.</h3>
-            <p>Take it into Vi$ion’s financial simulators and see those same concepts become gameplay.</p>
-            <p>Battle debt. Reduce <strong>principal balances</strong>. Protect your reserves. Survive until payday. Decide whether disposable income should strengthen your next round or repair damaged defenses.</p>
-            <p>Experiment with different debt strategies such as <strong>Avalanche and Snowball</strong> and watch how the same starting situation can produce very different results.</p>
-            <p>The games don’t make financial decisions for you. <strong>They give you a place to see those decisions happen.</strong></p>
-          </article>
-        </div>
-      </section>
       <section id="arcade" className="arcade-section">
         <div className="arcade-heading">
           <div>
@@ -1268,12 +1208,14 @@ export function VisionWorkspace() {
               }
               picture={snapshot}
               hangar={active}
+              details={details}
               visualState={visualState}
               onExit={() => setSectorOpen(false)}
             />
           )}
         </DialogContent>
       </Dialog>
+      {advancedOpen&&<AdvancedFinancialSetup current={current} value={advanced} onClose={()=>setAdvancedOpen(false)} onClear={()=>{setAdvanced(null);setAdvancedOpen(false);}} onApply={(inputs,setup)=>{setCurrent(inputs);setAdvanced(setup);setEdited(true);setSnapshot('current');setAdvancedOpen(false);}}/>}
       <Dialog open={invadersOpen} onOpenChange={setInvadersOpen}>
         <DialogContent className="invaders-dialog">
           <DialogHeader className="sr-only">

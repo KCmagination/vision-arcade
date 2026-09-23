@@ -1,0 +1,18 @@
+import type {CurrentInputs,Snapshot} from './vision-contract.js';
+export type DebtEntry={id:string;name:string;type:string;balance:number|null;payment:number|null;rate:number|null;rateKind:'unknown'|'fixed'|'variable';term:number|null;otherPayment:number|null;secured:boolean;model:boolean};
+export type ExpenseEntry={id:string;name:string;amount:number|null};
+export type AdvancedSetup={date:string;debts:DebtEntry[];expenses:ExpenseEntry[];estimates:boolean};
+export type ReconcileChoices=Record<'totalDebt'|'monthlyDebtPayments'|'monthlyLivingExpenses','keep'|'update'>;
+export type DetailAccount={id:string;name:string;type:string;balance:number;payment:number;rate:number|null;term:number|null;secured?:boolean;otherPayment:number|null;modeled:boolean;interestCarry:number;periodInterest:number};
+export type ResolvedDetails={accounts:DetailAccount[];expenses:{id:string;name:string;amount:number}[];issues:string[];date:string|null;estimates:boolean};
+export type AccountReview={id:string;name:string;modeled:boolean;paid:number;openingBalance?:number;principal:number|null;interestAdded:number|null;interestPaid:number|null;otherPaid:number|null;closingBalance:number|null;extraPaid?:number};
+export const DEBT_TYPES:string[];
+export const DETAIL_LIMIT:number;
+export function moneyCents(value:number):number;
+export function emptySetup():AdvancedSetup;
+export function validateSetup(setup:AdvancedSetup):string[];
+export function detailTotals(setup:AdvancedSetup):Record<keyof ReconcileChoices,number>;
+export function reconcileSetup(current:CurrentInputs,draft:AdvancedSetup,choices:ReconcileChoices):{inputs:CurrentInputs;setup:AdvancedSetup};
+export function resolveDetails(setup:AdvancedSetup|null,current:CurrentInputs,snapshot:Snapshot):ResolvedDetails;
+export function prepareAccountPeriod(account:DetailAccount):number;
+export function settleAccount(account:DetailAccount,paid:number):AccountReview;

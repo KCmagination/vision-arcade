@@ -3,14 +3,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { beginCampaign, createHangarCampaign, startNextPeriod, togglePause, type DebtbreakerState } from "@/lib/debtbreaker-engine.js";
 import type { Snapshot } from "@/lib/vision-contract.js";
+import type { ResolvedDetails } from "@/lib/advanced-finances.js";
 import { advanceCombat, aimAtTarget, clearTriggers, createCombat, setAim, setTrigger } from "@/lib/debtbreaker-combat.js";
 import { DebtbreakerAudio } from "./debtbreaker-audio";
 
-export function useDebtbreakerController(snapshot:Snapshot,grade:string|null){
+export function useDebtbreakerController(snapshot:Snapshot,grade:string|null,details?:ResolvedDetails){
   // Capture once when the game opens; gameplay never writes back to the hangar.
-  const [startingState]=useState(()=>createHangarCampaign(snapshot,grade));
+  const [startingState]=useState(()=>createHangarCampaign(snapshot,grade,details));
   const [state,setState]=useState<DebtbreakerState>(startingState);
-  const world=useRef(createCombat(state));
+  const [initialWorld]=useState(()=>createCombat(startingState));
+  const world=useRef(initialWorld);
   const audio=useRef<DebtbreakerAudio|null>(null);
   const readyRef=useRef(false),keys=useRef(new Set<string>()),keyboardPulse=useRef(0);
   const modal=useRef(false);

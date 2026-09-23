@@ -12,7 +12,7 @@ import type { AvatarKind, AvatarVisualState, CornerStrengths } from "./avatar-st
 export type BattlefieldProps={avatar:AvatarKind;strengths:CornerStrengths;visualState:AvatarVisualState;world:MutableRefObject<CombatWorld>;ledger:DebtbreakerState;onReady:()=>void;onFailure:()=>void;onGesture:()=>void;reduced:boolean};
 type Props=BattlefieldProps;
 const COLORS={credit:"#ac91ff",living:"#ffad5a",reserve:"#56efb6"};
-const cash=(n:number)=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n/100);
+const cash=(n:number)=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:n%100?2:0}).format(n/100);
 const steel="#536875";
 
 class RenderBoundary extends Component<{children:ReactNode;fallback:ReactNode},{failed:boolean}>{
@@ -162,11 +162,11 @@ function Enemy({actor,world}:{actor:CombatActor;world:MutableRefObject<CombatWor
    const p=targetPosition(t,w.time,index,actor.slot,Math.max(0,w.ledger.defenses.findIndex(d=>d.owned&&d.condition>0)));group.current.position.set(p.x,0,p.z);
    if(body.current){const struck=w.effects.findLast((e)=>e.actorId===actor.id&&["hit","deposit"].includes(e.type));const age=struck?w.time-struck.born:2;
      body.current.position.y=age<.18?Math.sin(age*60)*.12:0;
-     body.current.rotation.z=!friendly?Math.cos(w.time*1.8+actor.slot+index)*.13:0;
+     body.current.rotation.z=target.lane==='credit'?Math.cos(w.time*1.8+actor.slot+index)*.13:0;
    }
  });
  return <group ref={group}>
-   <group ref={body} scale={friendly?1:.6}>
+   <group ref={body} scale={friendly?1:target.lane==='living'?.55:.43}>
      {friendly?<group>
        <Block at={[0,.4,0]} size={[2.1,.48,1.15]} color="#638473"/>
        {[-.84,.84].map(x=><group key={x}><Block at={[x,.2,0]} size={[.44,.43,1.65]} color="#1c3032"/>{[-.54,0,.54].map(z=><mesh key={z} position={[x,.22,z]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.18,.18,.47,8]}/><meshStandardMaterial color="#5b7374"/></mesh>)}</group>)}
@@ -186,7 +186,7 @@ function Enemy({actor,world}:{actor:CombatActor;world:MutableRefObject<CombatWor
        <Block at={[0,.89,.78]} size={[.6,.15,.1]} color="#dbcbff" glow={.7}/>
      </group>}
    </group>
-   <Label text={friendly?"DEPOSIT":`${target.lane==='living'?'COST':world.current.ledger.hangar?'DEBT':index===1?'LOAN':'CARD'} ${actor.slot+1}`} sub={friendly?"INCOME ONLY":cash(actor.remaining)} at={[0,friendly?1.9:1.3,0]} width={friendly?2.6:1.55} color={target.overdue?"#ff7365":color}/>
+   {(friendly||world.current.drones.find(d=>d.targetId===target.id&&d.remaining>0)?.id===actor.id)&&<Label text={friendly?"DEPOSIT":target.label.slice(0,18)} sub={friendly?"INCOME ONLY":`${cash(target.remaining)} GROUP`} at={[0,friendly?1.9:1.05,0]} width={friendly?2.6:2.1} color={target.overdue?"#ff7365":color}/>}
  </group>;
 }
 
