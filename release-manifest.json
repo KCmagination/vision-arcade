@@ -1,8 +1,8 @@
 {
-  "publicVersion": "0.4.0",
-  "publicBaseCommit": "75b8f11c7af78defc09c6de15dcd62d179ccf7c7",
-  "siteVersion": 45,
-  "siteSourceCommit": "ec6461c3d2c7a6114e326f15ca9e133d193881c5",
+  "publicVersion": "0.5.0",
+  "publicBaseCommit": "e4282e2d19358a33d7fada871d6c4c8069ebe7f0",
+  "siteVersion": 49,
+  "siteSourceCommit": "5fb0defc1ae4264ce3b67182938cff4aca2f2775",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
   "syncMethod": "Reviewed public application copy; no Site history imported",
   "futureUpdatesRequireOwnerApproval": true,
@@ -25,18 +25,21 @@
     "Synthetic gameplay fixtures replace engine-dependent tests",
     "Narrow public output-read guard exceptions with regression checks; advanced account fixture uses synthetic public API output only",
     "Prior public game-help corrections preserved while merging the hangar changes",
-    "Vite is a development-only dependency for the imported Sentinel model regression test"
+    "Vite is a development-only dependency for the imported Sentinel model regression test",
+    "Retain prior public help and synthetic tests; new continuous/Sentinel fixtures use exact reviewed API output lines",
+    "Exclude the private no-op negative-reserve integration test from the public suite; preserve it in the private engine repository"
   ],
   "validation": {
     "status": "local public-release verification passed",
-    "automatedTests": 142,
-    "automatedTestsPassed": 142,
+    "automatedTests": 190,
+    "automatedTestsPassed": 190,
     "build": "Next.js production build and TypeScript passed",
     "sourcePrivacyScan": "Hosted-adapter boundary and exact-line guard regression checks passed",
-    "outputPrivacyScan": "No proprietary engine signatures found in built output",
-    "http": "Public Next.js home and welcome routes returned 200",
-    "siteTests": "158 passed before Site v45 publication",
-    "browser": "Site v45 compatibility renderer: account entry, total reconciliation, calculator updates, desktop manual shots, visible pillars and return to unchanged hangar passed. Public Next.js browser playthrough, physical touch, controller and WebGL were not performed.",
-    "hostedCalculator": "Public Next.js proxy returned 200 using fictional inputs; current and scenario snapshots both returned scoringVersion vision-1.0. Adapter bytes remain unchanged."
-  }
+    "siteTests": "208 passed before Site v49 publication",
+    "privateEngineTests": "18 passed in separate private package",
+    "browser": "Browser DOM layout, physical touch and controller playtesting remain unverified for the Sentinel redesign.",
+    "hostedCalculator": "Adapter bytes unchanged; no new hosted-service request made during this checkpoint."
+  },
+  "checkpointBranch": "release/debtbreak-v49",
+  "checkpointPolicy": "Preserve this release branch at its verified commit; future work continues on main. This branch is a recovery reference, not an administratively protected branch."
 }

@@ -69,11 +69,12 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
         if(d.condition<100)line(point(x-.17,z+.29,h*.9),point(x+.12,z+.29,h*.3),'#1c2029',2);
       }});
       combatActors(w).sort((a,b)=>a.z-b.z).forEach(p=>{
-        const t=p.target,friendly=t.lane==='reserve',color=friendly?'#83e0b5':t.lane==='credit'?'#a597d2':'#c49362';
+        const t=p.target,friendly=t.lane==='reserve',want=t.lane==='want',color=friendly?'#83e0b5':want?'#ffa6df':t.lane==='credit'?'#a597d2':'#c49362';
         const recent=w.effects.some(e=>e.actorId===p.id&&w.time-e.born<.12),z=p.z+(recent&&!reduced?.15:0);
         const hovering=.55+(!reduced?Math.sin(w.time*3+p.slot)*.07:0);
         ctx.fillStyle='#09172288';const shadow=point(p.x,z+.25);ctx.beginPath();ctx.ellipse(shadow[0],shadow[1],scale*(friendly?1.15:.62),scale*.22,0,0,Math.PI*2);ctx.fill();
-        if(t.lane==='credit'){
+        if(want){const p0=point(p.x,z,1);polygon([[p0[0],p0[1]-scale*.5],[p0[0]+scale*.45,p0[1]],[p0[0],p0[1]+scale*.3],[p0[0]-scale*.45,p0[1]]],'#7c406a','#ffc6ec');label('?',p.x,z,1,'#ffe0f4',16);}
+        else if(t.lane==='credit'){
           const bank=Math.cos(w.time*1.8+p.slot+p.index)*.1;
           polygon([point(p.x,z-.6,hovering),point(p.x+.78,z,hovering+bank),point(p.x+.3,z+.48,hovering),point(p.x-.3,z+.48,hovering),point(p.x-.78,z,hovering-bank)],t.lane==='credit'?'#646179':'#806650');
           box(p.x,z,.5,.65,hovering+.22,recent?'#e8e6c3':color);
@@ -93,12 +94,15 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
           if(friendly){line(point(p.x-.3,z,1.2),point(p.x+.3,z,1.2),"#e6fff5",4);line(point(p.x,z-.5,1.2),point(p.x,z+.5,1.2),"#e6fff5",4);}
           else for(const side of [-1,1])line(point(p.x+side*.48,z+.3,1),point(p.x+side*.48,z+1,1),"#414d58",Math.max(3,scale*.16));
         }
-        if(friendly||w.drones.find(d=>d.targetId===t.id&&d.remaining>0)?.id===p.id){
+        const account=w.ledger.continuous?.accounts.find(a=>a.id===t.accountId);
+        if(account&&(account.interest>0||account.fees>0)){const ring=point(p.x,z,.65);ctx.strokeStyle=account.fees>0?'#ff5b72':'#ffb44f';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(ring[0],ring[1],scale*(.65+Math.min(.5,(account.interest+account.fees)/Math.max(1,account.opening)*5)),scale*.3,0,0,Math.PI*2);ctx.stroke();}
+        if(friendly||want||w.drones.find(d=>d.targetId===t.id&&d.remaining>0)?.id===p.id){
           const amount=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:t.remaining%100?2:0}).format(t.remaining/100);
-          const name=friendly?'DEPOSIT • INCOME ONLY':`${t.label.slice(0,16)} · ${amount} GROUP`;
+          const name=friendly?'DEPOSIT • INCOME ONLY':want?`WANT · ${amount} · REJECT FREE`:`${t.label.slice(0,16)} · ${amount} REQUIRED`;
           label(name,p.x,z,friendly?1.75:1.2,t.overdue?'#ff9e84':color,10);
         }
       });
+      (w.ledger.continuous?.accounts??[]).filter(a=>a.method!=='payments'&&a.principal+a.interest+a.fees>0).forEach((a,i)=>{const x=-7.8+(i%6)*3.1,z=-7+Math.floor(i/6);box(x,z,.85,.85,1.1,'#796699');label(a.name,x,z,1.7,'#cbbdff',11);});
       const pillars:[number,number,string,string][]=[[-4.1,5,"CASH FLOW","#79edc8"],[4.1,5,"CAPITAL","#83d7ff"],[-4.1,8,"COLLATERAL","#ffd099"],[4.1,8,"CREDIT","#c4acff"]];
       for(const [x,z,name,color] of pillars){box(x,z,1.3,1.2,.2,"#4b6573");box(x,z,.7,.7,1.9,"#587583");line(point(x,z+.4,.4),point(x,z+.4,1.8),color,Math.max(2,scale*.11));label(name,x+(z===5?(x<0?-1.7:1.7):0),z+.9,0,color,12);}
       box(VAULT.x,VAULT.z,2.7,1.4,1,"#729b97");const v=point(VAULT.x,VAULT.z+.72,.52);ctx.strokeStyle="#a5efce";ctx.lineWidth=2;ctx.beginPath();ctx.arc(v[0],v[1],scale*.28,0,Math.PI*2);ctx.stroke();label("VAULT",0,9.7,0,"#a1f5d3",12);
@@ -122,7 +126,7 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
       if(w.effects.some(e=>e.type==='shot'&&w.time-e.born<.075)){
         const p=point(TURRET.x+dx*2.1,TURRET.z+dz*2.1,.93);ctx.fillStyle="#e6ffd0";ctx.beginPath();ctx.arc(p[0],p[1],Math.max(4,scale*.22),0,Math.PI*2);ctx.fill();
       }
-      for(const b of w.bullets)line(point(b.x-b.dx*.6,b.z-b.dz*.6,.75),point(b.x,b.z,.75),b.source==='reserve'?"#85c9ff":"#f5ffbf",3);
+      for(const b of w.bullets){line(point(b.x-b.dx*.6,b.z-b.dz*.6,.75),point(b.x,b.z,.75),b.rejection?'#ffa6df':b.source==='reserve'?"#ffc266":"#f5ffbf",3);if(b.source==='reserve'){for(const d of [0,.3]){const p=point(b.x-b.dx*d,b.z-b.dz*d,.75);ctx.strokeStyle='#ffc266';ctx.beginPath();ctx.arc(p[0],p[1],scale*.16,0,Math.PI*2);ctx.stroke();}}}
       for(const e of w.effects){
         const age=w.time-e.born;if(['shot','miss','checkpoint','defeat'].includes(e.type))continue;
         if(e.type==='breach'||e.type==='impact'){
@@ -140,8 +144,8 @@ export function DebtbreakerCompatibility({world,onReady,onFailure,onGesture,redu
           for(let j=0;j<3;j++){const q=point(e.x+(j-1)*.25,e.z,.5+age*(.8+j*.2));ctx.globalAlpha=life*.22;ctx.fillStyle='#a2a7aa';ctx.beginPath();ctx.arc(q[0],q[1],scale*(.2+age*.55),0,Math.PI*2);ctx.fill();}
           ctx.globalAlpha=life;ctx.fillStyle='#ffd59b';ctx.font='bold 10px ui-monospace';ctx.textAlign='center';ctx.fillText('BREACH',p[0],p[1]-scale*(.7+age));ctx.globalAlpha=1;continue;
         }
-        const t=Math.min(1,age/.7),transfer=e.type==='deposit'||e.type==='intercept';
-        const from=e.type==='intercept'?VAULT:e,to=e.type==='deposit'?VAULT:e;
+        const t=Math.min(1,age/.7),transfer=e.type==='deposit'||e.type==='intercept'||e.type==='repair';
+        const from=e.type==='intercept'||e.type==='repair'?VAULT:e,to=e.type==='deposit'?VAULT:e;
         const p=point(from.x+(to.x-from.x)*t,from.z+(to.z-from.z)*t,transfer?1+Math.sin(t*Math.PI)*2:.6);
         ctx.globalAlpha=transfer?1:1-t;ctx.strokeStyle=e.type==='breach'?"#ff9173":"#99ffe0";ctx.lineWidth=2;ctx.beginPath();ctx.arc(p[0],p[1],transfer?5:Math.max(1,scale*(.25+t)),0,Math.PI*2);ctx.stroke();
         if(e.amount>0){ctx.font="bold 11px ui-monospace";ctx.fillStyle=ctx.strokeStyle;ctx.fillText(`${e.type==='deposit'?'+':''}$${e.amount/100}`,p[0],p[1]-13);}

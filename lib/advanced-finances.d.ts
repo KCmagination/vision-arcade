@@ -1,9 +1,9 @@
 import type {CurrentInputs,Snapshot} from './vision-contract.js';
-export type DebtEntry={id:string;name:string;type:string;balance:number|null;payment:number|null;rate:number|null;rateKind:'unknown'|'fixed'|'variable';term:number|null;otherPayment:number|null;secured:boolean;model:boolean};
+export type DebtEntry={id:string;name:string;type:string;balance:number|null;payment:number|null;rate:number|null;rateKind:'unknown'|'fixed'|'variable';term:number|null;otherPayment:number|null;secured:boolean;model:boolean;method?:'monthly-v1'|'daily-v1';dueDay?:number|null;lateFee?:number|null;feeDelayDays?:number|null};
 export type ExpenseEntry={id:string;name:string;amount:number|null};
 export type AdvancedSetup={date:string;debts:DebtEntry[];expenses:ExpenseEntry[];estimates:boolean};
 export type ReconcileChoices=Record<'totalDebt'|'monthlyDebtPayments'|'monthlyLivingExpenses','keep'|'update'>;
-export type DetailAccount={id:string;name:string;type:string;balance:number;payment:number;rate:number|null;term:number|null;secured?:boolean;otherPayment:number|null;modeled:boolean;interestCarry:number;periodInterest:number};
+export type DetailAccount={id:string;name:string;type:string;balance:number;payment:number;rate:number|null;term:number|null;secured?:boolean;otherPayment:number|null;modeled:boolean;interestCarry:number;periodInterest:number;method?:'monthly-v1'|'daily-v1';dueDay?:number|null;lateFeeCents?:number|null;feeDelayDays?:number};
 export type ResolvedDetails={accounts:DetailAccount[];expenses:{id:string;name:string;amount:number}[];issues:string[];date:string|null;estimates:boolean};
 export type AccountReview={id:string;name:string;modeled:boolean;paid:number;openingBalance?:number;principal:number|null;interestAdded:number|null;interestPaid:number|null;otherPaid:number|null;closingBalance:number|null;extraPaid?:number};
 export const DEBT_TYPES:string[];

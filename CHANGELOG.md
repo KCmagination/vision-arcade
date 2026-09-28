@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.0 — 2026-09-28
+
+Owner-approved checkpoint of Site v49 (`5fb0defc1ae4264ce3b67182938cff4aca2f2775`), based on public commit `e4282e2d19358a33d7fada871d6c4c8069ebe7f0`. Recovery branch: `release/debtbreak-v49`.
+
+- Add Sentinel, a green capital dome, open battlefield, live controls and seven lifestyle base segments.
+- Add marching Utilitanks, multidirectional Debtonators, Intercept and Rapid Fire, credit radar and Want-bot rejection.
+- Port continuous accounting, optional daily estimates, explicit due dates/fees, cent-exact commitments/refunds, tactical planning and reserve-goal-gated expansion from Sites v46–49.
+- Preserve active-time, interruption pause and final-defense rescue fixes.
+- Retain the public hosted-calculator adapter, Next.js build, prior public corrections, license and history. The calculator and its signed-reserve fix stay in the private repository.
+- Record source provenance and rollback instructions. Browser DOM, physical touch and controller checks remain unverified. See release-manifest.json for measured validation.
+
 ## 0.4.0 — 2026-09-23
 
 Owner-approved public application sync from Vi$ion Site v45 (`ec6461c3d2c7a6114e326f15ca9e133d193881c5`), based on public commit `75b8f11c7af78defc09c6de15dcd62d179ccf7c7`.

@@ -1,0 +1,30 @@
+{
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "key": "battlefield",
+      "transparent_background": false,
+      "referenced_image_paths": [
+        "/workspace/scratch/959e3c677b2f/generated_images/exec-82dfd073-6512-4350-a0a6-878d999695e5.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production game background bitmap, portrait 2:3 aspect ratio.\nInput images: Image 1 is ONLY a style and atmosphere reference from an approved game concept; do not copy its UI or objects.\nPrimary request: BACKGROUND ONLY: a dark navy outer-space battlefield with a subtle cyan nebula and scattered tiny stars. Match the reference's polished illustrated sci-fi game art, deep blue colors and cyan light.\nComposition/framing: portrait 2:3. Large empty dark middle across the central 75% of the picture for gameplay. A few distant cropped planets and asteroid silhouettes are confined to the extreme far left and far right edges. Sparse small stars, restrained contrast, quiet center.\nConstraints: environment only, no UI, no typography, no words or numbers, no logo, no characters, no enemies, no missiles, no ships, no robots, no base, no turret, no ground, no shield, no circular HUD arcs, no targets, no projectiles, no health bars. One final image only."
+    },
+    {
+      "key": "enemy-atlas",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/workspace/scratch/959e3c677b2f/generated_images/exec-82dfd073-6512-4350-a0a6-878d999695e5.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production game sprite atlas, square image, genuinely transparent alpha background.\nInput images: Image 1 is ONLY the style and enemy design reference from an approved game concept. The output is isolated sprites, not a scene or screenshot.\nPrimary request: EXACTLY FOUR isolated game objects in an exact 2-by-2 atlas with equal square quadrants and generous clear transparent padding, no visible grid and no labels.\nTop-left quadrant: a side-on Utilitank facing RIGHT, compact chunky metallic gray industrial tank vehicle with orange/cyan accents, wheels, a clearly readable yellow lightning-bolt insignia on its side.\nTop-right quadrant: one red Debtonator missile, perfectly vertical and its nose pointing DOWN, flame above its tail, bright white percent-sign insignia on its red body.\nBottom-left quadrant: one violet hovering Want-bot, compact symmetrical floating sci-fi robot, violet side thrusters, white shopping-basket insignia on its chest.\nBottom-right quadrant: one straight vertical sci-fi turret, metallic gray base at the bottom and long cylindrical barrel pointing directly UP, restrained cyan lights. Both base and barrel completely visible.\nStyle/medium: polished illustrated sci-fi game sprites matching reference, crisp silhouettes, metallic detail and vivid readable accents at small scale.\nComposition/framing: each entire object including any glow or flame lies wholly within the central 75% of its own quadrant. All four objects remain separate and centered in their respective equal quadrants. Transparent gutters separate all objects. No object crosses the horizontal or vertical midline.\nConstraints: truly transparent background with alpha channel, no painted checkerboard, no background or ground, no UI, no health bars, no words, no labels, no shadows on a surface, no extra objects, no decorative borders, no grid lines. The percent sign and simple insignias are the only markings. One final image only."
+    },
+    {
+      "key": "sentinel-sprite",
+      "transparent_background": true,
+      "referenced_image_paths": [
+        "/workspace/scratch/959e3c677b2f/vision-review/public/characters/sentinel.png",
+        "/workspace/scratch/959e3c677b2f/generated_images/exec-82dfd073-6512-4350-a0a6-878d999695e5.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production game character sprite, transparent isolated full-body Sentinel.\nInput images: Image 1 is the exact character identity reference: preserve this Sentinel's white/metallic gray armor, angular glowing cyan faceplate, orange cylindrical chest core, dark mechanical joints and recognizable helmet. Image 2 is ONLY the polished sci-fi game art style reference; do not copy the scene or UI.\nPrimary request: a single isolated full-body Sentinel facing the viewer in a slight three-quarter view, standing in a calm guard pose, compact readable silhouette intended for a small base sprite. Head through complete feet visible, arms calmly close to the body, compact stance. Maintain the supplied character identity, armor design, cyan face and orange core. Its weapon can rest pointed down close to its side, with compact cyan forearm shield held close.\nStyle/medium: detailed polished illustrated sci-fi game sprite, strong readable outlines and clean metallic shading.\nComposition/framing: character centered with transparent margin on all sides. No cut-off feet, head, weapon or shield.\nConstraints: genuinely transparent background with alpha channel, no painted checkerboard, no background, no floor, no pedestal, no base platform, no capital dome, no HUD or UI, no words, no labels, no other character, no scene. One final image only."
+    }
+  ]
+}

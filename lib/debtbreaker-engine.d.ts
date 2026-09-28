@@ -1,13 +1,15 @@
+import type {ContinuousState} from './debtbreak-continuous.js';
 import type { Snapshot } from './vision-contract.js';
 import type { Loadout } from './arcade-engine.js';
 import type { ResolvedDetails,AccountReview } from './advanced-finances.js';
 
-export type Threat = {id:string;lane:'living'|'credit'|'reserve';label:string;original:number;remaining:number;progress:number;speed:number;eligible:boolean;intercepted:boolean;overdue:boolean;impacted:boolean;paidAt:number|null;incomePaid:number;reservePaid:number;accountId?:string;formation?:number;formationOffset?:number};
-export type Defense = {id:string;name:string;tier:number;owned:boolean;condition:number;baseValue:number;upkeep:number;securedBalance:number};
+export type Threat = {id:string;lane:'living'|'credit'|'reserve'|'want';label:string;original:number;remaining:number;progress:number;speed:number;eligible:boolean;intercepted:boolean;overdue:boolean;impacted:boolean;paidAt:number|null;incomePaid:number;reservePaid:number;accountId?:string;formation?:number;formationOffset?:number;kind?:string;cycle?:number;issuedDay?:number;dueDay?:number;lateFee?:number|null;feeDelay?:number;feeApplied?:boolean;late30?:boolean;lastAttack?:number|null;adjustment?:number;wasOverdue?:boolean;drift?:number};
+export type Defense = {id:string;name:string;tier:number;owned:boolean;condition:number;maxCondition?:number;baseValue:number;upkeep:number;securedBalance:number};
 export type Debt = {id:string;name:string;balance:number;apr:number;payment:number;revolving:boolean;limit?:number};
 export type PeriodReview = {accounts:AccountReview[];extraIncomePaid?:number;extraReservePaid?:number;period:number;startingReserves:number;endingReserves:number;openingIncome:number;carriedIncome:number;incomeReceived:number;unallocatedIncome:number;endingMonths:number;incomeSpent:number;reserveSpent:number;reserveDeposited:number;interest:number|null;principalPaid:number|null;arrears:number;damage:number;grade:string;gradeReason:string;earned:number[];onTime:boolean};
 export type CashActivity = {incomeRepairs:number;reserveRepairs:number;equipment:number;sales:number};
 export type DebtbreakerState = {
+  continuous?:ContinuousState;
   hangar?:{snapshot:Snapshot;grade:string|null;loadout:Loadout;monthlyDebtPayments:number;totalDebt:number;assetValue:number;details?:ResolvedDetails};
   period:number;maxPeriods:number;startingIncome:number;incomeWallet:number;baseLiving:number;reserves:number;arrears:number;
   paused:boolean;phase:'briefing'|'playing'|'review'|'complete'|'gameover';selectedId:string|null;elapsed:number;notice:string;

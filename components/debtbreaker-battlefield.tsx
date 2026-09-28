@@ -155,10 +155,13 @@ function Turret({world,avatar,strengths,visualState,reduced}:Pick<Props,'world'|
 function Enemy({actor,world}:{actor:CombatActor;world:MutableRefObject<CombatWorld>}){
  const {target,index}=actor;
  const group=useRef<THREE.Group>(null),body=useRef<THREE.Group>(null);
- const friendly=target.lane==="reserve",color=COLORS[target.lane as keyof typeof COLORS];
+ const friendly=target.lane==="reserve",want=target.lane==="want",color=want?"#ffa6df":COLORS[target.lane as keyof typeof COLORS];
+ const account=world.current.ledger.continuous?.accounts.find(a=>a.id===target.accountId);
+ const growth=account&&account.method!=="payments"?Math.min(.65,(account.interest+account.fees)/Math.max(1,account.opening)*5):0;
+ const shareScale=Math.min(1.8,Math.max(1,Math.sqrt(actor.remaining/Math.max(1,target.original/5))));
  useFrame(()=>{
-   const w=world.current,t=w.ledger.threats[index],drone=w.drones.find(d=>d.id===actor.id);if(!group.current)return;
-   group.current.visible=!!t&&(friendly||(!t.impacted&&(drone?.remaining??0)>0));if(!group.current.visible)return;
+   const w=world.current,t=w.ledger.threats.find(t=>t.id===target.id),drone=w.drones.find(d=>d.id===actor.id);if(!group.current)return;
+   group.current.visible=!!t&&(friendly||want||((!t.impacted||!!w.ledger.continuous)&&(drone?.remaining??0)>0));if(!t||!group.current.visible)return;
    const p=targetPosition(t,w.time,index,actor.slot,Math.max(0,w.ledger.defenses.findIndex(d=>d.owned&&d.condition>0)));group.current.position.set(p.x,0,p.z);
    if(body.current){const struck=w.effects.findLast((e)=>e.actorId===actor.id&&["hit","deposit"].includes(e.type));const age=struck?w.time-struck.born:2;
      body.current.position.y=age<.18?Math.sin(age*60)*.12:0;
@@ -166,8 +169,8 @@ function Enemy({actor,world}:{actor:CombatActor;world:MutableRefObject<CombatWor
    }
  });
  return <group ref={group}>
-   <group ref={body} scale={friendly?1:target.lane==='living'?.55:.43}>
-     {friendly?<group>
+   <group ref={body} scale={friendly?1:want?.7:(target.lane==='living'?.55:.43)*(1+growth)*shareScale}>
+     {want?<group><mesh position={[0,1,0]}><octahedronGeometry args={[.75,0]}/><meshStandardMaterial color="#d27daf" emissive="#7a315b" emissiveIntensity={.4} wireframe/></mesh><Label text="?" at={[0,1,0]} width={1.2} color="#ffcae9"/></group>:friendly?<group>
        <Block at={[0,.4,0]} size={[2.1,.48,1.15]} color="#638473"/>
        {[-.84,.84].map(x=><group key={x}><Block at={[x,.2,0]} size={[.44,.43,1.65]} color="#1c3032"/>{[-.54,0,.54].map(z=><mesh key={z} position={[x,.22,z]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.18,.18,.47,8]}/><meshStandardMaterial color="#5b7374"/></mesh>)}</group>)}
        <mesh position={[0,.87,0]} rotation={[Math.PI/2,0,0]}><cylinderGeometry args={[.48,.48,1.15,12]}/><meshStandardMaterial color="#79cab0" metalness={.55}/></mesh>
@@ -186,19 +189,23 @@ function Enemy({actor,world}:{actor:CombatActor;world:MutableRefObject<CombatWor
        <Block at={[0,.89,.78]} size={[.6,.15,.1]} color="#dbcbff" glow={.7}/>
      </group>}
    </group>
-   {(friendly||world.current.drones.find(d=>d.targetId===target.id&&d.remaining>0)?.id===actor.id)&&<Label text={friendly?"DEPOSIT":target.label.slice(0,18)} sub={friendly?"INCOME ONLY":`${cash(target.remaining)} GROUP`} at={[0,friendly?1.9:1.05,0]} width={friendly?2.6:2.1} color={target.overdue?"#ff7365":color}/>}
+   {account&&account.interest>0&&<mesh position={[0,.6,0]} rotation={[-Math.PI/2,0,0]}><torusGeometry args={[.45+growth,.055,6,20]}/><meshBasicMaterial color="#ffb44f"/></mesh>}
+   {account&&account.fees>0&&<mesh position={[0,.8,0]} rotation={[-Math.PI/2,0,0]}><torusGeometry args={[.58+growth,.06,6,20]}/><meshBasicMaterial color="#ff5b72"/></mesh>}
+   {target.lane==='credit'&&<Label text="%" at={[0,.65,0]} width={.55} color="#eadfff"/>}
+   {(friendly||want||world.current.drones.find(d=>d.targetId===target.id&&d.remaining>0)?.id===actor.id)&&<Label text={friendly?"DEPOSIT":want?"WANT-BOT":target.label.slice(0,18)} sub={friendly?"INCOME ONLY":want?`${cash(target.remaining)} · REJECT FREE`:`${cash(target.remaining)} REQUIRED`} at={[0,friendly?1.9:1.05,0]} width={friendly?2.6:2.1} color={target.overdue?"#ff7365":color}/>}
  </group>;
 }
 
 function Effects({world,reduced}:{world:MutableRefObject<CombatWorld>;reduced:boolean}){
- const bullets=useRef<(THREE.Mesh|null)[]>([]),fx=useRef<(THREE.Mesh|null)[]>([]),reticle=useRef<THREE.Group>(null);
+ const rings=useRef<(THREE.Group|null)[]>([]),bullets=useRef<(THREE.Mesh|null)[]>([]),fx=useRef<(THREE.Mesh|null)[]>([]),reticle=useRef<THREE.Group>(null);
  useFrame(()=>{
    const w=world.current;
-   bullets.current.forEach((m,i)=>{if(!m)return;const b=w.bullets[i];m.visible=!!b;if(b){m.position.set(b.x,.75,b.z);m.rotation.y=-Math.atan2(b.dx,-b.dz);(m.material as THREE.MeshBasicMaterial).color.set(b.source==="reserve"?"#65bcff":"#f4ffe6");}});
+   bullets.current.forEach((m,i)=>{if(!m)return;const b=w.bullets[i];m.visible=!!b;if(b){m.position.set(b.x,.75,b.z);m.rotation.y=-Math.atan2(b.dx,-b.dz);(m.material as THREE.MeshBasicMaterial).color.set(b.rejection?"#ffa6df":b.source==="reserve"?"#ffc266":"#f4ffe6");}});
+   rings.current.forEach((g,i)=>{if(!g)return;const b=w.bullets[i];g.visible=!!b&&b.source==='reserve';if(b){g.position.set(b.x,.75,b.z);g.rotation.y=-Math.atan2(b.dx,-b.dz);}});
    const visibleEffects=w.effects.filter(e=>!["shot","miss","warning","checkpoint","breach","impact","defeat"].includes(e.type)).slice(-24);
    fx.current.forEach((m,i)=>{if(!m)return;const e=visibleEffects[i];m.visible=!!e;
-     if(e){const age=w.time-e.born,t=Math.min(1,age/.7);const transfer=e.type==="deposit"||e.type==="intercept";
-       const from=e.type==="intercept"?VAULT:{x:e.x,z:e.z},to=e.type==="deposit"?VAULT:{x:e.x,z:e.z};
+     if(e){const age=w.time-e.born,t=Math.min(1,age/.7);const transfer=e.type==="deposit"||e.type==="intercept"||e.type==="repair";
+       const from=e.type==="intercept"||e.type==="repair"?VAULT:{x:e.x,z:e.z},to=e.type==="deposit"?VAULT:{x:e.x,z:e.z};
        m.position.set(transfer?THREE.MathUtils.lerp(from.x,to.x,t):e.x,transfer?1+Math.sin(t*Math.PI)*2:.8,transfer?THREE.MathUtils.lerp(from.z,to.z,t):e.z);
        const scale=transfer?.24:e.type==="clear"?.35+t*1.9:.2+t*.7;m.scale.setScalar(reduced?.3:scale);
        const mat=m.material as THREE.MeshBasicMaterial;mat.color.set(e.type==="breach"?"#ff664b":e.type==="blocked"?"#a2b4c3":e.type==="intercept"?"#60beff":"#91ffd6");mat.opacity=transfer?1:1-t;
@@ -208,6 +215,7 @@ function Effects({world,reduced}:{world:MutableRefObject<CombatWorld>;reduced:bo
  });
  return <>
    <Collisions world={world} reduced={reduced}/>
+   {Array.from({length:32},(_,i)=><group key={`ring-${i}`} ref={g=>{rings.current[i]=g;}} visible={false}>{[-.18,.18].map(z=><mesh key={z} position={[0,0,z]}><torusGeometry args={[.19,.025,5,10]}/><meshBasicMaterial color="#ffc266"/></mesh>)}</group>)}
    {Array.from({length:32},(_,i)=><mesh key={i} ref={m=>{bullets.current[i]=m;}} visible={false}><boxGeometry args={[.15,.15,.65]}/><meshBasicMaterial color="#f4ffe6"/></mesh>)}
    {Array.from({length:24},(_,i)=><mesh key={i} ref={m=>{fx.current[i]=m;}} visible={false}><octahedronGeometry args={[1,0]}/><meshBasicMaterial transparent wireframe/></mesh>)}
    <group ref={reticle}><mesh rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.32,.36,24]}/><meshBasicMaterial color="#f2fff9" side={THREE.DoubleSide}/></mesh>
@@ -258,6 +266,14 @@ function CreditRadar({range}:{range:number}){
  })}</group>;
 }
 
+function AccountGenerators({ledger}:{ledger:DebtbreakerState}){
+ const accounts=ledger.continuous?.accounts.filter(a=>a.method!=='payments'&&a.principal+a.interest+a.fees>0)??[];
+ return <group>{accounts.map((a,i)=><group key={a.id} position={[-7.8+(i%6)*3.1,0,-7+Math.floor(i/6)*.95]}>
+   <mesh position={[0,.8,0]} scale={[.7,1,.7]}><octahedronGeometry args={[.7,0]}/><meshStandardMaterial color="#514877" emissive="#b8a2ff" emissiveIntensity={.2}/></mesh>
+   <Label text={a.name.slice(0,18)} sub={`${cash(a.principal+a.interest+a.fees)} BALANCE`} at={[0,1.65,0]} width={2.3} color="#c5b3ff"/>
+ </group>)}</group>;
+}
+
 function Scene({world,ledger,onReady,onGesture,onFailure,reduced,avatar,strengths,visualState}:Props){
  const {gl,camera}=useThree();const plane=useMemo(()=>new THREE.Plane(new THREE.Vector3(0,1,0),0),[]),ray=useMemo(()=>new THREE.Raycaster(),[]);
  useEffect(()=>{onReady();},[onReady]);
@@ -275,7 +291,7 @@ function Scene({world,ledger,onReady,onGesture,onFailure,reduced,avatar,strength
    <FitCamera/><color attach="background" args={["#0d1c2a"]}/><ambientLight intensity={1.1}/><hemisphereLight args={["#bdedff","#344e50",1.4]}/>
    <directionalLight position={[-5,17,8]} intensity={2.7} castShadow shadow-mapSize={[1024,1024]} shadow-camera-left={-14} shadow-camera-right={14} shadow-camera-top={14} shadow-camera-bottom={-14}/>
    <pointLight position={[0,5,-5]} intensity={35} color="#69bbd0" distance={25}/>
-   <Room/>{ledger.hangar&&<CreditRadar range={ledger.hangar.loadout.radar}/>}<Defenses ledger={ledger} world={world} reduced={reduced}/><Turret world={world} avatar={avatar} strengths={strengths} visualState={visualState} reduced={reduced}/>
+   <Room/><AccountGenerators ledger={ledger}/>{ledger.hangar&&<CreditRadar range={ledger.hangar.loadout.radar}/>}<Defenses ledger={ledger} world={world} reduced={reduced}/><Turret world={world} avatar={avatar} strengths={strengths} visualState={visualState} reduced={reduced}/>
    {combatActors(world.current).map(actor=><Enemy key={actor.id} actor={actor} world={world}/>)}
    <Effects world={world} reduced={reduced}/>
  </>;
