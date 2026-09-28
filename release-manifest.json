@@ -1,8 +1,8 @@
 {
-  "publicVersion": "0.5.0",
-  "publicBaseCommit": "e4282e2d19358a33d7fada871d6c4c8069ebe7f0",
-  "siteVersion": 49,
-  "siteSourceCommit": "5fb0defc1ae4264ce3b67182938cff4aca2f2775",
+  "publicVersion": "0.6.0",
+  "publicBaseCommit": "cb72495ee12b0034e92ae8878a779387a1bdb2df",
+  "siteVersion": 51,
+  "siteSourceCommit": "6fc8e788e927381e6c199aa41aa2fed9267558a4",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
   "syncMethod": "Reviewed public application copy; no Site history imported",
   "futureUpdatesRequireOwnerApproval": true,
@@ -27,19 +27,21 @@
     "Prior public game-help corrections preserved while merging the hangar changes",
     "Vite is a development-only dependency for the imported Sentinel model regression test",
     "Retain prior public help and synthetic tests; new continuous/Sentinel fixtures use exact reviewed API output lines",
-    "Exclude the private no-op negative-reserve integration test from the public suite; preserve it in the private engine repository"
+    "Exclude the private no-op negative-reserve integration test from the public suite; preserve it in the private engine repository",
+    "Adapt the approved v49 test-only browser harness to the v51 product baseline; use synthetic API responses and the public Next.js production server",
+    "Preserve the v49 recovery and test branches; import reviewed v50/v51 game changes without Site history"
   ],
   "validation": {
     "status": "local public-release verification passed",
-    "automatedTests": 190,
-    "automatedTestsPassed": 190,
+    "automatedTests": 206,
+    "automatedTestsPassed": 206,
     "build": "Next.js production build and TypeScript passed",
-    "sourcePrivacyScan": "Hosted-adapter boundary and exact-line guard regression checks passed",
-    "siteTests": "208 passed before Site v49 publication",
-    "privateEngineTests": "18 passed in separate private package",
-    "browser": "Browser DOM layout, physical touch and controller playtesting remain unverified for the Sentinel redesign.",
-    "hostedCalculator": "Adapter bytes unchanged; no new hosted-service request made during this checkpoint."
+    "sourcePrivacyScan": "Hosted-adapter boundary, protected file hashes and exact-line guard regression checks passed",
+    "siteTests": "224 passed before Site v51 publication; source deployment reconfirmed succeeded",
+    "browser": "28 of 28 public-build scenarios passed in one run (4.0 minutes): desktop mouse and mobile touch, four-cycle success/incomplete attempts, replay, lifestyle choices, three-row waves and five-clear sword sweep. WebGL disabled; synthetic calculator responses; deterministic frame clock. Not a physical-device performance benchmark.",
+    "hostedCalculator": "Adapter bytes unchanged; no new hosted-service request made during this checkpoint.",
+    "ci": "Local gates passed before publishing; remote GitHub checks are reported separately after the branch update."
   },
-  "checkpointBranch": "release/debtbreak-v49",
+  "checkpointBranch": "release/debtbreak-v51",
   "checkpointPolicy": "Preserve this release branch at its verified commit; future work continues on main. This branch is a recovery reference, not an administratively protected branch."
 }

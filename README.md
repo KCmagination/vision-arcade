@@ -34,11 +34,11 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This release ports the Site v49 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This release ports the Site v51 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
-- **Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, reject Want-bots, and expand seven base segments from reserve surplus. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
+- **Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
 - **Debtbreak Classic and challenges:** fictional debt-payoff scenarios with period allocation, Snowball/Avalanche choices and five four-corner missions. Their scenario choices are separate from hangar-driven turret mode.
 - **Debt Invaders:** firing cadence, shields, barriers and ship size respond to the four corners.
 - **Wants vs Needs:** a side-scrolling shooter with Utilities boosts, directional aiming, ad planes and three bosses.
@@ -48,11 +48,17 @@ The `/welcome` page explains the four concepts and includes a developer example,
 
 Use **Advanced: debts & living costs** in the hangar to enter named accounts and living-cost categories. Review each total before applying changes; partial details can leave positive unspecified remainders. What If additions stay separate. The battlefield divides each monthly obligation across more targets without multiplying the amount owed. Rapid Fire uses $25 payment projectiles for Utilitanks; Intercept pays up to $100 per press for debt missiles. Missed projectiles refund their committed funds.
 
-Account balances stay payments-only by default. Explicitly opted-in accounts with a known rate held constant and a known non-debt payment portion can use the selected simplified monthly or daily estimate. Known due dates and explicitly entered late fees determine game events. Included costs are paid first, then interest, then principal. Pause / Plan supports bounded extra payments; expansion preserves the selected reserve goal and coverage for issued bills. The model assumes no unentered borrowing, rate changes, unentered fees or interest on unpaid interest; remaining term does not promise payoff. Estimates never change the entered picture or captured pillar loadout. Future credit scores are not projected. Proprietary four-corner scoring remains exclusively in the hosted calculator; the public game ledgers are simulations.
+Account balances stay payments-only by default. Explicitly opted-in accounts with a known rate held constant and a known non-debt payment portion can use the selected simplified monthly or daily estimate. Known due dates and explicitly entered late fees determine game events. Included costs are paid first, then interest, then principal. Pause / Plan supports bounded extra payments and Essential / Current / Expanded lifestyle choices. Lifestyle adjustments apply next cycle to a bounded adjustable portion of living costs; they never refund past bills or rewrite issued claims. Expansion preserves coverage for issued bills; the reserve goal grants a shield power-up rather than blocking construction. The model assumes no unentered borrowing, rate changes, unentered fees or interest on unpaid interest; remaining term does not promise payoff. Estimates never change the entered picture or captured pillar loadout. Future credit scores are not projected. Proprietary four-corner scoring remains exclusively in the hosted calculator; the public game ledgers are simulations.
+
+Utilitanks start in three rows and travel 2× faster; Debtonators fly 5× faster. Want waves have twice as many ads at twice the fall speed. Each connected sword strike clears an ad; every five clears charge a stronger area sweep. Faster physical impacts do not advance due dates or create early fees.
+
+## Browser verification
+
+Run `npx playwright install chromium`, then `npm run test:browser:all`. The repeatable suite exercises mouse and mobile touch against the production build with WebGL disabled and synthetic calculator responses. See [browser instructions](tests/browser/README.md).
 
 ## Source version
 
-Public package **0.5.0** ports reviewed application files from Site **version 49**, source `5fb0defc1ae4264ce3b67182938cff4aca2f2775`. Recovery branch: `release/debtbreak-v49`. Future work continues on main. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.6.0** ports reviewed application files from Site **version 51**, source `6fc8e788e927381e6c199aa41aa2fed9267558a4`. Recovery branch: `release/debtbreak-v51`. The older v49 checkpoint remains available. Future work continues on main. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 

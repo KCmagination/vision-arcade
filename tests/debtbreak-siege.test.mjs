@@ -44,9 +44,9 @@ test('rapid fire launches repeat projectiles at Utilitanks and does not pay debt
  const w=createCombat(start());setWeapon(w,'rapid');const tank=combatActors(w).find(a=>a.target.lane==='living');aimAtTarget(w,tank.target.id);setTrigger(w,'test',true);step(w,4);
  assert.ok(w.shots>3);assert.ok(continuousSummary(w.ledger).livingPaid>0);assert.equal(continuousSummary(w.ledger).debtPaid,0);checkContinuous(w.ledger);
 });
-test('wants remain free to shoot and never become an automatic purchase',()=>{
+test('wants remain free to slash and never become an automatic purchase',()=>{
  let s=start();s=continuousAction(s,{type:'deposit',amount:s.incomeWallet});s.reserves=0;s.initialReserves=-s.incomeReceived;
- const w=createCombat(s);const want=combatActors(w).find(a=>a.target.lane==='want');aimAtTarget(w,want.target.id);fire(w);
+ const w=createCombat(s);const want=combatActors(w).find(a=>a.target.lane==='want');aimAtTarget(w,want.target.id);fire(w);step(w,6);
  assert.equal(w.ledger.continuous.offers.find(o=>o.id===want.id).status,'declined');assert.equal(w.ledger.continuous.purchases,0);assert.equal(w.ledger.incomeWallet,0);assert.equal(w.ledger.reserves,0);checkContinuous(w.ledger);
 });
 test('ordinary low frame rates stay deterministic and long interruptions pause before firing',()=>{
@@ -59,10 +59,10 @@ test('clearing a squad does not shift surviving tank slots',()=>{
  w.ledger=continuousAction(w.ledger,{type:'pay',source:'income',targetId:tank.target.id,amount:100});advanceCombat(w,1/120);
  const after=combatActors(w,0).find(a=>a.id===tank.id);assert.deepEqual({x:after.x,z:after.z},before);
 });
-test('expansion uses only reserve surplus after the goal and uncovered bills',()=>{
+test('expansion uses only reserve surplus after uncovered bills, without locking the reserve goal',()=>{
  let s=start();s.continuous.base.goalMonths=1;
  s=continuousAction(s,{type:'deposit',amount:s.incomeWallet});let p=basePlan(s);
- assert.ok(p.uncovered>0);assert.equal(p.surplus,Math.max(0,s.reserves-p.goal-p.uncovered));
+ assert.ok(p.uncovered>0);assert.equal(p.surplus,Math.max(0,s.reserves-p.uncovered));
  const blocked=continuousAction(s,{type:'expand',source:'income'});assert.equal(blocked.reserves,s.reserves);
  s=payAll(s);p=basePlan(s);assert.ok(p.canExpand);
  const cash=s.reserves,condition=s.defenses.reduce((n,d)=>n+d.condition,0);
@@ -76,11 +76,11 @@ test('matching projectile commitments are earmarked once, and unclaimed shots do
  assert.equal(basePlan(s).uncovered,before.uncovered-1000);assert.equal(basePlan(s).surplus,before.surplus);checkContinuous(s);
  s=finishShot(s,'bill');s=holdShot(s,'miss','reserve',1000,null);assert.equal(basePlan(s).uncovered,before.uncovered);checkContinuous(s);
 });
-test('seven expansions form a bounded goal and replay resets purchases',()=>{
+test('ten current-tier expansions form a bounded goal and replay resets purchases',()=>{
  let s=start();s.continuous.base.goalMonths=1;
  for(let cycle=0;cycle<3;cycle++){s=payAll(s);s=continuousAction(s,{type:'deposit',amount:s.incomeWallet});s=tickContinuous(s,60);}
  s=payAll(s);s=continuousAction(s,{type:'deposit',amount:s.incomeWallet});
- for(let i=0;i<7;i++){assert.ok(basePlan(s).canExpand);s=continuousAction(s,{type:'expand',source:'reserve'});checkContinuous(s);}
- assert.equal(s.continuous.base.expansions,7);assert.equal(basePlan(s).canExpand,false);const before=s.reserves;s=continuousAction(s,{type:'expand',source:'reserve'});assert.equal(s.reserves,before);
+ for(let i=0;i<10;i++){assert.ok(basePlan(s).canExpand);s=continuousAction(s,{type:'expand',source:'reserve'});checkContinuous(s);}
+ assert.equal(s.continuous.base.expansions,10);assert.equal(basePlan(s).canExpand,false);const before=s.reserves;s=continuousAction(s,{type:'expand',source:'reserve'});assert.equal(s.reserves,before);
  assert.equal(start().continuous.base.expansions,0);
 });

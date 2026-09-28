@@ -17,7 +17,7 @@ export function DebtbreakSiegeField({world,onReady,onFailure,onGesture,reduced}:
  },[world,onReady,onFailure,reduced]);
  const aim=(e:React.PointerEvent<HTMLCanvasElement>)=>{const rect=e.currentTarget.getBoundingClientRect();setAim(world.current,(e.clientX-rect.left)/rect.width*1000,(e.clientY-rect.top)/rect.height*1000);};
  const release=()=>setTrigger(world.current,'pointer',false);
- return <canvas ref={canvas} className="siege-canvas" tabIndex={0} aria-label="Debtbreak battlefield. Aim with mouse or touch; click for an intercept or hold for rapid fire. Keyboard: arrows aim, Space fires, 1 and 2 choose weapons, P pauses."
+ return <canvas ref={canvas} className="siege-canvas" tabIndex={0} aria-label="Debtbreak battlefield. Aim with mouse or touch; click for an intercept or hold for rapid fire. Keyboard: arrows aim, Space fires, 1 and 2 choose weapons, E sends Sentinel to slash an ad, P pauses. Tap an ad to send Sentinel."
   onPointerMove={aim} onPointerDown={e=>{if(e.button!==0)return;aim(e);onGesture();e.currentTarget.focus();e.currentTarget.setPointerCapture(e.pointerId);if(world.current.ledger.phase==='playing'&&!world.current.ledger.paused)setTrigger(world.current,'pointer',true);}}
   onPointerUp={release} onPointerCancel={release} onLostPointerCapture={release} onContextMenu={e=>e.preventDefault()}/>;
 }

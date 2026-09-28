@@ -12,3 +12,7 @@ next-env.d.ts
 server/private/
 *PRIVATE*
 legacy-salvage/
+
+# Browser verification artifacts
+playwright-report/
+test-results/

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile, readdir } from 'node:fs/promises';
+const manifest = JSON.parse(await readFile('tests/browser/baseline-v51.json', 'utf8'));
+const collect = async dir => (await Promise.all((await readdir(dir, { withFileTypes: true })).map(e => e.isDirectory() ? collect(`${dir}/${e.name}`) : `${dir}/${e.name}`))).flat();
+const files = (await Promise.all(['app','components','hooks','lib','public','server','vendor'].map(collect))).flat().sort();
+assert.deepEqual(files, Object.keys(manifest.sha256).sort(), 'Version 51 product file inventory changed');
+for (const file of files) assert.equal(createHash('sha256').update(await readFile(file)).digest('hex'), manifest.sha256[file], `${file} differs from v51`);
+const pkg = JSON.parse(await readFile('package.json', 'utf8'));
+assert.deepEqual(pkg.dependencies, manifest.runtimeDependencies, 'Runtime dependencies differ from v51');
+console.log(`Verified ${files.length} product files against the public v${manifest.siteVersion} baseline (Site source ${manifest.siteSourceCommit}).`);

@@ -23,7 +23,7 @@ test('all 120 days retain bounded Want-bot activity, with an immediate surge aft
  assert.equal(s.phase,'complete');assert.equal(s.incomeReceived,4*s.startingIncome);assert.equal(s.continuous.purchases,0);
  let early=start();const n=active(early).length;
  for(const t of early.threats.filter(t=>['living','credit'].includes(t.lane)))early=act(early,{type:'pay',targetId:t.id,source:'income',amount:t.remaining});
- assert.equal(early.continuous.wantRush,true);assert.equal(active(early).length,n+3);
+ assert.equal(early.continuous.wantRush,true);assert.equal(active(early).length,n+6);
 });
 
 test('zero-obligation, empty-wallet missions still reject Want-bots with free fire',()=>{

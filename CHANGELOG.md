@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.0 — 2026-09-28
+
+Owner-approved sync of Site v51 (`6fc8e788e927381e6c199aa41aa2fed9267558a4`), based on public commit `cb72495ee12b0034e92ae8878a779387a1bdb2df`. Recovery branch: `release/debtbreak-v51`.
+
+- Bring in the v50 lifestyle coverage objective: build early, defend through four cycles, and finish with required sections intact and issued bills paid. Reserve goals charge the capital shield.
+- Add deferred lifestyle downsizing/expansion, Sentinel sword movement, one-hit ad clears, queued targets, and a charged area sweep after every five sword clears.
+- Start standard Utilitank waves in three rows at 2× speed. Increase Debtonator speed to 5× and double Want-bot quantity and fall speed. Preserve obligation totals, fee dates and billing schedules.
+- Promote the approved browser harness to the current product baseline, with desktop mouse and mobile touch checks, synthetic calculator fixtures, and CI automation. Preserve the historical v49 test branch.
+- Keep the public Next.js scaffold and hosted calculator adapter unchanged. No proprietary calculator code, private fixtures, deployment metadata or Site history imported.
+
 ## 0.5.0 — 2026-09-28
 
 Owner-approved checkpoint of Site v49 (`5fb0defc1ae4264ce3b67182938cff4aca2f2775`), based on public commit `e4282e2d19358a33d7fada871d6c4c8069ebe7f0`. Recovery branch: `release/debtbreak-v49`.

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { beginCampaign, createCampaign, createHangarCampaign, startNextPeriod, togglePause, type DebtbreakerState } from "@/lib/debtbreaker-engine.js";
 import type { Snapshot } from "@/lib/vision-contract.js";
 import type { ResolvedDetails } from "@/lib/advanced-finances.js";
-import { advanceCombat, aimAtTarget, clearTriggers, createCombat, setAim, setTrigger, setWeapon } from "@/lib/debtbreak-siege.js";
+import { advanceCombat, commandSword, aimAtTarget, clearTriggers, createCombat, setAim, setTrigger, setWeapon } from "@/lib/debtbreak-siege.js";
 import { enableContinuous, continuousAction, type LedgerAction } from "@/lib/debtbreak-continuous.js";
 import { DebtbreakerAudio } from "./debtbreaker-audio";
 import { createFrameClock, readFrameClock, INTERRUPTION_NOTICE } from "@/lib/debtbreak-clock.js";
@@ -57,6 +57,7 @@ export function useDebtbreakerController(snapshot:Snapshot,grade:string|null,det
     if(active&&(world.current.ledger.phase!=="playing"||world.current.ledger.paused||!readyRef.current))return;
     if(active)gesture();setTrigger(world.current,"button",active);
   },[gesture]);
+  const sword=useCallback((id?:string)=>{gesture();commandSword(world.current,id);refresh();},[gesture,refresh]);
   const pulse=useCallback(()=>{gesture();keyboardPulse.current=.01;},[gesture]);
   const select=useCallback((id:string)=>{aimAtTarget(world.current,id);refresh();},[refresh]);
   const source=useCallback((value:'auto'|'income'|'reserve')=>{world.current.source=value;refresh();},[refresh]);
@@ -83,13 +84,14 @@ export function useDebtbreakerController(snapshot:Snapshot,grade:string|null,det
       if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","KeyA","KeyD","KeyW","KeyS","Space"].includes(e.code)){
         e.preventDefault();keys.current.add(e.code);if(e.code==="Space")gesture();
       }
+      if(e.code==="KeyE"&&!e.repeat){e.preventDefault();sword();}
       if(e.code==="KeyR"&&!e.repeat){source(world.current.source==="auto"?"income":world.current.source==="income"?"reserve":"auto");}
     };
     const up=(e:KeyboardEvent)=>keys.current.delete(e.code);
     window.addEventListener("blur",pause);document.addEventListener("visibilitychange",hidden);
     window.addEventListener("keydown",down);window.addEventListener("keyup",up);
     return()=>{window.removeEventListener("blur",pause);document.removeEventListener("visibilitychange",hidden);window.removeEventListener("keydown",down);window.removeEventListener("keyup",up);stop();};
-  },[pause,toggle,gesture,source,stop,refresh]);
+  },[pause,toggle,gesture,source,stop,refresh,sword]);
   useEffect(()=>{
     let frame=0,lastPaint=performance.now(),lastHud=0,padPause=false;
     const loop=(now:number)=>{
@@ -130,5 +132,5 @@ export function useDebtbreakerController(snapshot:Snapshot,grade:string|null,det
     frame=requestAnimationFrame(loop);return()=>cancelAnimationFrame(frame);
   },[refresh,stop,toggle]);
 
-  return {state,world,sceneKey,ready,failed,sound,reduced,refresh,action,gesture,pause,toggle,onReady,onFailure,replace,reset,start,next,fire,pulse,select,source,auto,assist,weapon,toggleSound,setModal};
+  return {state,world,sceneKey,ready,failed,sound,reduced,refresh,action,gesture,pause,toggle,onReady,onFailure,replace,reset,start,next,fire,sword,pulse,select,source,auto,assist,weapon,toggleSound,setModal};
 }
