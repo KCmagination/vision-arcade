@@ -12,3 +12,7 @@ next-env.d.ts
 server/private/
 *PRIVATE*
 legacy-salvage/
+
+# Local browser test evidence
+test-results/
+playwright-report/

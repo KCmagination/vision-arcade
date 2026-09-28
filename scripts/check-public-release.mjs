@@ -3,7 +3,7 @@ import { readdir, readFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 
 const root = process.cwd();
-const skip = new Set(["node_modules", ".git", ".next", "dist"]);
+const skip = new Set(["node_modules", ".git", ".next", "dist", "test-results", "playwright-report"]);
 const failures = [];
 // Exact reads of an already-public API output, not implementations of the metric.
 // New uses require review; this does not allow formulas elsewhere in these files.

@@ -52,6 +52,8 @@ Account balances stay payments-only by default. Explicitly opted-in accounts wit
 
 ## Source version
 
+Repeatable desktop-mouse and mobile-touch tests for the preserved Site v49 code are documented in [BROWSER-TESTS-V49.md](docs/BROWSER-TESTS-V49.md). Run `npm run test:browser:all` after installing the test browser. The strict reserve-goal acceptance check intentionally exposes version 49's ending-screen gap; passing control tests alone does not mean the clarified mission-success rule is implemented.
+
 Public package **0.5.0** ports reviewed application files from Site **version 49**, source `5fb0defc1ae4264ce3b67182938cff4aca2f2775`. Recovery branch: `release/debtbreak-v49`. Future work continues on main. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability

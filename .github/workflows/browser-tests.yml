@@ -1,0 +1,28 @@
+name: Debtbreak v49 browser tests
+on:
+  workflow_dispatch:
+  push:
+    branches: ['test/debtbreak-v49-browser']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser:all
+      - name: Keep reports, screenshots and failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debtbreak-v49-browser-evidence
+          path: test-results/
+          retention-days: 14

@@ -11,7 +11,13 @@
     "dev": "next dev",
     "build": "node scripts/check-public-release.mjs && next build --webpack",
     "start": "next start",
-    "test": "node scripts/check-public-release.mjs --self-test && node --test tests/*.test.mjs"
+    "test": "node scripts/check-public-release.mjs --self-test && node --test tests/*.test.mjs",
+    "test:browser": "npm run test:browser:baseline && playwright test --grep-invert @acceptance",
+    "test:browser:acceptance": "npm run test:browser:baseline && playwright test --grep @acceptance",
+    "test:browser:all": "npm run test:browser:baseline && playwright test",
+    "test:browser:report": "playwright show-report test-results/browser-report",
+    "test:browser:install": "playwright install chromium",
+    "test:browser:baseline": "node scripts/check-browser-baseline.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
@@ -26,6 +32,7 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
