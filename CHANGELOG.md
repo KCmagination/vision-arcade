@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0 — Unreleased local review candidate
+
+Based on public main `1b41d197be7d7203df5f191d380f8c1ac723125e` and reviewed game/UI changes from the v53 Site baseline. Additional game refinements are unpublished; this does not identify a new live Site version.
+
+- Add Ground Defense and automated three-wave Base Defense with explicit cash/reserve permissions, pause/build windows, fair recovery and conserved accounting.
+- Show the captured living-cost ratio on the battlefield, current 1/3/6/9/12-month savings markers, educational credit progress and a canonical-output collateral needle.
+- Clarify spendable cash versus periodic income, saved reserves and authorization; add keyboard focus recovery and readable interruption feedback.
+- Preserve the hosted calculator adapter, existing public scaffold and character assets. Add synthetic game tests and a reviewed product baseline.
+
 ## 0.6.0 — 2026-09-28
 
 Owner-approved sync of Site v51 (`6fc8e788e927381e6c199aa41aa2fed9267558a4`), based on public commit `cb72495ee12b0034e92ae8878a779387a1bdb2df`. Recovery branch: `release/debtbreak-v51`.

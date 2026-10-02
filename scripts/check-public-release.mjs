@@ -26,17 +26,20 @@ const approvedOutputLines = new Map([
 approvedOutputLines.set("tests/debtbreak-continuous.test.mjs", new Set(["const picture=(inputs={})=>({kind:'current',inputs:{monthlyIncome:4000,monthlyLivingExpenses:0,monthlyDebtPayments:100,totalDebt:1000,assetValue:1000,liquidReserves:0,creditScore:null,...inputs},corners:Object.fromEntries(['cashFlow','capital','collateral','credit'].map(key=>[key,{strength:.5,raw:key==='collateral'?{debtToValue:1}:{}}]))});"]));
 approvedOutputLines.set("tests/debtbreak-priority-fixes.test.mjs", new Set(["const picture=(inputs={})=>({kind:'current',inputs:{monthlyIncome:4250,monthlyLivingExpenses:1300,monthlyDebtPayments:400,totalDebt:98000,assetValue:140000,liquidReserves:20000,creditScore:760,...inputs},corners:Object.fromEntries(['cashFlow','capital','collateral','credit'].map(key=>[key,{strength:.5,raw:key==='collateral'?{debtToValue:.7}:{}}]))});"]));
 approvedOutputLines.set("tests/debtbreak-siege.test.mjs", new Set(["const picture=strength=>({kind:'current',inputs:{monthlyIncome:4000,monthlyLivingExpenses:1000,monthlyDebtPayments:200,totalDebt:10000,assetValue:20000,liquidReserves:5000,creditScore:strength==null?null:700},corners:Object.fromEntries(['cashFlow','capital','collateral','credit'].map(k=>[k,{strength:k==='credit'?strength:.5,raw:{debtToValue:.5}}]))});"]));
+approvedOutputLines.set("lib/debtbreak-command-learning.js", new Set(["const ratio=corner?.raw?.debtToValue;"]));
+approvedOutputLines.set("tests/debtbreak-command-learning.test.mjs", new Set(["const snapshot=(input={})=>({kind:'current',inputs:{monthlyIncome:4000,monthlyLivingExpenses:1000,monthlyDebtPayments:200,totalDebt:10000,assetValue:20000,liquidReserves:5000,creditScore:700,...input},corners:Object.fromEntries(['cashFlow','capital','collateral','credit'].map(key=>[key,{status:'known',strength:.5,raw:key==='collateral'?{equity:10000,debtToValue:.5}:{}}]))});"]));
 const forbiddenSource = /RESERVE_ANCHORS|reserveStrength\s*\(|cashFlowSignal\s*\(|creditSignal\s*\(|debtToValue|equityMargin|(?:\.\.\/|\.\/)private\/|server\/private/;
 function hasForbiddenSource(name, source) {
   const allowed = approvedOutputLines.get(name);
   return source.split(/\r?\n/).some(line => !allowed?.has(line.trim()) && forbiddenSource.test(line));
 }
+const hasForbiddenPath = name => /server\/private|vision-engine\.(js|d\.ts)|vision-engine\.test|calculator-private-integration|legacy-salvage|PRIVATE|^\.openai\/|^worker\/|\.(?:pem|key)$|^\.env(?!\.example$)|\.map$|^db\/|^drizzle\/|^\.sites-runtime\/|^\.wrangler\/|^\.codex\/|^\.agents\//i.test(name);
 async function scan(directory) {
   for (const item of await readdir(directory, { withFileTypes: true })) {
     if (skip.has(item.name)) continue;
     const path = join(directory, item.name);
     const name = relative(root, path).replaceAll("\\", "/");
-    if (/server\/private|vision-engine\.(js|d\.ts)|vision-engine\.test|calculator-private-integration|legacy-salvage|PRIVATE|^\.openai\/|^worker\/|\.(?:pem|key)$|^\.env(?!\.example$)/i.test(name)) failures.push(name);
+    if (hasForbiddenPath(name)) failures.push(name);
     if (item.isDirectory()) await scan(path);
     else if (/\.(?:js|ts|tsx|mjs|md|json|map)$/.test(name) && name !== "scripts/check-public-release.mjs" && name !== "package-lock.json") {
       if (hasForbiddenSource(name, await readFile(path, "utf8"))) failures.push(name);
@@ -59,6 +62,8 @@ if (process.argv.includes("--self-test")) {
     assert.equal(hasForbiddenSource("tests/unreviewed.test.mjs", line), true);
     assert.equal(hasForbiddenSource(name, line + "\nconst debtToValue = totalDebt / assetValue;"), true);
   }
+  for (const name of ["server/private/engine.js", "worker/index.ts", "db/index.ts", ".sites-runtime/state.json", ".wrangler/cache.json", ".env.local", "lib/accidental.js.map", "key.pem", "tests/calculator-private-integration.test.mjs"]) assert.equal(hasForbiddenPath(name), true, name);
+  for (const name of ["lib/debtbreak-command-learning.js", ".env.example", "tests/browser/baseline-v0.7.0.json"]) assert.equal(hasForbiddenPath(name), false, name);
   console.log("Public release guard regression checks passed.");
 }
 await scan(root);

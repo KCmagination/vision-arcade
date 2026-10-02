@@ -34,11 +34,13 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This release ports the Site v51 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This 0.7.0 local review candidate adds reviewed game/UI changes on the Site v53 baseline, including unpublished refinements. It is not a new live Site deployment; the public hosted adapter and scaffold are retained. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
-- **Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
+- **Automated Base Defense:** place four corner defenses, authorize cash for bills, and survive three waves. Savings backup is optional. Build windows pause time and reset spending permission. The living-cost ruler, savings milestones, educational credit bar and captured collateral needle explain different financial signals without changing scores or real money.
+- **Ground Defense:** aim ahead of bill missiles, configure shared totem payments, inspect reserve-shield tradeoffs and use local checkpoints.
+- **Four-cycle Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
 - **Debtbreak Classic and challenges:** fictional debt-payoff scenarios with period allocation, Snowball/Avalanche choices and five four-corner missions. Their scenario choices are separate from hangar-driven turret mode.
 - **Debt Invaders:** firing cadence, shields, barriers and ship size respond to the four corners.
 - **Wants vs Needs:** a side-scrolling shooter with Utilities boosts, directional aiming, ad planes and three bosses.
