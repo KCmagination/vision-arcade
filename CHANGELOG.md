@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 - Local review candidate
+
+Corresponds to separately published Site v57 (`2d03337728209a186446f88f80ebe2034a5efc56`). Adds the approved movable grid prototype: Cash Flow is the sole ground/air weapon; Capital provides explicitly budgeted local savings backup, Credit a local range bonus, and Collateral shared base condition. Preserves fixed split ground routes, seven needs, budget learning and payment reconciliation. Original art assets remain available; this mode intentionally uses readable prototype symbols. No private calculator implementation, Site history, credentials or deployment artifacts are imported.
+
+
 ## 0.8.0 - 2026-10-03 (draft PR)
 
 Reviewed visual update corresponding to the separately published Site v56 (`f89ec2f4ddd41846eb6df0372a0588ec8df85d9a`), applied to PR3 head `3d28ec14a475d129ad73daf9a4ee3c76583f46f4`.

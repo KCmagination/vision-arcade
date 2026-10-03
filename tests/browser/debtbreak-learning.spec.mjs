@@ -7,7 +7,7 @@ test('visual budget separates cash, cycle income, savings and bills; transfer co
  await page.getByText('Move cash into savings',{exact:true}).click();await page.getByRole('spinbutton',{name:'Transfer to savings',exact:true}).fill('200');
  await expect(page.locator('.command-save-transfer')).toContainText('Total cash stays $9,000');await page.getByRole('button',{name:'Move to savings',exact:true}).click();
  await expect(page.getByTestId('command-income')).toHaveText('$3,800');await expect(page.getByTestId('command-reserve')).toHaveText('$5,200');await expect(hud).toContainText('$4,000');
- await page.getByRole('button',{name:'Use recommended pads',exact:true}).click();await page.getByRole('spinbutton',{name:'Cash defense may spend',exact:true}).fill('1200');
+ await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();await page.getByRole('spinbutton',{name:'Cash defense may spend',exact:true}).fill('1200');
  await expect(page.getByTestId('budget-preview')).toContainText('$2,600');await expect(page.getByTestId('budget-preview')).toContainText('$5,200');
  await page.getByRole('button',{name:'Launch automatic wave',exact:true}).click();await page.clock.runFor(61000);
  await expect(page.locator('.command-shell')).toHaveAttribute('data-stage','build');await expect(page.getByTestId('command-income')).toHaveText('$6,600');await expect(hud).toContainText('$4,000');
@@ -17,7 +17,7 @@ test('visual budget separates cash, cycle income, savings and bills; transfer co
 test('living ruler, savings markers and credit progress remain readable through three cycles',async({page})=>{
  test.setTimeout(240000);await openGame(page,{mode:'base',income:2000,living:1000});
  await expect(page.getByTestId('living-pressure')).toHaveText('50%');await expect(page.getByRole('list',{name:'Savings milestones'}).locator('li')).toHaveCount(5);
- await page.getByRole('button',{name:'Use recommended pads',exact:true}).click();
+ await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();
  for(let wave=1;wave<=3;wave++){
   await page.getByRole('button',{name:'Use cash for bills',exact:true}).click();await page.getByRole('button',{name:'Launch automatic wave',exact:true}).click();await page.clock.runFor(61000);
   await expect(page.getByTestId('credit-learning')).toHaveText(wave===3?'VISUAL UPGRADE EARNED':`${wave} on-time billing cycles`);

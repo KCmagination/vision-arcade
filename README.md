@@ -34,11 +34,11 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This 0.8.0 draft PR candidate contains the reviewed automated-defense visuals from the separately published Site v56. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This 0.9.0 local review candidate contains the approved movable-grid prototype from the separately published Site v57. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
-- **Automated Base Defense:** place four corner defenses, authorize cash for bills, and survive three waves. Savings backup is optional. Build windows pause time and reset spending permission. The living-cost ruler, savings milestones, educational credit bar and captured collateral needle explain different financial signals without changing scores or real money.
+- **Automated Base Defense:** place four role pieces and seven needs, authorize cash for bills, and survive three waves. Cash Flow is the sole weapon; Capital covers authorized savings backup, Credit extends local range, and Collateral anchors shared base condition. Savings backup is optional. Build windows pause time and reset spending permission. The living-cost ruler, savings milestones, educational credit bar and captured collateral needle explain different financial signals without changing scores or real money.
 - **Ground Defense:** aim ahead of bill missiles, configure shared totem payments, inspect reserve-shield tradeoffs and use local checkpoints.
 - **Four-cycle Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
 - **Debtbreak Classic and challenges:** fictional debt-payoff scenarios with period allocation, Snowball/Avalanche choices and five four-corner missions. Their scenario choices are separate from hangar-driven turret mode.
@@ -60,7 +60,7 @@ Run `npx playwright install chromium`, then `npm run test:browser:all`. The repe
 
 ## Source version
 
-Public package **0.8.0** is the draft PR3 visual update corresponding to Site **version 56**, source `f89ec2f4ddd41846eb6df0372a0588ec8df85d9a`. It extends public PR head `3d28ec14a475d129ad73daf9a4ee3c76583f46f4` without importing Site history. Earlier recovery branches remain available. Sites and public package versions are separate; this draft is not merged into main. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.9.0** is a local grid-prototype candidate corresponding to Site **version 57**, source `2d03337728209a186446f88f80ebe2034a5efc56`. It is prepared from verified PR3 head `cb2a1ab03d420348c03c96c54fa2e18e956d6e77` without importing Site history. It has not been pushed or merged. Sites and public package versions are separate. The public Next.js adapter and build setup intentionally differ from Site infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 
@@ -77,3 +77,7 @@ Contribute UI, accessibility, game mechanics, new original assets, and improveme
 Use `scripts/assets/build-sentinel.mjs` and `scripts/assets/generate-verdant.mjs` to regenerate the original GLBs. The historical prototypes were not merged: their unfinished app code and restricted assets are not part of this release.
 
 See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Grid prototype candidate (0.9.0)
+
+This local candidate corresponds to Site v57. Place all eleven pieces or use the recommended layout, authorize a cash cap, then launch. Cash Flow fires; Capital, Credit and Collateral support the shared base. Placement is free and limited to setup/build phases. Savings backup is off unless explicitly authorized and only covers targets inside Capital’s area. The public hosted calculator adapter and synthetic browser fixtures are unchanged. This candidate has not been pushed to GitHub.

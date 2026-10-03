@@ -1190,7 +1190,12 @@ export function VisionWorkspace() {
       </div>
       <VisionWelcome onBuild={() => moveTo("inputs")} onHow={() => moveTo("how")} />
       <Dialog open={sectorOpen} onOpenChange={setSectorOpen}>
-        <DialogContent className="sector-dialog">
+        <DialogContent className="sector-dialog" onEscapeKeyDown={event=>{
+          // Placement owns Escape while the grid or its tray has keyboard focus.
+          // Radix observes the native capture event before React's canvas handler.
+          const focused=document.activeElement;
+          if(focused instanceof HTMLElement&&(focused.matches('canvas[data-grid-placement="true"]')||focused.closest('.command-shell[data-stage="setup"] .grid-placement, .command-shell[data-stage="build"] .grid-placement')))event.preventDefault();
+        }}>
           <DialogHeader className="sr-only">
             <DialogTitle>Debtbreak financial practice</DialogTitle>
             <DialogDescription>

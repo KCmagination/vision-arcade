@@ -8,7 +8,7 @@ test('credit max effect occurs once and respects reduced motion',async({page},in
   Element.prototype.animate=function(...args){if(this.classList.contains('command-credit'))window.__creditEffects++;return animate.apply(this,args);};
  });
  await openGame(page,{mode:'base',income:2000,living:1000});
- await page.getByRole('button',{name:'Use recommended pads',exact:true}).click();
+ await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();
  for(let wave=1;wave<=3;wave++){
   await page.getByRole('button',{name:'Use cash for bills',exact:true}).click();
   await page.getByRole('button',{name:'Launch automatic wave',exact:true}).click();

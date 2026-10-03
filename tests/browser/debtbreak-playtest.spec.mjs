@@ -3,7 +3,9 @@ const view=page=>canvas(page).evaluate(el=>el.__debtbreakView);
 test('paycheck-only launch applies entered budget, impacts explain costs, quiet tail ends early',async({page})=>{
  test.setTimeout(240000);await openGame(page,{mode:'base',income:1200,reserves:0});
  await expect(page.getByRole('checkbox',{name:'Use savings as impact backup'})).toBeDisabled();
- await page.getByRole('button',{name:'Use recommended pads',exact:true}).click();
+ await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();
+ // Choose genuinely poor coverage so a physical paid impact is part of this scenario.
+ await page.getByRole('spinbutton',{name:'Build column',exact:true}).fill('1');await page.getByRole('spinbutton',{name:'Build row',exact:true}).fill('1');await page.getByRole('button',{name:'Place selected asset',exact:true}).click();
  // Exercise the previous confusing path: entering income, without a separate Apply click.
  await page.getByRole('spinbutton',{name:'Cash defense may spend',exact:true}).fill('1200');
  await expect(page.getByRole('button',{name:'Launch automatic wave',exact:true})).toBeEnabled();

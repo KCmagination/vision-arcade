@@ -27,8 +27,8 @@ for(const c of [
  const drawn=await page.evaluate(()=>window.__fieldAudit);
  expect(drawn.labels.some(l=>l.text===c.label)).toBe(true);
  if(c.position===null)expect(drawn.lines).toHaveLength(0);
- else{expect(drawn.lines).toHaveLength(1);expect(drawn.lines[0].dash).toEqual([8,5]);expect(drawn.lines[0].path[0][1]/drawn.height).toBeCloseTo((65+c.position*800*.84)/1000,8);}
- const label=drawn.labels.find(l=>l.text===c.label),heading=drawn.labels.find(l=>l.text==='GROUND APPROACH');expect(Math.abs(label.y-heading.y)).toBeGreaterThan(12);
+ else{expect(drawn.lines).toHaveLength(1);expect(drawn.lines[0].dash).toEqual([8,5]);expect(drawn.lines[0].path[0][1]/drawn.height).toBeCloseTo((200+c.position*600)/1000,8);}
+ const label=drawn.labels.find(l=>l.text===c.label);expect(label).toBeTruthy();
  for(const pad of drawn.circles.filter(p=>p.x>drawn.width*.75&&p.radius>=7)){if(label.x+label.width/2+8>pad.x-(pad.rx??pad.radius)&&label.x-label.width/2-8<pad.x+(pad.rx??pad.radius))expect(Math.abs(label.y-pad.y)).toBeGreaterThan(pad.radius+10);}
  await canvas(page).scrollIntoViewIfNeeded();await page.screenshot({path:test.info().outputPath(`pressure-${c.name}.png`)});
 });
@@ -47,7 +47,7 @@ for(const months of [1,3,6,9,12])test(`savings marker ${months} gains and revers
 
 test('keyboard setup, paused planning, and next-wave budget keep a visible focus target',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});await openGame(page,{mode:'base'});
- const preset=page.getByRole('button',{name:'Use recommended pads',exact:true});await preset.focus();await page.keyboard.press('Enter');
+ const preset=page.getByRole('button',{name:'Use recommended layout',exact:true});await preset.focus();await page.keyboard.press('Enter');
  const cap=page.getByRole('spinbutton',{name:'Cash defense may spend',exact:true});await cap.focus();await page.keyboard.press('ControlOrMeta+A');await page.keyboard.type('1200');
  const launch=page.getByRole('button',{name:'Launch automatic wave',exact:true});await launch.focus();await page.keyboard.press('Enter');await page.clock.runFor(200);
  await expect(canvas(page)).toBeFocused();await page.keyboard.press('p');await expect(page.getByRole('button',{name:'Resume',exact:true})).toBeVisible();
@@ -68,7 +68,7 @@ test('modeled balance reduction contributes to the rendered credit meter only at
   await page.getByRole('checkbox',{name:'Allow an estimate for this account',exact:true}).check();await page.getByRole('checkbox',{name:'Enable selected estimates for opted-in accounts',exact:true}).check();await page.getByRole('button',{name:'Apply to My picture',exact:true}).click();
  }});
  const bar=page.getByRole('progressbar',{name:'Credit learning progress',exact:true});await expect(bar).toHaveAttribute('value','0');
- await page.getByRole('button',{name:'Use recommended pads',exact:true}).click();await page.getByRole('button',{name:'Use cash for bills',exact:true}).click();await page.getByRole('button',{name:'Launch automatic wave',exact:true}).click();await page.clock.runFor(12000);await expect(bar).toHaveAttribute('value','0');
+ await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();await page.getByRole('button',{name:'Use cash for bills',exact:true}).click();await page.getByRole('button',{name:'Launch automatic wave',exact:true}).click();await page.clock.runFor(12000);await expect(bar).toHaveAttribute('value','0');
  await page.clock.runFor(49000);await expect(page.getByTestId('credit-learning')).toHaveText('1 on-time billing cycles');expect(Number(await bar.getAttribute('value'))).toBeCloseTo(1.02/3,8);await expect(page.locator('.command-credit')).toContainText('2% best net reduction.');
  await page.locator('.command-credit').scrollIntoViewIfNeeded();await page.screenshot({path:test.info().outputPath('modeled-credit-meter.png')});
 });

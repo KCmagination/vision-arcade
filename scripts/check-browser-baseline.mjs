@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
-const manifest = JSON.parse(await readFile('tests/browser/baseline-v0.8.0.json', 'utf8'));
+const manifest = JSON.parse(await readFile('tests/browser/baseline-v0.9.0.json', 'utf8'));
 const collect = async dir => (await Promise.all((await readdir(dir, { withFileTypes: true })).map(e => e.isDirectory() ? collect(`${dir}/${e.name}`) : `${dir}/${e.name}`))).flat();
 const files = (await Promise.all(['app','components','hooks','lib','public','server','vendor'].map(collect))).flat().sort();
 assert.deepEqual(files, Object.keys(manifest.sha256).sort(), 'Reviewed public product file inventory changed');

@@ -1,10 +1,10 @@
 {
-  "publicVersion": "0.8.0",
+  "publicVersion": "0.9.0",
   "publicBaseCommit": "1b41d197be7d7203df5f191d380f8c1ac723125e",
-  "siteVersion": 56,
-  "siteSourceCommit": "f89ec2f4ddd41846eb6df0372a0588ec8df85d9a",
+  "siteVersion": 57,
+  "siteSourceCommit": "2d03337728209a186446f88f80ebe2034a5efc56",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
-  "syncMethod": "17 explicitly audited visual source, artwork and test files applied to the existing public PR3 branch; no Site history or calculator implementation imported",
+  "syncMethod": "Local-only candidate: 27 reviewed grid gameplay/UI/test files on the existing public tree; targeted Escape handler preserves public workspace adaptations. No Site history or calculator implementation imported.",
   "futureUpdatesRequireOwnerApproval": true,
   "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",
   "protectedFiles": {
@@ -35,39 +35,36 @@
     "Public game build baseline updated separately from the latest deployed Site version",
     "Include the existing Site ground.png battlefield asset required by the new field loader; prior public character assets remain unchanged",
     "Scope the cycle-recap browser test to gameplay and return to the existing public hangar; omit unrelated Site-only avatar-milestone assertions",
-    "Use the v56 original landscape and modular turret artwork with bounded renderer-only effects; retain public synthetic API browser fixtures and unchanged hosted adapter"
+    "Use the v56 original landscape and modular turret artwork with bounded renderer-only effects; retain public synthetic API browser fixtures and unchanged hosted adapter",
+    "Preserve public calculator contract/workspace adaptations and synthetic 10Hz browser harness while adding movable grid, one weapon, three support roles and packet-payment safeguards."
   ],
   "validation": {
-    "status": "Public 0.8.0 candidate passed local release gates; remote CI must be checked on the exact PR head",
-    "verifiedAt": "2026-10-03T01:46:42.178Z",
+    "status": "Sanitized local 0.9.0 candidate passed; no GitHub write performed or authorized without parent coordination",
+    "verifiedAt": "2026-10-03T13:53:31.969Z",
     "units": {
-      "passed": 264,
+      "passed": 276,
       "failed": 0
     },
-    "publicReleaseGuard": "Passed including forbidden-path and exact-line self-tests",
+    "publicReleaseGuard": "Passed including self-tests; all 11 protected hashes retained",
     "productionBuild": "Next.js production build passed",
     "typeScript": "tsc --noEmit passed",
     "productBaseline": {
-      "files": 132,
+      "files": 136,
       "status": "passed",
-      "file": "tests/browser/baseline-v0.8.0.json"
+      "file": "tests/browser/baseline-v0.9.0.json"
     },
     "browser": {
-      "passed": 90,
+      "passed": 92,
       "failed": 0,
-      "desktop": 45,
-      "mobileTouch": 45,
-      "calculator": "Existing synthetic public API fixtures; no proprietary calculator source",
-      "timeouts": "Original test and expectation timeouts unchanged"
+      "desktop": 46,
+      "mobileTouch": 46,
+      "calculator": "Unchanged synthetic public API fixture",
+      "timing": "Existing deterministic 10 Hz harness and original timeouts; no hardware FPS claim"
     },
-    "protectedFiles": "11 exact original hashes passed",
-    "dependencyGraph": "Unchanged apart from package release version",
-    "browserSourceMaps": 0,
-    "siteValidation": "Site v56 separately passed 284 private-source unit tests, 90 browser cases, six native-clock local waves and two live waves; this does not replace public candidate tests",
-    "remoteCI": "Pending after authorized non-forced update of existing draft PR3"
+    "siteEvidence": "Separately published and verified v57; no Site republish during this preparation"
   },
   "checkpointBranch": "work/debtbreak-learning-20261002",
-  "checkpointPolicy": "Owner-authorized update of existing draft PR3; no merge or auto-merge",
+  "checkpointPolicy": "Local-only preparation; parent coordination required before GitHub writes; no merge or auto-merge",
   "containsUnpublishedGameChanges": false,
-  "previousPublicHead": "3d28ec14a475d129ad73daf9a4ee3c76583f46f4"
+  "previousPublicHead": "cb2a1ab03d420348c03c96c54fa2e18e956d6e77"
 }

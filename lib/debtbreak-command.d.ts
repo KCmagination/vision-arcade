@@ -1,7 +1,7 @@
 import type {DebtbreakerState} from './debtbreaker-engine.js';
 import type {SiegeActor} from './debtbreak-siege.js';
 export type CommandTower={key:string;pad:number|null;level:number;priority:string};
-export type CommandState={version:number;stage:string;allowance:number;paid:number;upgradeSpent:number;secured:number;manualAssist?:boolean;creditLearning?:{version:number;openingDebt:number|null;periods:number[];bestReduction:number;unlocked:boolean};lastImpact?:{id:string;label:string;incomePaid:number;reservePaid:number;income:number;reserves:number;remaining:number;damage:number};lastWave:{cycle:number;paid:number;unpaid:number}|null;towers:CommandTower[]};
+export type CommandState={version:number;layout?:Record<string,{col:number;row:number}|null>;packetTargets?:Record<string,{claimId:string;assetId:string;remaining:number;contact:number}>;contactHighwater?:Record<string,number>;stage:string;allowance:number;paid:number;upgradeSpent:number;secured:number;manualAssist?:boolean;creditLearning?:{version:number;openingDebt:number|null;periods:number[];bestReduction:number;unlocked:boolean};lastImpact?:{id:string;targetAssetId?:string|null;covered?:boolean;label:string;incomePaid:number;reservePaid:number;income:number;reserves:number;remaining:number;damage:number};lastWave:{cycle:number;paid:number;unpaid:number}|null;towers:CommandTower[]};
 export const COMMAND_PADS:{x:number;z:number;label:string}[];
 export const COMMAND_GUNS:{key:string;label:string;color:string;role:string;benefit:string}[];
 export const COMMAND_NEEDS:string[];
