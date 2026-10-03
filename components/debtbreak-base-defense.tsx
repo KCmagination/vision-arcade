@@ -1,16 +1,18 @@
 "use client";
+import {GRID_NEED_COLORS as NEED_COLORS} from '@/lib/debtbreak-grid-view.js';
 import {GridPlacement} from './debtbreak-grid-placement';
 import {GRID_ASSETS,validLayout,selectGridAsset,setGridCursor,creditSupports} from '@/lib/debtbreak-command-grid.js';
-import {Droplets,House,Moon,Shirt,HeartPulse,Users,Sparkles} from 'lucide-react';
+import {Droplets,House,Moon,Shirt,HeartPulse,Users,Sparkles,Shield,Landmark,Radar} from 'lucide-react';
 import {CommandGuides,MoneyPicture} from './debtbreak-command-guides';
 import {budgetGuide} from '@/lib/debtbreak-command-learning.js';
 import {useState,useRef,useEffect} from 'react';
 import type {useDebtbreakerController} from './debtbreaker-controller';
 import {DebtbreakSiegeField} from './debtbreak-siege-field';
-import {COMMAND_GUNS,COMMAND_NEEDS,NEED_COLORS,commandStats,commandUpgrade,commandCoverage} from '@/lib/debtbreak-command.js';
+import {COMMAND_GUNS,COMMAND_NEEDS,commandStats,commandUpgrade,commandCoverage} from '@/lib/debtbreak-command.js';
 import {capitalShield,continuousSummary,type LedgerAction} from '@/lib/debtbreak-continuous.js';
 import {paydayClock,INTERRUPTION_NOTICE} from '@/lib/debtbreak-clock.js';
 const cash=(n:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:n%100?2:0}).format(n/100);
+const RoleIcons=[null,Shield,Landmark,Radar];
 const NeedIcons=[Droplets,House,Moon,Shirt,HeartPulse,Users,Sparkles];
 type Game=ReturnType<typeof useDebtbreakerController>;
 export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:()=>void;onClassic:()=>void}){
@@ -50,7 +52,7 @@ export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:(
    <div className="command-field"><DebtbreakSiegeField key={game.sceneKey} world={world} onReady={game.onReady} onFailure={game.onFailure} onGesture={game.gesture} reduced={game.reduced} onGridSelect={selectAsset} onGridPlace={(assetId,col,row)=>act({type:'commandMove',assetId,col,row})}/>
 
    </div>
-   <ol className="command-needs" aria-label="Seven needs protected by one shared base">{COMMAND_NEEDS.map((need,i)=><li key={need} style={{borderColor:NEED_COLORS[i]}}><b style={{color:NEED_COLORS[i]}}>{i+1}</b> {(() => {const Icon=NeedIcons[i];return <Icon aria-hidden="true" size={16}/>;})()} {need}</li>)}</ol>
+   <ol className="command-needs" aria-label="Seven needs protected by one shared base">{COMMAND_NEEDS.map((need,i)=><li key={need} style={{borderColor:NEED_COLORS[i]}}><b style={{color:NEED_COLORS[i]}}>N{i+1}</b> {(() => {const Icon=NeedIcons[i];return <Icon aria-hidden="true" size={16}/>;})()} {need}</li>)}</ol>
    <div className="command-status" aria-live="polite">{terminal?state.gameOverReason??'All issued obligations covered. No kill-bounty income.':state.paused&&state.notice===INTERRUPTION_NOTICE?INTERRUPTION_NOTICE:c.rescue?`Base down: ${Math.ceil(c.rescue.remainingSeconds)} active seconds to repair the base. Pause to recover.`:summary.unpaid===0?'Bills covered. Finishing the quiet calendar at 8×; the build window pauses automatically.':shortfall>0?command.allowance===0&&state.incomeWallet>0?`${cash(state.incomeWallet)} cash is available. Authorize a spending cap in Budget / setup to defend bills.`:`${cash(shortfall)} payment shortfall against authorized funds. Armor damage cannot erase an unfunded bill.`:state.paused?'Time is frozen. Configure, then launch or resume.':'Automatic combat active. Hit durability and dollars owed are separate.'}</div>
    {command.lastImpact&&<p className="command-impact-receipt" role="status" data-testid="command-impact-receipt">Impact: {command.lastImpact.label}. Cash paid {cash(command.lastImpact.incomePaid)}; reserves paid {cash(command.lastImpact.reservePaid)}. After impact: cash available {cash(command.lastImpact.income)}, reserves {cash(command.lastImpact.reserves)}; this obligation still owes {cash(command.lastImpact.remaining)}. Base condition −{command.lastImpact.damage} (repairable).</p>}
     <div className="command-live-actions">{!terminal&&<><button onClick={openSetup}>Budget / setup</button><button disabled={setup} onClick={()=>{setEditing(false);game.toggle();}}>{state.paused?'Resume':'Pause'}</button><button aria-pressed={!!command.manualAssist} onClick={()=>act({type:'commandAssist',enabled:!command.manualAssist})}>Manual assist {command.manualAssist?'ON':'OFF'}</button></>}{terminal&&<button onClick={game.reset}>Retry / new setup</button>}</div>
@@ -80,8 +82,8 @@ export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:(
     <details className="command-save-transfer"><summary>Move cash into savings</summary><label>Transfer to savings ($)<input aria-label="Transfer to savings" type="number" min="0" step="0.01" value={transfer} onChange={e=>setTransfer(e.target.value)}/></label><p>{canTransfer?`Cash −${cash(transferCents)} → savings +${cash(transferCents)}. Total cash stays ${cash(state.incomeWallet+state.reserves)}.`:"Choose an amount within available spending cash."}</p><button disabled={!canTransfer} onClick={()=>{act({type:'deposit',amount:transferCents});setTransfer('0');}}>Move to savings</button><small>Moving money is not income. It reduces spending cash.</small></details>
    </section>}
    <CommandGuides key={game.sceneKey} state={state} reduced={game.reduced}/>
-   <div className="command-guns">{COMMAND_GUNS.map((gun,index)=>{const t=command.towers[index],quote=commandUpgrade(state,index),loses=shield.charged&&quote.after<shield.goal;return <article key={gun.key} style={{borderColor:gun.color}}>
-    <button className="command-select" aria-pressed={selected===index} onClick={()=>selectGun(index)}><span className="command-gun-art" aria-hidden="true" style={{backgroundPosition:`${index%2*100}% ${Math.floor(index/2)*100}%`}}/><b style={{color:gun.color}}>{gun.label}</b><span>Level {t.level} · {command.layout?.[gun.key]?'Placed':'In tray'}</span></button>
+   <div className="command-guns">{COMMAND_GUNS.map((gun,index)=>{const RoleIcon=RoleIcons[index],t=command.towers[index],quote=commandUpgrade(state,index),loses=shield.charged&&quote.after<shield.goal;return <article key={gun.key} style={{borderColor:gun.color}}>
+    <button className="command-select" aria-pressed={selected===index} onClick={()=>selectGun(index)}>{RoleIcon?<RoleIcon aria-hidden="true" className="command-support-icon" style={{color:gun.color}}/>:<span className="command-gun-art" aria-hidden="true" style={{backgroundPosition:"0% 0%"}}/>}<b style={{color:gun.color}}>{gun.label}</b><span>Level {t.level} · {command.layout?.[gun.key]?'Placed':'In tray'}</span></button>
     {index===0?<progress aria-label={`${gun.label} upgrade affordability`} value={quote.progress} max={1}/>:<small>{!command.layout?.[gun.key]?'Place this support':index===1?state.reserves<=0?'Savings empty':c.autoProtect&&g.reserveAllowance>0?'Backup cap '+cash(g.reserveAllowance):'Backup off':index===3?creditSupports(command)?'Range link +20%':'Range link off':'Shared base '+Math.round(condition/Math.max(1,maximum)*100)+'%'}</small>}<button data-testid={`upgrade-${gun.key}`} disabled={terminal||!quote.ready} onClick={()=>act({type:'commandUpgrade',tower:index})}>{index!==0?'Support role':terminal?'Run ended':quote.maxed?'MAX LEVEL':quote.ready?`Upgrade · ${cash(quote.cost)}`:`Need ${cash(Math.max(0,quote.cost-state.reserves))}`}</button>
     <small>{['Dual-purpose primary weapon','Local savings-backup shield','Shared base-condition anchor','Local +20% range link'][index]}{index===0&&!quote.maxed&&` · after ${cash(quote.after)} reserves`}{index===0&&loses&&!quote.maxed?' · GOAL SHIELD OFF':''}</small>
    </article>;})}</div>

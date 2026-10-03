@@ -1,3 +1,4 @@
+import {gridProject} from '../../lib/debtbreak-grid-view.js';
 import {test,expect,openGame,canvas,money,tapOrClick} from './helpers.mjs';
 const command=page=>page.locator('.command-shell');
 const view=page=>canvas(page).evaluate(el=>el.__debtbreakView);
@@ -38,7 +39,7 @@ test('reserve coverage is explicit, can be revoked before impact and only pays i
 
 test('touch or mouse placement, disabled upgrade feedback and underfunded defeat remain usable',async({page},info)=>{
  test.setTimeout(360000);await openGame(page,{mode:'base',income:100,reserves:0});
- const box=await canvas(page).boundingBox(),x=box.x+box.width*.25,y=box.y+box.height*.25;
+ const box=await canvas(page).boundingBox(),point=gridProject(250,250),x=box.x+box.width*point.x/1000,y=box.y+box.height*point.z/1000;
  if(info.project.name==='mobile-touch')await page.touchscreen.tap(x,y);else await page.mouse.click(x,y);
  await page.clock.runFor(100);expect((await view(page)).layout.cashFlow).toEqual({col:2,row:2});await expect(page.getByTestId('upgrade-cashFlow')).toBeDisabled();await expect(page.getByTestId('upgrade-cashFlow')).toContainText('Need $150');
  await page.getByRole('button',{name:'Use recommended layout',exact:true}).click();await launch(page);await page.clock.runFor(20000);

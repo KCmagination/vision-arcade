@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.0 - 2026-10-03 (draft PR)
+
+Visual overlay corresponding to separately published Site v58 (`c0321378cba430b792adcbc3b40426cc5e4a21dc`). Adds an original canyon landscape, distinct shield/radar structures, detailed districts and bounded action effects to the existing movable grid. Shared projection preserves mouse/touch placement. Reduced motion, compact mobile labels and matching need colors remain readable. Corrects the one-gun briefing and the mobile advanced-dialog heading/Close overlap. Game rules, accounting, calculator adapter, dependency graph and licenses remain unchanged. No Site history or deployment artifacts are imported.
+
+
 ## 0.9.0 - Local review candidate
 
 Corresponds to separately published Site v57 (`2d03337728209a186446f88f80ebe2034a5efc56`). Adds the approved movable grid prototype: Cash Flow is the sole ground/air weapon; Capital provides explicitly budgeted local savings backup, Credit a local range bonus, and Collateral shared base condition. Preserves fixed split ground routes, seven needs, budget learning and payment reconciliation. Original art assets remain available; this mode intentionally uses readable prototype symbols. No private calculator implementation, Site history, credentials or deployment artifacts are imported.

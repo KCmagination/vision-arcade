@@ -34,7 +34,7 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This 0.9.0 local review candidate contains the approved movable-grid prototype from the separately published Site v57. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This 0.10.0 draft PR update adds the reviewed visual overlay from separately published Site v58 to the movable-grid defense game. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
@@ -60,7 +60,7 @@ Run `npx playwright install chromium`, then `npm run test:browser:all`. The repe
 
 ## Source version
 
-Public package **0.9.0** is a local grid-prototype candidate corresponding to Site **version 57**, source `2d03337728209a186446f88f80ebe2034a5efc56`. It is prepared from verified PR3 head `cb2a1ab03d420348c03c96c54fa2e18e956d6e77` without importing Site history. It has not been pushed or merged. Sites and public package versions are separate. The public Next.js adapter and build setup intentionally differ from Site infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.10.0** corresponds to Site **version 58**, source `c0321378cba430b792adcbc3b40426cc5e4a21dc`. It extends verified PR3 head `04cdce775c036a617ff523795b3817347851b4ac` without importing Site history. PR3 remains draft; main is not merged. Sites and public package versions are separate. The public Next.js adapter and build setup intentionally differ from Site infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 
@@ -78,6 +78,6 @@ Use `scripts/assets/build-sentinel.mjs` and `scripts/assets/generate-verdant.mjs
 
 See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-## Grid prototype candidate (0.9.0)
+## Grid visual overlay (0.10.0)
 
-This local candidate corresponds to Site v57. Place all eleven pieces or use the recommended layout, authorize a cash cap, then launch. Cash Flow fires; Capital, Credit and Collateral support the shared base. Placement is free and limited to setup/build phases. Savings backup is off unless explicitly authorized and only covers targets inside Capital’s area. The public hosted calculator adapter and synthetic browser fixtures are unchanged. This candidate has not been pushed to GitHub.
+Place all eleven pieces or use the recommended layout, authorize a cash cap, then launch. Cash Flow is the sole weapon; Capital, Credit and Collateral support the shared base. Original canyon and support artwork, distinct payment/impact effects and an invertible oblique view upgrade the presentation without changing the tested game rules. Placement is free during setup/build; savings backup requires explicit permission and coverage. Mobile badges match the labeled tray and needs key. See [visual overlay provenance and privacy review](docs/visual-overlay-v0.10.0.md).

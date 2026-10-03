@@ -1,10 +1,10 @@
 {
-  "publicVersion": "0.9.0",
+  "publicVersion": "0.10.0",
   "publicBaseCommit": "1b41d197be7d7203df5f191d380f8c1ac723125e",
-  "siteVersion": 57,
-  "siteSourceCommit": "2d03337728209a186446f88f80ebe2034a5efc56",
+  "siteVersion": 58,
+  "siteSourceCommit": "c0321378cba430b792adcbc3b40426cc5e4a21dc",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
-  "syncMethod": "Local-only candidate: 27 reviewed grid gameplay/UI/test files on the existing public tree; targeted Escape handler preserves public workspace adaptations. No Site history or calculator implementation imported.",
+  "syncMethod": "13 reviewed visual/UI/test files over verified PR3 head, with public version, documentation and product baseline updates. No Site history or calculator implementation imported.",
   "futureUpdatesRequireOwnerApproval": true,
   "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",
   "protectedFiles": {
@@ -36,35 +36,24 @@
     "Include the existing Site ground.png battlefield asset required by the new field loader; prior public character assets remain unchanged",
     "Scope the cycle-recap browser test to gameplay and return to the existing public hangar; omit unrelated Site-only avatar-milestone assertions",
     "Use the v56 original landscape and modular turret artwork with bounded renderer-only effects; retain public synthetic API browser fixtures and unchanged hosted adapter",
-    "Preserve public calculator contract/workspace adaptations and synthetic 10Hz browser harness while adding movable grid, one weapon, three support roles and packet-payment safeguards."
+    "Preserve public calculator contract/workspace adaptations and synthetic 10Hz browser harness while adding movable grid, one weapon, three support roles and packet-payment safeguards.",
+    "Apply only the v58 grid visual overlay and two beta UI fixes; retain hosted adapter, synthetic fixtures and all game/economy rules."
   ],
   "validation": {
-    "status": "Sanitized local 0.9.0 candidate passed; no GitHub write performed or authorized without parent coordination",
-    "verifiedAt": "2026-10-03T13:53:31.969Z",
-    "units": {
-      "passed": 276,
-      "failed": 0
-    },
-    "publicReleaseGuard": "Passed including self-tests; all 11 protected hashes retained",
-    "productionBuild": "Next.js production build passed",
-    "typeScript": "tsc --noEmit passed",
-    "productBaseline": {
-      "files": 136,
-      "status": "passed",
-      "file": "tests/browser/baseline-v0.9.0.json"
-    },
-    "browser": {
-      "passed": 92,
-      "failed": 0,
-      "desktop": 46,
-      "mobileTouch": 46,
-      "calculator": "Unchanged synthetic public API fixture",
-      "timing": "Existing deterministic 10 Hz harness and original timeouts; no hardware FPS claim"
-    },
-    "siteEvidence": "Separately published and verified v57; no Site republish during this preparation"
+    "status": "Public 0.10.0 local validation passed",
+    "unitTests": 277,
+    "browserTests": 92,
+    "productionBuild": "passed",
+    "typescript": "passed",
+    "privacyGuard": "passed including negative self-tests",
+    "productBaselineFiles": 139,
+    "protectedFilesUnchanged": 11,
+    "githubCI": "Tracked separately on the exact draft PR head",
+    "siteEvidence": "Separately published and live-verified v58; 297 Site units, 92 full browser cases, 14 final focused cases, six native waves and coverage/reload checks",
+    "limitations": "Public browser scenarios use synthetic API responses and emulated input. Site live-calculator and native timing checks were performed separately."
   },
   "checkpointBranch": "work/debtbreak-learning-20261002",
-  "checkpointPolicy": "Local-only preparation; parent coordination required before GitHub writes; no merge or auto-merge",
+  "checkpointPolicy": "Owner-authorized existing draft PR update after public validation; no main merge or auto-merge",
   "containsUnpublishedGameChanges": false,
-  "previousPublicHead": "cb2a1ab03d420348c03c96c54fa2e18e956d6e77"
+  "previousPublicHead": "04cdce775c036a617ff523795b3817347851b4ac"
 }

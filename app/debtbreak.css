@@ -587,3 +587,9 @@
 .grid-placement{padding:10px;border:1px solid #496477;border-radius:10px;background:#102333}.grid-placement p{font-size:12px;line-height:1.45}.grid-asset-tray{display:grid;grid-template-columns:1fr 1fr;gap:5px}.grid-asset-tray button{display:flex;gap:7px;text-align:left;align-items:center;min-height:48px;padding:7px}.grid-asset-tray button[aria-pressed=true]{outline:2px solid #a0e6ff;background:#21475c}.grid-asset-tray button b{min-width:22px;color:#a0e6ff}.grid-asset-tray small{display:block;font-size:10px}.grid-place-controls{display:flex;gap:6px;align-items:end;flex-wrap:wrap}.grid-place-controls label{max-width:68px}.grid-place-controls input{width:100%}.grid-placement>button{margin-top:8px}.command-shell .siege-canvas{touch-action:none}
 
 .command-view>.command-banner{position:static;transform:none;align-self:center;margin:0;flex:none}.command-needs li b{display:inline}
+
+@media(max-width:760px) and (min-height:501px){.command-field{height:clamp(400px,52dvh,500px)}}
+
+.command-needs li b{display:inline;font-size:10px}
+
+.command-support-icon{width:38px;height:38px;flex:none;padding:4px}
