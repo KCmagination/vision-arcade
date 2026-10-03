@@ -1,0 +1,13 @@
+import type {DebtbreakerState} from './debtbreaker-engine.js';
+import type {SiegeActor} from './debtbreak-siege.js';
+export type CommandTower={key:string;pad:number|null;level:number;priority:string};
+export type CommandState={version:number;layout?:Record<string,{col:number;row:number}|null>;packetTargets?:Record<string,{claimId:string;assetId:string;remaining:number;contact:number}>;contactHighwater?:Record<string,number>;stage:string;allowance:number;paid:number;upgradeSpent:number;secured:number;manualAssist?:boolean;creditLearning?:{version:number;openingDebt:number|null;periods:number[];bestReduction:number;unlocked:boolean};lastImpact?:{id:string;targetAssetId?:string|null;covered?:boolean;label:string;incomePaid:number;reservePaid:number;income:number;reserves:number;remaining:number;damage:number};lastWave:{cycle:number;paid:number;unpaid:number}|null;towers:CommandTower[]};
+export const COMMAND_PADS:{x:number;z:number;label:string}[];
+export const COMMAND_GUNS:{key:string;label:string;color:string;role:string;benefit:string}[];
+export const COMMAND_NEEDS:string[];
+export const NEED_COLORS:string[];
+export function createCommand():CommandState;
+export function commandStats(s:DebtbreakerState,t:CommandTower):{range:number;damage:number;cooldown:number;lanes:string[];strength:number};
+export function commandUpgrade(s:DebtbreakerState,index:number):{cost:number;after:number;ready:boolean;progress:number;maxed:boolean};
+export function commandCoverage(s:DebtbreakerState):{ground:boolean[];air:boolean[]};
+export function commandTargets(s:DebtbreakerState,t:CommandTower,actors:SiegeActor[]):SiegeActor[];

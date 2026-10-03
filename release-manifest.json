@@ -1,10 +1,10 @@
 {
-  "publicVersion": "0.6.0",
-  "publicBaseCommit": "cb72495ee12b0034e92ae8878a779387a1bdb2df",
-  "siteVersion": 51,
-  "siteSourceCommit": "6fc8e788e927381e6c199aa41aa2fed9267558a4",
+  "publicVersion": "0.9.0",
+  "publicBaseCommit": "1b41d197be7d7203df5f191d380f8c1ac723125e",
+  "siteVersion": 57,
+  "siteSourceCommit": "2d03337728209a186446f88f80ebe2034a5efc56",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
-  "syncMethod": "Reviewed public application copy; no Site history imported",
+  "syncMethod": "Local-only candidate: 27 reviewed grid gameplay/UI/test files on the existing public tree; targeted Escape handler preserves public workspace adaptations. No Site history or calculator implementation imported.",
   "futureUpdatesRequireOwnerApproval": true,
   "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",
   "protectedFiles": {
@@ -29,19 +29,42 @@
     "Retain prior public help and synthetic tests; new continuous/Sentinel fixtures use exact reviewed API output lines",
     "Exclude the private no-op negative-reserve integration test from the public suite; preserve it in the private engine repository",
     "Adapt the approved v49 test-only browser harness to the v51 product baseline; use synthetic API responses and the public Next.js production server",
-    "Preserve the v49 recovery and test branches; import reviewed v50/v51 game changes without Site history"
+    "Preserve the v49 recovery and test branches; import reviewed v50/v51 game changes without Site history",
+    "Port only Ground Defense/Base Defense game dependencies, educational presentation and synthetic tests; preserve public hangar, artwork, hosted adapter and Next scaffold",
+    "Canonical collateral output is read by a presentation-only helper with exact-line guard coverage; no scoring formulas are imported",
+    "Public game build baseline updated separately from the latest deployed Site version",
+    "Include the existing Site ground.png battlefield asset required by the new field loader; prior public character assets remain unchanged",
+    "Scope the cycle-recap browser test to gameplay and return to the existing public hangar; omit unrelated Site-only avatar-milestone assertions",
+    "Use the v56 original landscape and modular turret artwork with bounded renderer-only effects; retain public synthetic API browser fixtures and unchanged hosted adapter",
+    "Preserve public calculator contract/workspace adaptations and synthetic 10Hz browser harness while adding movable grid, one weapon, three support roles and packet-payment safeguards."
   ],
   "validation": {
-    "status": "local public-release verification passed",
-    "automatedTests": 206,
-    "automatedTestsPassed": 206,
-    "build": "Next.js production build and TypeScript passed",
-    "sourcePrivacyScan": "Hosted-adapter boundary, protected file hashes and exact-line guard regression checks passed",
-    "siteTests": "224 passed before Site v51 publication; source deployment reconfirmed succeeded",
-    "browser": "28 of 28 public-build scenarios passed in one run (4.0 minutes): desktop mouse and mobile touch, four-cycle success/incomplete attempts, replay, lifestyle choices, three-row waves and five-clear sword sweep. WebGL disabled; synthetic calculator responses; deterministic frame clock. Not a physical-device performance benchmark.",
-    "hostedCalculator": "Adapter bytes unchanged; no new hosted-service request made during this checkpoint.",
-    "ci": "Local gates passed before publishing; remote GitHub checks are reported separately after the branch update."
+    "status": "Sanitized local 0.9.0 candidate passed; no GitHub write performed or authorized without parent coordination",
+    "verifiedAt": "2026-10-03T13:53:31.969Z",
+    "units": {
+      "passed": 276,
+      "failed": 0
+    },
+    "publicReleaseGuard": "Passed including self-tests; all 11 protected hashes retained",
+    "productionBuild": "Next.js production build passed",
+    "typeScript": "tsc --noEmit passed",
+    "productBaseline": {
+      "files": 136,
+      "status": "passed",
+      "file": "tests/browser/baseline-v0.9.0.json"
+    },
+    "browser": {
+      "passed": 92,
+      "failed": 0,
+      "desktop": 46,
+      "mobileTouch": 46,
+      "calculator": "Unchanged synthetic public API fixture",
+      "timing": "Existing deterministic 10 Hz harness and original timeouts; no hardware FPS claim"
+    },
+    "siteEvidence": "Separately published and verified v57; no Site republish during this preparation"
   },
-  "checkpointBranch": "release/debtbreak-v51",
-  "checkpointPolicy": "Preserve this release branch at its verified commit; future work continues on main. This branch is a recovery reference, not an administratively protected branch."
+  "checkpointBranch": "work/debtbreak-learning-20261002",
+  "checkpointPolicy": "Local-only preparation; parent coordination required before GitHub writes; no merge or auto-merge",
+  "containsUnpublishedGameChanges": false,
+  "previousPublicHead": "cb2a1ab03d420348c03c96c54fa2e18e956d6e77"
 }

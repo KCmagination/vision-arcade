@@ -1137,16 +1137,16 @@ export function VisionWorkspace() {
             </summary>
             <div className="math-copy">
               <p>
-                Debtbreaker uses your selected hangar picture to fund living costs, credit payments and reserve deposits in a simulation. The hangar calculator stays separate.
+                Automated Base Defense uses your selected hangar picture to place four corner defenses and cover bills through three waves. Ground Defense and the four-cycle mission remain available. The hangar calculator stays separate.
               </p>
               <p>
-                Every income shot transfers a fixed amount to the selected destination. Reserve fire and automatic pillar interception draw from the same vault, so money cannot be duplicated.
+                Authorize a cap on spendable cash before launching. Savings backup is optional and separate. Build windows pause time and reset permission; unspent cash carries into the next payday. Payments, refunds and transfers conserve the same wallets.
               </p>
               <p>
                 Unpaid obligations can damage defenses and remain in arrears. Classic and challenge modes use fictional practice scenarios with their own choices; those choices are not predictions for your accounts.
               </p>
               <p>
-                Hangar-driven Debtbreaker keeps the credit grade from your selected picture. Splitting one payment into more shots earns no extra payment history. The game cannot spend
+                Educational credit progress counts completed on-time billing periods and known net debt reduction, not split payments. The entered credit score stays unchanged. The game cannot spend
                 money, contact creditors, or change your actual finances.
               </p>
               <p>
@@ -1190,7 +1190,12 @@ export function VisionWorkspace() {
       </div>
       <VisionWelcome onBuild={() => moveTo("inputs")} onHow={() => moveTo("how")} />
       <Dialog open={sectorOpen} onOpenChange={setSectorOpen}>
-        <DialogContent className="sector-dialog">
+        <DialogContent className="sector-dialog" onEscapeKeyDown={event=>{
+          // Placement owns Escape while the grid or its tray has keyboard focus.
+          // Radix observes the native capture event before React's canvas handler.
+          const focused=document.activeElement;
+          if(focused instanceof HTMLElement&&(focused.matches('canvas[data-grid-placement="true"]')||focused.closest('.command-shell[data-stage="setup"] .grid-placement, .command-shell[data-stage="build"] .grid-placement')))event.preventDefault();
+        }}>
           <DialogHeader className="sr-only">
             <DialogTitle>Debtbreak financial practice</DialogTitle>
             <DialogDescription>
