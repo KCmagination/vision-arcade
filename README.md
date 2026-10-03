@@ -34,11 +34,13 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This release ports the Site v51 interface, assets and game code, with a few documented public-only adaptations. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This 0.10.0 draft PR update adds the reviewed visual overlay from separately published Site v58 to the movable-grid defense game. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
-- **Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
+- **Automated Base Defense:** place four role pieces and seven needs, authorize cash for bills, and survive three waves. Cash Flow is the sole weapon; Capital covers authorized savings backup, Credit extends local range, and Collateral anchors shared base condition. Savings backup is optional. Build windows pause time and reset spending permission. The living-cost ruler, savings milestones, educational credit bar and captured collateral needle explain different financial signals without changing scores or real money.
+- **Ground Defense:** aim ahead of bill missiles, configure shared totem payments, inspect reserve-shield tradeoffs and use local checkpoints.
+- **Four-cycle Debtbreaker:** Sentinel protects a lifestyle base under a green capital shield. Utilitanks march and descend; Debtonator missiles enter from several directions. Switch between Intercept and Rapid Fire, use credit radar warnings, slash Want-bots with the Sentinel, and expand the base to cover seven lifestyle categories. Finish all four cycles with the required sections standing and issued bills paid. The base can be completed early and defended. Reserve goals charge a protective shield. A continuous four-cycle ledger follows the selected Current or What If picture. Autofire and aim assist start off. Failure persists until retry.
 - **Debtbreak Classic and challenges:** fictional debt-payoff scenarios with period allocation, Snowball/Avalanche choices and five four-corner missions. Their scenario choices are separate from hangar-driven turret mode.
 - **Debt Invaders:** firing cadence, shields, barriers and ship size respond to the four corners.
 - **Wants vs Needs:** a side-scrolling shooter with Utilities boosts, directional aiming, ad planes and three bosses.
@@ -58,7 +60,7 @@ Run `npx playwright install chromium`, then `npm run test:browser:all`. The repe
 
 ## Source version
 
-Public package **0.6.0** ports reviewed application files from Site **version 51**, source `6fc8e788e927381e6c199aa41aa2fed9267558a4`. Recovery branch: `release/debtbreak-v51`. The older v49 checkpoint remains available. Future work continues on main. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.10.0** corresponds to Site **version 58**, source `c0321378cba430b792adcbc3b40426cc5e4a21dc`. It extends verified PR3 head `04cdce775c036a617ff523795b3817347851b4ac` without importing Site history. PR3 remains draft; main is not merged. Sites and public package versions are separate. The public Next.js adapter and build setup intentionally differ from Site infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 
@@ -75,3 +77,7 @@ Contribute UI, accessibility, game mechanics, new original assets, and improveme
 Use `scripts/assets/build-sentinel.mjs` and `scripts/assets/generate-verdant.mjs` to regenerate the original GLBs. The historical prototypes were not merged: their unfinished app code and restricted assets are not part of this release.
 
 See [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Grid visual overlay (0.10.0)
+
+Place all eleven pieces or use the recommended layout, authorize a cash cap, then launch. Cash Flow is the sole weapon; Capital, Credit and Collateral support the shared base. Original canyon and support artwork, distinct payment/impact effects and an invertible oblique view upgrade the presentation without changing the tested game rules. Placement is free during setup/build; savings backup requires explicit permission and coverage. Mobile badges match the labeled tray and needs key. See [visual overlay provenance and privacy review](docs/visual-overlay-v0.10.0.md).
