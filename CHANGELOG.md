@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0 - 2026-10-03 (draft PR)
+
+Reviewed visual update corresponding to the separately published Site v56 (`f89ec2f4ddd41846eb6df0372a0588ec8df85d9a`), applied to PR3 head `3d28ec14a475d129ad73daf9a4ee3c76583f46f4`.
+
+- Add original sci-fi landscape, raised winding routes, distinct needs districts, vault and modular aiming turrets.
+- Give each gun a distinct bounded attack effect; preserve authentic payment receipts, balance readability, reduced motion and mobile/landscape controls.
+- Add visual isolation, effect-limit and caption-clearance regressions. Game accounting and proprietary calculator implementation are unchanged.
+- Preserve the public hosted adapter, synthetic test fixtures, dependency graph and license. No Site history or deployment artifacts are imported.
+
 ## 0.7.0 — Unreleased local review candidate
 
 Based on public main `1b41d197be7d7203df5f191d380f8c1ac723125e` and reviewed game/UI changes from the v53 Site baseline. Additional game refinements are unpublished; this does not identify a new live Site version.

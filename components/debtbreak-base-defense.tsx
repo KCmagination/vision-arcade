@@ -1,4 +1,5 @@
 "use client";
+import {Droplets,House,Moon,Shirt,HeartPulse,Users,Sparkles} from 'lucide-react';
 import {CommandGuides,MoneyPicture} from './debtbreak-command-guides';
 import {budgetGuide} from '@/lib/debtbreak-command-learning.js';
 import {useState,useRef,useEffect} from 'react';
@@ -8,6 +9,7 @@ import {COMMAND_GUNS,COMMAND_PADS,COMMAND_NEEDS,NEED_COLORS,commandStats,command
 import {capitalShield,continuousSummary,type LedgerAction} from '@/lib/debtbreak-continuous.js';
 import {paydayClock,INTERRUPTION_NOTICE} from '@/lib/debtbreak-clock.js';
 const cash=(n:number)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:n%100?2:0}).format(n/100);
+const NeedIcons=[Droplets,House,Moon,Shirt,HeartPulse,Users,Sparkles];
 type Game=ReturnType<typeof useDebtbreakerController>;
 export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:()=>void;onClassic:()=>void}){
  const {state,world}=game,c=state.continuous!,g=c.ground!,command=g.command!,summary=continuousSummary(state),shield=capitalShield(state);
@@ -44,11 +46,11 @@ export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:(
    <div className="command-field"><DebtbreakSiegeField key={game.sceneKey} world={world} onReady={game.onReady} onFailure={game.onFailure} onGesture={game.gesture} reduced={game.reduced} onPad={pad=>act({type:'commandPlace',tower:selected,pad})}/>
     {(setup||state.paused||terminal)&&<div className="command-banner">{terminal?state.phase==='complete'?'THREE WAVES SECURED':'DEFENSE ENDED':setup?command.stage==='build'?'BUILD & REBALANCE':'PLACE YOUR FOUR DEFENSES':'PAUSED'}</div>}
    </div>
-   <ol className="command-needs" aria-label="Seven needs protected by one shared base">{COMMAND_NEEDS.map((need,i)=><li key={need} style={{borderColor:NEED_COLORS[i]}}><b style={{color:NEED_COLORS[i]}}>{i+1}</b> {need}</li>)}</ol>
+   <ol className="command-needs" aria-label="Seven needs protected by one shared base">{COMMAND_NEEDS.map((need,i)=><li key={need} style={{borderColor:NEED_COLORS[i]}}><b style={{color:NEED_COLORS[i]}}>{i+1}</b> {(() => {const Icon=NeedIcons[i];return <Icon aria-hidden="true" size={16}/>;})()} {need}</li>)}</ol>
    <div className="command-status" aria-live="polite">{terminal?state.gameOverReason??'All issued obligations covered. No kill-bounty income.':state.paused&&state.notice===INTERRUPTION_NOTICE?INTERRUPTION_NOTICE:c.rescue?`Base down: ${Math.ceil(c.rescue.remainingSeconds)} active seconds to repair the base. Pause to recover.`:summary.unpaid===0?'Bills covered. Finishing the quiet calendar at 8×; the build window pauses automatically.':shortfall>0?command.allowance===0&&state.incomeWallet>0?`${cash(state.incomeWallet)} cash is available. Authorize a spending cap in Budget / setup to defend bills.`:`${cash(shortfall)} payment shortfall against authorized funds. Armor damage cannot erase an unfunded bill.`:state.paused?'Time is frozen. Configure, then launch or resume.':'Automatic combat active. Hit durability and dollars owed are separate.'}</div>
    {command.lastImpact&&<p className="command-impact-receipt" role="status" data-testid="command-impact-receipt">Impact: {command.lastImpact.label}. Cash paid {cash(command.lastImpact.incomePaid)}; reserves paid {cash(command.lastImpact.reservePaid)}. After impact: cash available {cash(command.lastImpact.income)}, reserves {cash(command.lastImpact.reserves)}; this obligation still owes {cash(command.lastImpact.remaining)}. Base condition −{command.lastImpact.damage} (repairable).</p>}
     <div className="command-live-actions">{!terminal&&<><button onClick={openSetup}>Budget / setup</button><button disabled={setup} onClick={()=>{setEditing(false);game.toggle();}}>{state.paused?'Resume':'Pause'}</button><button aria-pressed={!!command.manualAssist} onClick={()=>act({type:'commandAssist',enabled:!command.manualAssist})}>Manual assist {command.manualAssist?'ON':'OFF'}</button></>}{terminal&&<button onClick={game.reset}>Retry / new setup</button>}</div>
-   <small>Ground: rectangular debt troops. Air: bill missiles. Bars count armor hits; dollars show unpaid packets. All guns share the authorized cash cap. Seven sections share one base health pool.</small>
+   <small>Ground: armored debt transports. Air: bill drones. Bars count armor hits; dollars show unpaid packets. All guns share the authorized cash cap. Seven sections share one base health pool.</small>
   </section><aside className="command-controls" aria-label="Defense controls">
    {showSetup&&<section className="command-budget-editor">
     <h3>Your money → your defense</h3>
@@ -75,7 +77,7 @@ export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:(
    </section>}
    <CommandGuides key={game.sceneKey} state={state} reduced={game.reduced}/>
    <div className="command-guns">{COMMAND_GUNS.map((gun,index)=>{const t=command.towers[index],quote=commandUpgrade(state,index),loses=shield.charged&&quote.after<shield.goal;return <article key={gun.key} style={{borderColor:gun.color}}>
-    <button className="command-select" aria-pressed={selected===index} onClick={()=>selectGun(index)}><b style={{color:gun.color}}>{gun.label}</b><span>Level {t.level} · {t.pad===null?'Unplaced':`Pad ${t.pad+1}`}</span></button>
+    <button className="command-select" aria-pressed={selected===index} onClick={()=>selectGun(index)}><span className="command-gun-art" aria-hidden="true" style={{backgroundPosition:`${index%2*100}% ${Math.floor(index/2)*100}%`}}/><b style={{color:gun.color}}>{gun.label}</b><span>Level {t.level} · {t.pad===null?'Unplaced':`Pad ${t.pad+1}`}</span></button>
     <progress aria-label={`${gun.label} upgrade affordability`} value={quote.progress} max={1}/><button data-testid={`upgrade-${gun.key}`} disabled={terminal||!quote.ready} onClick={()=>act({type:'commandUpgrade',tower:index})}>{terminal?'Run ended':quote.maxed?'MAX LEVEL':quote.ready?`Upgrade · ${cash(quote.cost)}`:`Need ${cash(Math.max(0,quote.cost-state.reserves))}`}</button>
     <small>{gun.benefit}{!quote.maxed&&` · after ${cash(quote.after)} reserves`}{loses&&!quote.maxed?' · GOAL SHIELD OFF':''}</small>
    </article>;})}</div>
@@ -91,3 +93,4 @@ export function DebtbreakBaseDefense({game,onExit,onClassic}:{game:Game;onExit:(
   </aside></div>
  </div>;
 }
+

@@ -1,10 +1,10 @@
 {
-  "publicVersion": "0.7.0",
+  "publicVersion": "0.8.0",
   "publicBaseCommit": "1b41d197be7d7203df5f191d380f8c1ac723125e",
-  "siteVersion": 53,
-  "siteSourceCommit": "17fcd72a0d57ea960994aaf2a12d23b78a4cc5f3",
+  "siteVersion": 56,
+  "siteSourceCommit": "f89ec2f4ddd41846eb6df0372a0588ec8df85d9a",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
-  "syncMethod": "Explicitly reviewed public game/UI file copy on public main; no Site history or calculator implementation imported",
+  "syncMethod": "17 explicitly audited visual source, artwork and test files applied to the existing public PR3 branch; no Site history or calculator implementation imported",
   "futureUpdatesRequireOwnerApproval": true,
   "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",
   "protectedFiles": {
@@ -34,41 +34,40 @@
     "Canonical collateral output is read by a presentation-only helper with exact-line guard coverage; no scoring formulas are imported",
     "Public game build baseline updated separately from the latest deployed Site version",
     "Include the existing Site ground.png battlefield asset required by the new field loader; prior public character assets remain unchanged",
-    "Scope the cycle-recap browser test to gameplay and return to the existing public hangar; omit unrelated Site-only avatar-milestone assertions"
+    "Scope the cycle-recap browser test to gameplay and return to the existing public hangar; omit unrelated Site-only avatar-milestone assertions",
+    "Use the v56 original landscape and modular turret artwork with bounded renderer-only effects; retain public synthetic API browser fixtures and unchanged hosted adapter"
   ],
   "validation": {
-    "status": "Local sanitized public candidate verified; no remote writes or deployment",
-    "verifiedAt": "2026-10-02T04:59:53.471Z",
+    "status": "Public 0.8.0 candidate passed local release gates; remote CI must be checked on the exact PR head",
+    "verifiedAt": "2026-10-03T01:46:42.178Z",
     "units": {
-      "passed": 258,
+      "passed": 264,
       "failed": 0
     },
-    "publicReleaseGuard": "passed including exact-line and forbidden-path self-tests",
-    "productionBuild": "Next.js production build and TypeScript passed",
+    "publicReleaseGuard": "Passed including forbidden-path and exact-line self-tests",
+    "productionBuild": "Next.js production build passed",
+    "typeScript": "tsc --noEmit passed",
     "productBaseline": {
-      "files": 123,
-      "status": "passed"
+      "files": 132,
+      "status": "passed",
+      "file": "tests/browser/baseline-v0.8.0.json"
     },
     "browser": {
-      "fullRun": {
-        "passed": 86,
-        "failed": 2,
-        "reason": "Site-only avatar assertions were outside the public export; all recap gameplay assertions passed"
-      },
-      "targetedAfterScopeCorrection": {
-        "passed": 2,
-        "failed": 0
-      },
-      "currentCasesVerified": 88,
-      "note": "Public recap test now checks gameplay and return to the existing hangar. Application build unchanged after full run."
+      "passed": 90,
+      "failed": 0,
+      "desktop": 45,
+      "mobileTouch": 45,
+      "calculator": "Existing synthetic public API fixtures; no proprietary calculator source",
+      "timeouts": "Original test and expectation timeouts unchanged"
     },
-    "realCalculatorSmoke": "Desktop and phone setup/combat/build passed through public HTTP adapter to local calculator; no external requests or unexpected browser errors",
-    "protectedFiles": "11 exact hashes passed",
-    "dependencyGraph": "unchanged",
+    "protectedFiles": "11 exact original hashes passed",
+    "dependencyGraph": "Unchanged apart from package release version",
     "browserSourceMaps": 0,
-    "remoteCI": "Not run; no push or PR created"
+    "siteValidation": "Site v56 separately passed 284 private-source unit tests, 90 browser cases, six native-clock local waves and two live waves; this does not replace public candidate tests",
+    "remoteCI": "Pending after authorized non-forced update of existing draft PR3"
   },
   "checkpointBranch": "work/debtbreak-learning-20261002",
-  "checkpointPolicy": "Unpublished local review candidate; no remote branch or deployment created",
-  "containsUnpublishedGameChanges": true
+  "checkpointPolicy": "Owner-authorized update of existing draft PR3; no merge or auto-merge",
+  "containsUnpublishedGameChanges": false,
+  "previousPublicHead": "3d28ec14a475d129ad73daf9a4ee3c76583f46f4"
 }

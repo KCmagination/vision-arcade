@@ -517,6 +517,8 @@
 @media(max-width:360px){.siege-shell[data-phase=playing]{overflow-y:auto;}.siege-protection{flex-wrap:wrap;}}
 /* The account labels are drawn in the field; do not overlay a second title. */
 @media(max-width:760px),(max-height:500px){.siege-field-top>span{visibility:hidden;}}
+.avatar-milestone{padding-top:8px;border-top:1px solid #35535c;}
+.avatar-milestone strong{display:block;margin-bottom:4px;}
 .cycle-recap-disclosure{margin-bottom:14px;border:1px solid #315d6a;border-radius:6px;padding:0 12px;}
 .cycle-recap-disclosure>summary{cursor:pointer;min-height:44px;padding:10px 0;color:#9de7f0;font-size:14px;}
 .cycle-recap{font-size:14px;line-height:1.5;}
@@ -562,3 +564,21 @@
 @media(prefers-reduced-motion:reduce){.command-guides *{animation:none!important;transition:none!important}}
 
 .command-cap-row{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:8px;align-items:end}.command-plan-actions{display:grid;grid-template-columns:auto 1fr;gap:8px}.command-paycheck{display:flex;align-items:center;gap:9px;font-size:12px}.command-paycheck svg{flex-shrink:0;color:#83d9ed}.command-paycheck small{display:block;color:#b8cdd4;font-size:11px;line-height:1.4}.command-money-step{padding:8px 0;gap:7px}.command-wallet-pictures>span{padding:9px;gap:3px}.command-wallet-pictures small{font-size:11px}.command-budget-result p{line-height:1.5}.command-budget-result p svg{width:20px;height:20px}.command-budget-editor>details{padding-top:0}.command-budget-editor>details>summary{min-height:36px}.command-money-step>small{font-size:11px;color:#bed3d8}.command-cap-row input{width:100%;min-width:0}.command-cap-row button{font-size:12px;line-height:1.3}.command-plan-actions .command-launch{font-size:12px}
+
+/* Reference-based command deck; scoped to automated defense. */
+.command-shell{background:radial-gradient(ellipse at 55% 0,#17344c,#06121d 70%);color:#e1eff8}
+.command-header{border-bottom:1px solid #36728a;padding-bottom:8px}.command-header b{letter-spacing:.09em;color:#c5efff;text-shadow:0 0 20px #39bfe644}
+.command-hud{background:#071a2ad9;border:1px solid #264e63;border-radius:8px}.command-field{border-color:#52889a;box-shadow:0 12px 30px #0005,inset 0 0 30px #37bce211}
+.command-controls{background:#07121ca6;border-radius:8px;padding:8px}.command-needs{flex-wrap:wrap}.command-needs li{display:flex;align-items:center;justify-content:center;gap:4px;background:#071725;font-size:12px}.command-needs svg{flex-shrink:0}
+.command-guns article{background:linear-gradient(145deg,#153247,#081723);border-radius:8px}.command-gun-art{float:left;width:56px;height:44px;background-image:url('/debtbreak/guns-v2.png');background-size:200% 200%;background-repeat:no-repeat;margin-right:6px;pointer-events:none}.command-guns .command-select{min-height:48px}.command-guns progress{height:7px}.command-guns small{font-size:12px}.command-launch{box-shadow:inset 0 0 20px #32ddec22;border-color:#55d7e8!important}
+.command-budget-editor,.command-guide{background:#0a1e2c}.command-banner{background:#061624e8;border:1px solid #78cce7;color:#e3faff;box-shadow:0 5px 20px #0007}
+@media(max-width:760px){.command-needs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}.command-needs li{font-size:12px;line-height:1.2;min-height:38px;padding:4px;flex-wrap:wrap}.command-needs li b{display:none}.command-field{height:clamp(280px,40dvh,410px)}.command-controls{padding:4px}.command-gun-art{width:48px;height:40px}}
+@media(prefers-reduced-motion:reduce){.command-shell *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+@media(max-height:500px) and (min-width:761px){.command-hud{grid-template-columns:repeat(7,minmax(0,1fr))}.command-hud small{display:none}.command-hud span{font-size:12px}.command-hud b{font-size:15px}}
+
+
+/* Keep the battlefield usable when the device is rotated; controls scroll independently. */
+.command-banner{top:34px;font-size:11px;padding:5px 10px}
+@media(max-height:500px) and (min-width:761px){.command-shell{overflow-y:auto}.command-main{flex:none;height:430px;min-height:430px}.command-field{min-height:290px}.command-controls{height:430px;overflow-y:auto}}
+

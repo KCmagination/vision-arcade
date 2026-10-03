@@ -34,7 +34,7 @@ npm run build
 npm start
 ```
 
-The public package uses standard Next.js for portability. This 0.7.0 local review candidate adds reviewed game/UI changes on the Site v53 baseline, including unpublished refinements. It is not a new live Site deployment; the public hosted adapter and scaffold are retained. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
+The public package uses standard Next.js for portability. This 0.8.0 draft PR candidate contains the reviewed automated-defense visuals from the separately published Site v56. The public hosted adapter and scaffold are retained; updating this repository does not deploy the Site. Source privacy checks run before tests and builds; CI repeats those checks. Production browser source maps are disabled.
 
 ## What's playable
 
@@ -60,7 +60,7 @@ Run `npx playwright install chromium`, then `npm run test:browser:all`. The repe
 
 ## Source version
 
-Public package **0.6.0** ports reviewed application files from Site **version 51**, source `6fc8e788e927381e6c199aa41aa2fed9267558a4`. Recovery branch: `release/debtbreak-v51`. The older v49 checkpoint remains available. Future work continues on main. Sites and public package versions are separate. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
+Public package **0.8.0** is the draft PR3 visual update corresponding to Site **version 56**, source `f89ec2f4ddd41846eb6df0372a0588ec8df85d9a`. It extends public PR head `3d28ec14a475d129ad73daf9a4ee3c76583f46f4` without importing Site history. Earlier recovery branches remain available. Sites and public package versions are separate; this draft is not merged into main. The public Next.js server adapter and build setup intentionally differ from the Site's deployment infrastructure. See [CHANGELOG.md](CHANGELOG.md), [release-manifest.json](release-manifest.json) and [versioning policy](docs/VERSIONING.md).
 
 ## Data and availability
 

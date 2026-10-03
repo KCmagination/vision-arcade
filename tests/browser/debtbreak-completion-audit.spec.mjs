@@ -3,7 +3,7 @@ import {test,expect,openGame,canvas} from './helpers.mjs';
 async function observeField(page){
  await page.addInitScript(()=>{
   window.__fieldAudit={lines:[],labels:[]};let path=[];
-  const p=CanvasRenderingContext2D.prototype,clear=p.clearRect,begin=p.beginPath,move=p.moveTo,line=p.lineTo,stroke=p.stroke,text=p.fillText,arc=p.arc;
+  const p=CanvasRenderingContext2D.prototype,clear=p.clearRect,begin=p.beginPath,move=p.moveTo,line=p.lineTo,stroke=p.stroke,text=p.fillText,arc=p.arc,ellipse=p.ellipse;
   const field=c=>c.canvas.classList.contains('siege-canvas');
   p.clearRect=function(...a){if(field(this))window.__fieldAudit={lines:[],labels:[],width:a[2],height:a[3],circles:[]};return clear.apply(this,a);};
   p.beginPath=function(...a){if(field(this))path=[];return begin.apply(this,a);};
@@ -11,7 +11,8 @@ async function observeField(page){
   p.lineTo=function(...a){if(field(this))path.push(a);return line.apply(this,a);};
   p.stroke=function(...a){if(field(this)&&this.strokeStyle==='#f5c575')window.__fieldAudit.lines.push({path:[...path],dash:this.getLineDash()});return stroke.apply(this,a);};
   p.arc=function(...a){if(field(this))window.__fieldAudit.circles?.push({x:a[0],y:a[1],radius:a[2]});return arc.apply(this,a);};
-  p.fillText=function(...a){if(field(this))window.__fieldAudit.labels.push({text:a[0],x:a[1],y:a[2],width:this.measureText(String(a[0])).width});return text.apply(this,a);};
+  p.ellipse=function(...a){if(field(this))window.__fieldAudit.circles?.push({x:a[0],y:a[1],radius:a[3],rx:a[2]});return ellipse.apply(this,a);};
+ p.fillText=function(...a){if(field(this))window.__fieldAudit.labels.push({text:a[0],x:a[1],y:a[2],width:this.measureText(String(a[0])).width});return text.apply(this,a);};
  });
 }
 for(const c of [
@@ -26,9 +27,9 @@ for(const c of [
  const drawn=await page.evaluate(()=>window.__fieldAudit);
  expect(drawn.labels.some(l=>l.text===c.label)).toBe(true);
  if(c.position===null)expect(drawn.lines).toHaveLength(0);
- else{expect(drawn.lines).toHaveLength(1);expect(drawn.lines[0].dash).toEqual([8,5]);expect(drawn.lines[0].path[0][1]/drawn.height).toBeCloseTo(c.position*.8,8);}
- const label=drawn.labels.find(l=>l.text===c.label),heading=drawn.labels.find(l=>l.text==='GROUND LANES');expect(Math.abs(label.y-heading.y)).toBeGreaterThan(12);
- for(const pad of drawn.circles.filter(p=>p.x>drawn.width*.9&&p.radius>=9)){if(label.x+label.width/2+8>pad.x-pad.radius&&label.x-label.width/2-8<pad.x+pad.radius)expect(Math.abs(label.y-pad.y)).toBeGreaterThan(pad.radius+10);}
+ else{expect(drawn.lines).toHaveLength(1);expect(drawn.lines[0].dash).toEqual([8,5]);expect(drawn.lines[0].path[0][1]/drawn.height).toBeCloseTo((65+c.position*800*.84)/1000,8);}
+ const label=drawn.labels.find(l=>l.text===c.label),heading=drawn.labels.find(l=>l.text==='GROUND APPROACH');expect(Math.abs(label.y-heading.y)).toBeGreaterThan(12);
+ for(const pad of drawn.circles.filter(p=>p.x>drawn.width*.75&&p.radius>=7)){if(label.x+label.width/2+8>pad.x-(pad.rx??pad.radius)&&label.x-label.width/2-8<pad.x+(pad.rx??pad.radius))expect(Math.abs(label.y-pad.y)).toBeGreaterThan(pad.radius+10);}
  await canvas(page).scrollIntoViewIfNeeded();await page.screenshot({path:test.info().outputPath(`pressure-${c.name}.png`)});
 });
 
@@ -71,3 +72,4 @@ test('modeled balance reduction contributes to the rendered credit meter only at
  await page.clock.runFor(49000);await expect(page.getByTestId('credit-learning')).toHaveText('1 on-time billing cycles');expect(Number(await bar.getAttribute('value'))).toBeCloseTo(1.02/3,8);await expect(page.locator('.command-credit')).toContainText('2% best net reduction.');
  await page.locator('.command-credit').scrollIntoViewIfNeeded();await page.screenshot({path:test.info().outputPath('modeled-credit-meter.png')});
 });
+
