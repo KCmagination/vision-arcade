@@ -49,3 +49,76 @@ MENTOR_LIVE_CHECK=1 npx playwright test mentor-live.spec.mjs
 ```
 
 To finish the actual model demonstration, run Ollama with `qwen3:4b`, calculate the fictional purchase, then ask “Explain the four corners in everyday language and give me one learning challenge.” Compare every numerical statement with the displayed calculator result and test an unknown credit score. Keep the PR draft until this succeeds. Conversation is ephemeral; persistent student learning is future work requiring a separate data/consent design.
+
+## Reproducible real-model demonstration (10 October follow-up)
+
+Status: **not yet demonstrated with Qwen**. See [timestamped validation](MENTOR_VALIDATION_2026-10-10.md). The new opt-in `mentor-qwen.spec.mjs` never intercepts requests. It records the model digest, timestamps, actual replies and the server-returned calculator comparison alongside screenshots on desktop and mobile. Passing its transport checks is not a numerical or educational quality approval.
+
+### Prerequisites
+
+- Git, Node.js 22.13 or newer, npm, Ollama, and a machine that can run Chromium.
+- A private machine with capacity to load Qwen3:4b (the model download is approximately 2.5 GB; leave additional disk and RAM for Ollama, Node and Chromium).
+- Outbound access to the hosted calculator, npm/browser downloads, Ollama's registry **and its redirected model-storage hosts**. Registry access alone is insufficient.
+- Ollama serving `qwen3:4b` on `127.0.0.1:11434`. No paid API key is needed. Keep both the app and Ollama private for this pilot.
+
+Install Ollama from https://ollama.com/download for your operating system. Start its app/service, or run `ollama serve` in a separate terminal. Then, in PowerShell or a terminal:
+
+```sh
+git clone --branch feat/sentinel-mentor-pilot https://github.com/kaliyuga187/vision-arcade.git
+cd vision-arcade
+npm ci
+ollama pull qwen3:4b
+node scripts/mentor/check-model.mjs
+npm test
+npm run build
+npx playwright install chromium
+```
+
+Stop if a command fails. The preflight exits nonzero when the model is missing, unreachable or fails to complete; successful preflight only proves an actual model response, not mentor correctness. Linux may also need `npx playwright install-deps chromium`.
+
+Run the real workflow in PowerShell:
+
+```powershell
+$env:MENTOR_QWEN_CHECK='1'
+npx playwright test mentor-qwen.spec.mjs --workers=1
+Remove-Item Env:MENTOR_QWEN_CHECK
+npx playwright show-report
+```
+
+Or on Linux/macOS:
+
+```sh
+MENTOR_QWEN_CHECK=1 npx playwright test mentor-qwen.spec.mjs --workers=1
+npx playwright show-report
+```
+
+The test starts the production app itself on port 4174; leave that port free. It deliberately fails on service errors, rather than substituting canned answers. Preserve `test-results/` and `playwright-report/` **before another test run**, which may overwrite them. Preflight evidence is saved under `test-results/mentor-preflight/`; archive it before running Playwright. No generated evidence is committed automatically.
+
+For Casey's hands-on demonstration:
+
+```sh
+npm run start -- --hostname 127.0.0.1 --port 3000
+```
+
+Open `http://localhost:3000/mentor`, click **Calculate with Vi$ion**, and ask for all four corners, then one learning challenge. Clear `creditScore`, calculate again, and ask what can be concluded about credit. The browser test also exercises touch interaction at 390×844. For an actual phone, use a private VPN or authenticated tunnel; this pilot has no public-access controls.
+
+If the model runs on an already authorised VPS, bind Ollama to loopback there and use an SSH tunnel from the app machine:
+
+```sh
+ssh -N -L 11434:127.0.0.1:11434 USER@VPS_HOST
+```
+
+Replace USER/VPS_HOST with the authorised account and host. No host or SSH access is configured by this guide. Do not open port 11434 publicly. A permanent hosted demonstration needs a separate authenticated deployment.
+
+### Acceptance review — required before calling the demo verified
+
+For **each captured reply**, compare numerical claims to the `comparison` returned with that reply (the mentor obtains a fresh calculator response). Check all current/scenario strengths and deltas. Distinguish dollars, ratios and strength scores; a strength is not a credit score or a prediction.
+
+- Cash Flow: explain changes in income/outflow and remaining monthly cash.
+- Capital: explain remaining reserves and reserve runway, without inventing a target.
+- Collateral: distinguish dollar equity from the calculator's strength; higher dollar equity need not mean higher strength.
+- Credit: describe supplied values only. With a blank score, current/scenario strength and delta must remain unknown; never estimate a score or claim a future credit change.
+- Learning challenge: refer to this fictional purchase/reserves, ask an answerable question, and avoid inventing a calculator result. Review the next student answer manually in the UI.
+- Stop Ollama after a successful reply, ask another question, confirm a visible error and preserved question, restart it and retry. Run `mentor.spec.mjs` separately for synthetic retry/input-invalidating checks. `MENTOR_LIVE_CHECK=1` is exclusively the absent-model check; do not run it expecting a working model.
+
+The server currently allows 25 seconds for a model reply. If real CPU inference exceeds that, preserve the failed evidence and measure it before changing the bounded timeout. No successful latency or model-quality claim has been made.
