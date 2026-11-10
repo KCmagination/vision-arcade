@@ -1,3 +1,5 @@
+> **Experiment review branch:** Browse the [labeled Vi$ion experiment catalog](docs/experiments/README.md), source/test links, branch map and publication boundaries. This organization pass does not change the application runtime.
+
 # Vi$ion Arcade
 
 Financial awareness, built for play. Choose a Mech or Tree, shape your avatar with four financial corners, compare a what-if, and take that loadout into the arcade.

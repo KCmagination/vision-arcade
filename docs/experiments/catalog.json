@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "title": "Vi$ion experiment catalog",
+  "auditedOn": "2026-11-10",
+  "repository": "KCmagination/vision-arcade",
+  "sourceRevision": "1b41d197be7d7203df5f191d380f8c1ac723125e",
+  "reviewBranch": "experiments/catalog",
+  "publicationScope": "Documentation and catalog validation only. Existing public implementation, assets, dependencies and runtime remain unchanged.",
+  "experiments": [
+    {
+      "id": "EXP-001",
+      "slug": "sentinel-verdant-showcase",
+      "title": "Sentinel, Verdant and attribute showcase",
+      "status": "public-baseline",
+      "labels": [
+        "avatar",
+        "3d",
+        "animation",
+        "accessibility"
+      ],
+      "summary": "Original public character generators, responsive hangar and presentation-only attribute demonstration. This is the published MVP asset family, not later private Sentinel or Knight studies.",
+      "entryPoint": "/welcome for the showcase; / for avatar selection and hangar",
+      "sourcePaths": [
+        "components/avatar-stage.tsx",
+        "components/character-model.tsx",
+        "components/sentinel-showcase-demo.tsx",
+        "components/sentinel-showcase-scene.tsx",
+        "components/sentinel-showcase.tsx",
+        "lib/sentinel-showcase-cycle.js",
+        "lib/sentinel-showcase-effects.ts",
+        "scripts/assets/build-sentinel.mjs",
+        "scripts/assets/generate-verdant.mjs"
+      ],
+      "testPaths": [
+        "tests/sentinel-showcase.test.mjs"
+      ],
+      "limits": "Node tests exercise timing, model structure and server-rendered behavior, not physical-device GPU performance. Generators overwrite the public GLBs when explicitly run; run them only in a disposable checkout."
+    },
+    {
+      "id": "EXP-002",
+      "slug": "debtbreaker-continuous",
+      "title": "Debtbreaker continuous battlefield",
+      "status": "public-baseline",
+      "labels": [
+        "gameplay",
+        "simulation",
+        "canvas2d",
+        "touch"
+      ],
+      "summary": "Hangar-driven four-cycle lifestyle base defense, Sentinel controls, projectiles, reserve shield, account detail and wave tuning.",
+      "entryPoint": "/ then choose Debtbreaker in the arcade",
+      "sourcePaths": [
+        "components/debtbreaker-battlefield.tsx",
+        "components/debtbreaker-turret.tsx",
+        "components/debtbreaker-controller.ts",
+        "lib/debtbreak-continuous.js",
+        "lib/debtbreak-siege.js",
+        "lib/debtbreak-siege-render.js",
+        "lib/debtbreaker-engine.js",
+        "lib/advanced-finances.js",
+        "docs/debtbreak-wave-tuning.md",
+        "docs/DEBTBREAK-V51-CHECKPOINT.md"
+      ],
+      "testPaths": [
+        "tests/debtbreak-continuous.test.mjs",
+        "tests/debtbreak-siege.test.mjs",
+        "tests/debtbreaker-hangar.test.mjs",
+        "tests/debtbreak-lifestyle.test.mjs",
+        "tests/debtbreak-priority-fixes.test.mjs",
+        "tests/advanced-finances.test.mjs",
+        "tests/browser/debtbreak.spec.mjs"
+      ],
+      "limits": "Public game ledgers are fictional simulations, not the proprietary calculator. Browser checks use synthetic responses and disabled WebGL; they are not financial-calibration or hardware benchmarks."
+    },
+    {
+      "id": "EXP-003",
+      "slug": "debtbreak-classic-challenges",
+      "title": "Debtbreak Classic and four-corner challenges",
+      "status": "public-baseline",
+      "labels": [
+        "gameplay",
+        "learning",
+        "scenario"
+      ],
+      "summary": "Fictional period allocation, debt-payoff choices, scenario replay and challenge missions, separate from hangar-driven continuous play.",
+      "entryPoint": "/ then Play Debtbreaker, then Classic or Challenges",
+      "sourcePaths": [
+        "components/debtbreak-arena.tsx",
+        "components/debtbreak-challenges.tsx",
+        "components/debtbreak-world.tsx",
+        "lib/debtbreak-finance.js",
+        "lib/debtbreak-challenges.js",
+        "lib/arcade-engine.js"
+      ],
+      "testPaths": [
+        "tests/arcade-engine.test.mjs",
+        "tests/debtbreak-challenges.test.mjs",
+        "tests/debtbreak-arena-view.test.mjs",
+        "tests/debtbreak-clock.test.mjs"
+      ],
+      "limits": "Practice amounts and scenario choices are synthetic. Gameplay results are not personal financial advice or predictions."
+    },
+    {
+      "id": "EXP-004",
+      "slug": "debt-invaders",
+      "title": "Debt Invaders",
+      "status": "public-baseline",
+      "labels": [
+        "gameplay",
+        "arcade",
+        "four-corners"
+      ],
+      "summary": "Arcade experiment mapping four public corner outputs to firing cadence, shields, barriers and ship size.",
+      "entryPoint": "/ then choose Debt Invaders in the arcade",
+      "sourcePaths": [
+        "components/debt-invaders-arena.tsx",
+        "lib/debt-invaders-engine.js",
+        "app/debt-invaders.css"
+      ],
+      "testPaths": [
+        "tests/debt-invaders.test.mjs"
+      ],
+      "limits": "The engine tests cover simulation rules. They do not establish rendering performance or availability of the hosted calculator."
+    },
+    {
+      "id": "EXP-005",
+      "slug": "wants-needs",
+      "title": "Wants vs Needs",
+      "status": "public-baseline",
+      "labels": [
+        "gameplay",
+        "side-scroller",
+        "canvas2d"
+      ],
+      "summary": "Directional aiming, Utilities boosts, advertising planes and three bosses in a side-scrolling learning game.",
+      "entryPoint": "/ then choose Wants vs Needs in the arcade",
+      "sourcePaths": [
+        "components/wants-needs-arena.tsx",
+        "components/wants-needs-renderer.ts",
+        "lib/wants-needs-engine.js",
+        "app/wants-needs.css"
+      ],
+      "testPaths": [
+        "tests/wants-needs.test.mjs"
+      ],
+      "limits": "The pure engine suite is not a fresh end-to-end visual or accessibility sign-off."
+    },
+    {
+      "id": "EXP-006",
+      "slug": "pulse-range",
+      "title": "Pulse Range",
+      "status": "public-baseline",
+      "labels": [
+        "gameplay",
+        "training",
+        "input"
+      ],
+      "summary": "A 45-second, no-fail training arena with keyboard, mouse and touch controls and its own inline simulation.",
+      "entryPoint": "/ then choose Pulse Range in the arcade",
+      "sourcePaths": [
+        "components/training-arena.tsx"
+      ],
+      "testPaths": [],
+      "limits": "No dedicated automated Pulse Range coverage was identified. Catalog reference checks and the project build do not establish gameplay or UI correctness for this experiment."
+    }
+  ],
+  "relatedBranches": [
+    {
+      "id": "EXP-007",
+      "title": "Ground Defense, automated base defense and movable-grid learning",
+      "branch": "work/debtbreak-learning-20261002",
+      "revision": "0f8f62faaacb3c7a6832db4ce1d88b135939b2a6",
+      "status": "historical-public-branch",
+      "labels": [
+        "learning",
+        "historical",
+        "separate-checkout"
+      ],
+      "note": "Already public, four commits ahead of the audited main. Contains runtime gameplay, learning readout and visual changes through public version 0.10.0. Not merged into this branch or freshly validated by catalog tests."
+    }
+  ],
+  "excludedFamilies": [
+    {
+      "label": "Private Sentinel studies",
+      "status": "withheld",
+      "reason": "Private source, local references and derivatives have not been cleared for public release."
+    },
+    {
+      "label": "Knight, Paladin and equipment studies",
+      "status": "review-required",
+      "reason": "Mixed original work and externally sourced models, animation and textures. Redistribution rights and exact inclusion scope need review."
+    },
+    {
+      "label": "Connected gameplay and navigation prototypes",
+      "status": "review-required",
+      "reason": "Local deployment bundles mix app source, private calculator composition, assets and generated output. No bundle was imported."
+    },
+    {
+      "label": "Standalone asset inspection utilities",
+      "status": "review-required",
+      "reason": "Candidate tooling exists locally, but authorship, license and reproducibility have not been established."
+    },
+    {
+      "label": "Private financial implementation and fixtures",
+      "status": "withheld",
+      "reason": "Outside the public repository boundary. No private source or detailed contents included."
+    }
+  ]
+}
