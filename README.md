@@ -70,6 +70,8 @@ The hosted endpoint is an experimental public calculation service with no availa
 
 ## Contributing
 
+Agent and human contributors: start with [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and the [bounded work queue](docs/agents/WORK-QUEUE.md). The [activation gates](docs/agents/ACTIVATION.md) must be completed before any standing ready-task permission takes effect. [VAG-001 / issue #5](https://github.com/KCmagination/vision-arcade/issues/5) is the first pilot; check its owner-controlled status before starting. A draft setup PR is not authorization to execute, merge or deploy.
+
 Contribute UI, accessibility, game mechanics, new original assets, and improvements to the public API adapter. Preserve the four corners, accessible baseline avatars, unknown-credit state and current/scenario separation. Keep financial formulas, calibration tables, legacy financial code and financial test fixtures out of this repository. Review third-party licenses before adding assets.
 
 Use `scripts/assets/build-sentinel.mjs` and `scripts/assets/generate-verdant.mjs` to regenerate the original GLBs. The historical prototypes were not merged: their unfinished app code and restricted assets are not part of this release.
