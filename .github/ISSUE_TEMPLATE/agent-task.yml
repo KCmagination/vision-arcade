@@ -1,0 +1,69 @@
+name: Agent contribution task
+description: Propose a bounded task with evidence and explicit authority. Not approved merely by being opened.
+title: "[Agent task] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Read AGENTS.md. Only the project owner can make this a ready assignment.
+        Work uses contributor-owned compute and a fork. No merge, deployment,
+        paid service, private-source access or owner credential is authorized here.
+  - type: input
+    id: task_id
+    attributes:
+      label: Task ID and experiment reference
+      placeholder: VAG-001; relevant EXP reference or none
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Outcome and why it matters
+      description: One useful deliverable, not a broad rebuild.
+    validations:
+      required: true
+  - type: input
+    id: base
+    attributes:
+      label: Approved base commit
+      description: Exact SHA; confirm current base before starting.
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Public inputs and references
+      description: Link accessible source, documented evidence and relevant existing tests.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Allowed paths and prohibited changes
+      description: Identify protected changes and separate approval needs.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance tests and evidence
+      description: Commands, expected behavior, provenance, preview and limitations.
+    validations:
+      required: true
+  - type: textarea
+    id: budget
+    attributes:
+      label: Budget and stop conditions
+      value: |
+        New owner spending authorization: $0. Contributor uses own authorized compute.
+        Live API requests: 0 unless separately bounded and approved in this task.
+        Stop after two materially different blocked approaches and provide a reproducible report.
+    validations:
+      required: true
+  - type: textarea
+    id: authority
+    attributes:
+      label: Owner authorization and readiness
+      description: Owner records scope approval here or in an identifiable owner comment. Blank means proposed, not ready.
+    validations:
+      required: false
