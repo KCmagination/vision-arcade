@@ -5,17 +5,19 @@
 Main audited base: `1b41d197be7d7203df5f191d380f8c1ac723125e`.
 Catalog evidence: `f37ad5549e8973251baab9f02aaa771373fc58eb`.
 
-All tasks inherit root `AGENTS.md`. No new owner spending; use contributor compute. Routine tests use fictional data and synthetic calculator responses. Claim one task, work in a fork, and stop after two materially different blocked approaches with a useful report. New owner-side live API requests default to zero.
+This queue lists scoped assignments, not the only work contributors may offer. Unsolicited public-scope experiments may be submitted as proposals under `CONTRIBUTING.md`, without treating a blocked issue as an active assignment. Submissions may be accepted in whole, in part or not at all.
+
+All assigned tasks inherit root `AGENTS.md`. No new owner spending; use contributor compute. Routine tests use fictional data and synthetic calculator responses. Coordinate one assigned task, work in a fork, and report a blocker after two materially different blocked approaches. This is not a limit on privately funded exploratory research. New owner-side live API test requests default to zero.
 
 ## SETUP — Owner approval and enforcement gate
 
 **Why:** a written policy does not enforce bounded autonomy.
 
-**Current Phase 1 scope:** prepare a documentation-only branch and draft PR after hosting-trigger review, and create VAG-001 as blocked. No settings, permissions, merge, deployment, engine changes or spending are authorized.
+**Setup scope:** PR #6 integrated the initial documentation. This queue does not activate assigned work or change settings. The separate owner-requested ruleset uses zero required approving reviews while retaining pull requests and required checks. No engine change, deployment or new spending follows from publishing these documents.
 
 **Separate activation work:** the owner must separately approve any required branch/CI/hosting controls: required checks and review, no force-push/deletion, appropriate privileged-account enforcement, fork execution, hosting triggers and cost limits. Keep automatic merging off and avoid upstream write/admin credentials for outside contributors. Listing these requirements is not permission to configure them.
 
-**Done:** policy published; main visibly protected; verified check identities required; safe enforcement test confirms an ineligible change cannot merge; hosting triggers and costs documented; first issue ready. No application code, private engine, subscription or experimental branch is changed. Configure rules for actual reviewer accounts; the author cannot provide their own independent PR approval.
+**Done:** approved policy published; main protection and required check identities verified; hosting/execution/cost controls reviewed; first issue explicitly ready. Keep zero mandatory approvals and no automatic merging. The owner can review with assistant support; an extra independent reviewer is optional. Do not claim a destructive enforcement test was performed when only settings were read. No application, engine, subscription or experimental branch change is part of this setup.
 
 **Owner decision:** approve the small standing-work policy and setup once, not every fork edit.
 
@@ -105,6 +107,8 @@ All tasks inherit root `AGENTS.md`. No new owner spending; use contributor compu
 
 ## Promotion and review
 
-The first acceptance test of this collaboration system is VAG-001 completed by a contributor who has not read the owner's chats. A separate reviewer checks the exact commit and returns one decision packet. If instructions are insufficient, record and repair the missing information in the repository rather than relying on another private tutorial.
+The first assigned-task acceptance test is VAG-001 completed by a contributor who has not read the owner's chats. The owner may review with an assistant; a separate independent reviewer is optional unless specifically required. Return one decision packet for the exact candidate. If instructions are insufficient, repair the repository information rather than relying on another private tutorial.
+
+The owner may accept all, extract selected parts into a new integration PR, request revisions, hold or decline a submission. Preserve source attribution and licensing, identify dependencies and rerun checks on the resulting combination. Runtime gate requirements affect integration readiness, not whether an experiment may be discussed.
 
 Review candidates separately from releases. No task here grants automatic merge, new owner spending, private-engine access or production deployment. The owner can hold a candidate without invalidating useful work on other independent ready tasks.
