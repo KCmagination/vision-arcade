@@ -24,7 +24,7 @@ function snapshot(kind, inputs, creditStrength) {
       raw: key === 'credit' ? { score: inputs.creditScore } : key === 'cashFlow' ? { net: 2000, load: .5 } : key === 'capital' ? { months: 3 } : { equity: 10000 },
     }])) };
 }
-export async function openGame(page, { income = 4000, living = 1000, debt = 200, reserves = 5000, credit = .5, goal = 3 } = {}) {
+export async function openGame(page, { income = 4000, living = 1000, debt = 200, reserves = 5000, credit = .5, goal = 3, mode = 'campaign', beforeEnter = null } = {}) {
   await page.clock.install({ time: EPOCH });
   await page.addInitScript(() => {
     localStorage.setItem('vision:welcome:v1', 'seen');
@@ -71,17 +71,20 @@ export async function openGame(page, { income = 4000, living = 1000, debt = 200,
     totalDebt: debt ? 10000 : 0, assetValue: 20000, liquidReserves: reserves, creditScore: credit === null ? '' : 720 })) {
     await page.locator(`#${id}`).fill(String(value));
   }
+  if(beforeEnter)await beforeEnter(page);
   await expect(page.getByRole('button', { name: 'Enter Debtbreak', exact: true })).toBeEnabled();
   await page.getByRole('button', { name: 'Enter Debtbreak', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'START DEBTBREAK', exact: true })).toBeEnabled();
+  await expect(page.getByRole('combobox', { name: 'Game mode', exact: true })).toBeVisible();
+  await page.getByRole('combobox', { name: 'Game mode', exact: true }).click();
+  await page.getByRole('option', { name: mode === 'base' ? 'Automated Base Defense' : mode === 'ground' ? 'Ground Defense · Endless' : 'Four-cycle mission', exact: true }).click();
   await page.getByRole('combobox', { name: 'Reserve goal', exact: true }).click();
   await page.getByRole('option', { name: `${goal} ${goal === 1 ? 'month' : 'months'} of outflow`, exact: true }).click();
   // Pause before launch, so mission starts at a known time and the real frame loop
   // advances only when runFor fires each animation frame (never a time teleport).
   await page.clock.pauseAt(new Date(EPOCH.getTime() + 60_000));
-  await page.getByRole('button', { name: 'START DEBTBREAK', exact: true }).click();
+  await page.getByRole('button', { name: mode === 'base' ? 'SET UP BASE' : 'START DEBTBREAK', exact: true }).click();
   await expect(page.locator('.siege-loading')).toHaveCount(0);
-  await expect(page.locator('.siege-shell')).toHaveAttribute('data-phase', 'playing');
+  await expect(page.locator(mode === 'base' ? '.command-shell' : '.siege-shell')).toHaveAttribute('data-phase', 'playing');
   await page.clock.runFor(160);
 }
 export const shell = page => page.locator('.siege-shell');

@@ -1,0 +1,20 @@
+import type {CommandState} from './debtbreak-command.js';
+export type GridCell={col:number;row:number};
+export const GRID_ASSETS:string[],GRID_LABELS:string[],GRID_ROUTES:number[][][];
+export const GRID_SIZE:number,CELL_SIZE:number,CAPITAL_RADIUS:number,CREDIT_RADIUS:number,CREDIT_RANGE_BONUS:number;
+export function isGrid(command?:CommandState|null):boolean;
+export function emptyLayout():Record<string,GridCell|null>;
+export function gridCell(col:number,row:number):boolean;
+export function gridPoint(cell:GridCell|null):{x:number;z:number}|null;
+export function assetPoint(command:CommandState,id:string):{x:number;z:number}|null;
+export function canPlace(command:CommandState,id:string,col:number,row:number):boolean;
+export function validLayout(command:CommandState,complete?:boolean):boolean;
+export function recommendedLayout():Record<string,GridCell>;
+export function capitalCovers(command:CommandState,id:string):boolean;
+export function creditSupports(command:CommandState):boolean;
+export function routePoint(branch:number,progress:number):{x:number;z:number;angle:number};
+export function packetTarget(packet:{slot?:number}):string;
+export function migrateGrid(command:CommandState):CommandState;
+
+export function selectGridAsset(world:{selectedAsset?:string},id:string):void;
+export function setGridCursor(world:{gridCursor?:GridCell|null},cell:GridCell|null):void;
