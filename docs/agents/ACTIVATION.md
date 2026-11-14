@@ -1,35 +1,36 @@
-# Contributor activation gates
+# Integration and assigned-task gates
 
-This document describes required decisions; it does not execute them or grant permission to change settings.
+These are operating instructions, not commands that change settings, launch agents or authorize spending.
 
-## Current scope and status
+## Submission is not activation
+Contributors may develop and offer public-scope proposals in their own forks under `CONTRIBUTING.md`. Review can result in accepting none, part or all of the work. An unsolicited submission does not activate an assigned task, authorize upstream changes or grant access to owner resources.
 
-Phase 1 authorizes a documentation-only setup branch and draft PR after checking hosting triggers, plus one blocked pilot issue. No merge, deployment, permissions change, engine change or newly authorized owner spending is included. Merely publishing these documents does not activate the worker policy.
+PR #6 integrated the initial documentation only. VAG-001 is [issue #5](https://github.com/KCmagination/vision-arcade/issues/5); its live owner-controlled status and final approved base remain authoritative. It stays blocked until explicitly activated. Do not create a second task-status database here.
 
-VAG-001 is [issue #5](https://github.com/KCmagination/vision-arcade/issues/5). It was created blocked and unassigned. Use the live issue for subsequent readiness, base SHA and scope; this document is not a second task-status database. Other work-queue entries are proposals only.
+## Owner-controlled integration settings
+The intended main-branch rules are:
+- Require a pull request and resolved review discussions.
+- Require GitHub Actions checks `verify` and `browser`, with the candidate up to date.
+- Set required approving reviews to **0**; do not require code-owner or last-pusher approval.
+- Block force pushes and deletion, with no bypass exemptions.
+- Keep automatic merging off and outside contributors on their own forks without upstream write/admin access.
 
-## Publication gate
+The [import candidate](main-protection.ruleset.json) expresses the branch rules. Committing this JSON does not install or activate it. An administrator must import/review it in repository settings; if a different ruleset already exists, reconcile rather than stack conflicting review requirements. Verify the active configuration afterward. A read-only settings check is not a destructive enforcement test.
 
-Before creating any upstream branch or PR, inspect the repository workflows and all relevant connected hosting settings. Check branch-push, PR, preview, production and custom-environment triggers. Confirm that the intended documentation publication will not cause a deployment or unauthorized charge. A branch name, draft status, missing repository configuration file or empty commit-status list is not proof that no hosting integration exists.
+Zero required reviews removes a mandatory second account, not PRs, tests or the owner's integration decision. Any identity with upstream write rights may still be able to merge after checks. The assistant therefore merges only the exact PR/head authorized by the owner. A GitHub rule cannot distinguish the owner from an assistant using that same account. Independent review is encouraged for higher-risk work but is not a universal prerequisite.
 
-If relevant settings cannot be inspected, keep the candidate files and PR text local and report the blocker. Do not invent a successful check. Do not add a deployment configuration file, change a workflow, disconnect a provider, cancel existing work or modify permissions to work around this gate without separate authorization.
+## Hosting, execution and budget
+Before publication through owner-connected tools or integration, maintainers inspect relevant branch/PR/preview/production triggers and connected hosting. Contributors check their own environment; they are not required to inspect inaccessible owner settings. If publication effects are unknown, prepare a local patch/report rather than alter integrations or assume a draft cannot deploy.
 
-## Activation gates — separate owner decisions
+Keep untrusted contributions away from production secrets and privileged runners. Review proposed workflow changes before approving a fork's workflow execution. Approval to run tests is not approval to merge. Review existing CI/artifact storage and spending controls; no new owner spending, paid runner, subscription, service or live API test budget is authorized here.
 
-1. Review and approve the exact documentation candidate and its change list; integrate only through an owner-authorized merge.
-2. Review main-branch protection, required CI checks, review requirements and privileged-account enforcement. Check actual workflow/job identities rather than guessing display names. Do not configure an independent-approval rule that prevents the available reviewers from completing setup; the PR author cannot supply their own independent approval.
-3. Review connected hosting automation and explicit deployment controls. Keep previews and production within the owner's separately approved policy. Inspect GitHub installed apps/webhooks as needed; repository workflow inspection alone does not enumerate external integrations.
-4. Review existing CI, artifact retention/storage and account spending controls. No new spending is authorized. New workflows, paid runners, subscriptions and service accounts remain outside this phase.
-5. Confirm the approved policy is on the designated main branch, record its SHA in issue #5, and explicitly mark the task READY as the owner. A contributor claim or edited checklist is not an authorization substitute.
+## Activate a specific assignment only when ready
+1. Confirm the approved policy is on main and intended branch/check controls are active.
+2. Review hosting, execution and cost controls without weakening existing safeguards.
+3. Record the approved base SHA and scope in the live issue, and have the owner mark it READY.
+4. Let the contributor work independently within that scope; accept a blocker report rather than requiring repeated owner troubleshooting.
 
-## Worker permissions after activation
+For VAG-001, the owner may review the result with assistant support. Return evidence and a recommendation; an additional independent reviewer is optional unless the owner specifically requires one. Passing checks does not authorize a merge or deployment.
 
-A READY issue permits only its documented fork/PR task. Contributors use their own identities and compute. No upstream write/admin credentials, private-source access, payments, merge or deployment are granted. Live calculator requests default to zero unless the owner separately approves a bounded request budget in that task. Required automatic checks do not authorize releases.
-
-## Pilot acceptance
-
-One unfamiliar contributor completes VAG-001 from public instructions without a private tutorial. A separate reviewer checks the exact candidate and supplies actual evidence, limitations and a merge/return/hold recommendation. The owner may reject or hold it. Deployment still requires a separate decision.
-
-## Evidence scope
-
-The Phase 1 inspection found main at `1b41d197be7d7203df5f191d380f8c1ac723125e` with protection disabled and no returned rulesets. The two inspected workflow files contain tests/builds/artifact upload but no deployment step. This is a point-in-time record, not a guarantee about future settings or external integrations. Recheck before publication and activation.
+## Selective integration
+Select the desired work, preserve attribution/licenses and identify dependencies. A reduced or adapted submission is a new candidate and must pass applicable checks at its exact head. Do not bypass the v51 guard to accept a runtime experiment; use the separately reviewed VAG-002 process. Merge and release require separate owner decisions.

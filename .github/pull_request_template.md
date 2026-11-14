@@ -1,41 +1,39 @@
-## Task and authorization
-Issue/task ID:
-Approved base SHA:
-Candidate head SHA:
-Standing ready-task authorization or specific owner approval:
+## Submission type and scope
+Type: unsolicited proposal / owner-approved READY task / maintainer integration
+Related issue or source PR (if any):
+Base SHA and candidate head SHA:
 Contributor/operator identity:
+For assigned work, scope authorization:
+For unsolicited work, state PROPOSAL; do not imply assignment or acceptance.
 
-## Why
-One useful outcome and the user or learning benefit.
+## Purpose and useful parts
+What does this improve or demonstrate?
+Which parts can stand alone? List dependencies and unfinished pieces.
+Suggested disposition: accept all / accept part / request changes / hold / decline.
 
-## Changes and source provenance
-Allowed scope, changed paths, public references, original/third-party asset rights.
-Source/public package version impact, or explain why documentation/test-only work does not change the app release.
+## Source and rights
+Source PR/commits, original or third-party materials, license and required notices:
+For original code/docs intended for inclusion, confirm the existing MIT license or disclose different terms:
+For assets, include editable source, export, preview and redistribution/modification rights:
+Application-version impact (documentation-only work is not a new app release):
 
 ## Verification and limitations
 | Command / environment | Actual result | Evidence |
 | --- | --- | --- |
 | | | |
 
-State exact passed, failed and skipped counts. Distinguish a recorded historical result from a fresh run. List any unavailable browser/runtime, synthetic API input, disabled rendering feature or untested live behavior.
+Disclose failures, skipped checks, missing tools, synthetic API responses and untested behavior. Incomplete proposals are allowed; they are not release-ready. Required checks must pass on the exact final integration candidate, including any selected subset.
 
-- [ ] This PR stays inside an owner-approved ready task or specific scope approval.
-- [ ] Hosted calculator boundary preserved; no private source/history, credentials or personal records.
-- [ ] Applicable privacy guard, unit tests and production build results are accurately reported.
-- [ ] Browser status is accurate; no silent assertion removal, skipped failure or self-approved rehash.
-- [ ] Source provenance and public package version effects are recorded.
-- [ ] Asset rights, editable sources and previews are included where applicable.
-- [ ] Cost and connected-deployment effects were checked; unknowns are explicit.
+- [ ] No private engine/source/history, credentials, personal records or withheld assets included.
+- [ ] Scope, rights, dependencies and actual test limitations are disclosed.
+- [ ] No safeguard was removed, assertion weakened or expected hash rewritten to hide a failure.
+- [ ] No new owner spending, private access or deployment is implied by this submission.
 
-## Independent review
-Reviewer and exact reviewed SHA:
-Reproduced checks or limits:
-Remaining risks:
-
-## Owner decision packet
-Recommended decision: merge / return / hold.
-What changed, in plain language:
-What still needs an owner decision:
-New owner spending requested: none, or separately itemized for approval.
-Deployment: not authorized by this PR alone.
+## Review and integration decision
+Owner/assistant review and exact reviewed SHA:
+Optional independent reviewer:
+Selected/omitted parts and source attribution, if partial integration:
+Remaining risks and checks needed before integration:
+Owner authorization for the exact merge: pending / reference
+Deployment: separately authorized only.
 Rollback/revert approach:

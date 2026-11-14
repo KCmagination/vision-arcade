@@ -1,20 +1,21 @@
-name: Agent contribution task
-description: Propose a bounded task with evidence and explicit authority. Not approved merely by being opened.
-title: "[Agent task] "
+name: Contribution proposal or assigned task
+description: Offer an experiment or define a scoped assignment; submission is not approval to integrate.
+title: "[Proposal] "
 body:
   - type: markdown
     attributes:
       value: |
-        Read AGENTS.md. Only the project owner can make this a ready assignment.
-        Work uses contributor-owned compute and a fork. No merge, deployment,
-        paid service, private-source access or owner credential is authorized here.
+        Read AGENTS.md. Unsolicited public-scope proposals are welcome; no assignment is required.
+        Only the owner can make an assigned task READY or authorize integration.
+        Use your own compute and fork. No merge, deployment, new owner expense,
+        private-source access or owner credential is authorized by this form.
   - type: input
     id: task_id
     attributes:
-      label: Task ID and experiment reference
-      placeholder: VAG-001; relevant EXP reference or none
+      label: Related task or experiment reference (optional)
+      placeholder: Existing VAG/EXP ID, or unsolicited proposal
     validations:
-      required: true
+      required: false
   - type: textarea
     id: why
     attributes:
@@ -25,8 +26,8 @@ body:
   - type: input
     id: base
     attributes:
-      label: Approved base commit
-      description: Exact SHA; confirm current base before starting.
+      label: Reference base commit
+      description: Exact SHA used for an experiment; assigned tasks must use their approved base.
     validations:
       required: true
   - type: textarea
@@ -57,13 +58,14 @@ body:
       value: |
         New owner spending authorization: $0. Contributor uses own authorized compute.
         Live API requests: 0 unless separately bounded and approved in this task.
-        Stop after two materially different blocked approaches and provide a reproducible report.
+        For assigned tasks, report a blocker after two materially different blocked approaches.
+        Privately funded exploratory research is not limited by that handoff convention.
     validations:
       required: true
   - type: textarea
     id: authority
     attributes:
       label: Owner authorization and readiness
-      description: Owner records scope approval here or in an identifiable owner comment. Blank means proposed, not ready.
+      description: Optional for a proposal. The owner must explicitly approve readiness for an assignment; submission never authorizes integration.
     validations:
       required: false
