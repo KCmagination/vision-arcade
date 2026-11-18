@@ -6,6 +6,7 @@ import { CharacterModel, type CharacterMotion } from "./character-model";
 import { StudioEnvironment, PillarLabel, PillarRelic, type AvatarKind, type CornerStrengths } from "./avatar-stage";
 import { SceneEffects } from "./scene-effects";
 import { fitDebtbreakCamera } from "@/lib/debtbreak-arena-view.js";
+import { createSectorSparkTrails } from "@/lib/sector-spark-trails.js";
 import { stepSector, ARENA, ARENA_CORNERS, withinCorner, type Sector, type Loadout } from "@/lib/arcade-engine.js";
 import { equipmentOnline, hasEquipment } from "@/lib/debtbreak-challenges.js";
 export type InputState = {
@@ -147,8 +148,9 @@ export function SectorWorld({
     shield = useRef<THREE.Mesh>(null),
     reticle = useRef<THREE.Group>(null);
   const drones = useRef<Array<THREE.Group | null>>([]),
-    bullets = useRef<THREE.InstancedMesh>(null),
-    sparks = useRef<THREE.InstancedMesh>(null);
+    bullets = useRef<THREE.InstancedMesh>(null);
+  const sparkTrails = useMemo(createSectorSparkTrails, []);
+  useEffect(() => () => sparkTrails.dispose(), [sparkTrails]);
   const motion = useRef<CharacterMotion>({
     moving: 0,
     firing: false,
@@ -280,43 +282,7 @@ export function SectorWorld({
       if (bullets.current.instanceColor)
         bullets.current.instanceColor.needsUpdate = true;
     }
-    if (sparks.current) {
-      sparks.current.count = Math.min(s.sparks.length, 160);
-      s.sparks.slice(0, 160).forEach((p, i) => {
-        utility.dummy.position.set(p.x, Math.max(0.05, p.y), p.z);
-        utility.dummy.rotation.set(0, 0, 0);
-        utility.dummy.scale.setScalar(
-          Math.max(
-            0.01,
-            p.life *
-              (p.color === "playerHit" || p.color === "collector" ? 0.22 : 0.13),
-          ),
-        );
-        utility.dummy.updateMatrix();
-        sparks.current!.setMatrixAt(i, utility.dummy.matrix);
-        sparks.current!.setColorAt(
-          i,
-          utility.color.set(
-            p.color === "shield"
-              ? "#81ffd3"
-              : p.color === "boss"
-                ? "#ffbe73"
-                : p.color === "merge"
-                  ? "#ff5b62"
-                  : p.color === "collector"
-                    ? "#ce8cff"
-                    : p.color === "collectorKill"
-                      ? "#f2a8ff"
-                      : p.color === "playerHit"
-                        ? "#ff7a35"
-                        : "#83c4ff",
-          ),
-        );
-      });
-      sparks.current.instanceMatrix.needsUpdate = true;
-      if (sparks.current.instanceColor)
-        sparks.current.instanceColor.needsUpdate = true;
-    }
+    sparkTrails.update(s.sparks, reduced, compact);
     hudTime.current += delta;
     if (hudTime.current > 0.1) {
       onHud(readHud(s));
@@ -458,14 +424,7 @@ export function SectorWorld({
         <sphereGeometry args={[1, 6, 4]} />
         <meshBasicMaterial toneMapped={false} />
       </instancedMesh>
-      <instancedMesh
-        ref={sparks}
-        args={[undefined, undefined, 160]}
-        frustumCulled={false}
-      >
-        <icosahedronGeometry args={[1, 0]} />
-        <meshBasicMaterial toneMapped={false} />
-      </instancedMesh>
+      <primitive object={sparkTrails.mesh} dispose={null} />
     </>
   );
 }
