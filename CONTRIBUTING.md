@@ -2,6 +2,25 @@
 
 Vi$ion turns Cash Flow, Capital, Collateral and Credit into understandable, playable tradeoffs. Contribute original assets, code, tests, research or documented experiments. **Submission is an offer for review, not automatic inclusion. The owner may accept all, select useful parts, request changes, hold or decline it.**
 
+## Priority: 3D art, characters, animation and effects
+
+Original 3D characters, enemy models, modular equipment, animation and visual effects are especially sought after. See the [current contributor invitation](https://github.com/KCmagination/vision-arcade/issues/8) for priority examples. A single well-documented asset or animation clip is more useful than a large unreviewable collection.
+
+Use public references and identify the exact scene, rig and base commit. Public main and private prototypes may differ; do not assume rig or attachment compatibility. Every equipment tier should look intentional and appealing, without shaming players for lower financial resources.
+
+### 3D art and animation submission checklist
+
+- Editable source plus a self-contained export supported by the intended scene, normally GLB for 3D.
+- Still preview or short turntable; animations should show the complete clip.
+- Intended scene, exact public reference/base commit, tool/version and export instructions.
+- Scale, axes, origin/pivot and attachment points.
+- Triangle/vertex counts, materials, texture sizes, file size and any LODs.
+- For rigged work: skeleton/bone names, skinning assumptions, clip names/durations, loop and root-motion behavior, and demonstrated retargeting requirements.
+- Authorship, source links, AI-generation/third-party dependencies, actual license and permission to modify and redistribute source and exports. Do not assume an asset-store or generated asset can be redistributed.
+- What was actually tested, device/viewer used and remaining limitations.
+
+Propose a performance budget if the target has no published one; there is no universal approved polygon limit. These priority areas do not activate a blocked assignment or grant access to private Sentinel studies, withheld assets, owner credentials or financial data. No owner spending, compensation or adoption is promised. Submission does not authorize integration, upstream workflows, merging or deployment.
+
 ## Two ways to contribute
 
 **Offer an experiment.** Work in your own fork with your own authorized compute and public inputs. Open a clearly labeled PROPOSAL issue or draft PR, with a preview or findings and honest limitations. No assigned VAG number or advance implementation approval is needed for an unsolicited proposal. A short issue before a large effort can avoid wasted work; acceptance and reimbursement are not promised.
