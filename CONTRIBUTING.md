@@ -33,6 +33,7 @@ Neither route grants write/admin access to the upstream repository, private-engi
 Read [AGENTS.md](AGENTS.md), the [API guide](docs/CALCULATOR_API.md), [versioning policy](docs/VERSIONING.md), [work queue](docs/agents/WORK-QUEUE.md) and [integration gates](docs/agents/ACTIVATION.md). Main is the integration baseline. Experiments are evidence, not approved replacements.
 
 Public references:
+- [Sentinel modular-armor research log](docs/research/SENTINEL-RESEARCH-LOG.md): isolated research, not integrated into the public MVP. Records attachment studies, rejected iterations and prototype test limits; does not establish asset availability, rig compatibility or release readiness.
 - [Reviewed experiment catalog](https://github.com/KCmagination/vision-arcade/blob/f37ad5549e8973251baab9f02aaa771373fc58eb/docs/experiments/README.md)
 - [Publication exclusions](https://github.com/KCmagination/vision-arcade/blob/f37ad5549e8973251baab9f02aaa771373fc58eb/docs/experiments/BOUNDARIES.md)
 
