@@ -4,6 +4,9 @@
 | --- | --- | --- |
 | `public/models/sentinel.glb` and `scripts/assets/build-sentinel.mjs` | Original Vi$ion public MVP model and generator | Already documented under the repo [MIT license](../../LICENSE), subject to [third-party notices](../../THIRD_PARTY_NOTICES.md). |
 | `models/gear-fit.obj` | Created for this kit from three simple geometric parts | Original kit sample; MIT. No production mount, rig, skins, animations or third-party geometry. |
+| `models/utilitank-electric.glb` | Original procedural Blender enemy, gameplay export: 3,286 triangles | MIT. Byte-identical to the connected playtest's Electricity Utilitank. No textures, rigs or clips. |
+| `models/utilitank-water.glb` | Original procedural Blender enemy, gameplay export: 3,118 triangles | MIT. Byte-identical to the connected playtest's Water Utilitank. No textures, rigs or clips. |
+| `models/debtonator.glb` | Original procedural Blender enemy, gameplay export: 2,196 triangles | MIT. Byte-identical to the connected playtest's Debtonator. No textures, rigs or clips. |
 | `models/utilitank-blockout.obj` | Original training asset created for this kit | MIT. Independent procedural blockout; not a copy of an outside model. |
 | `models/ad-plane-blockout.obj` | Original training asset created for this kit | MIT. Independent 3D interpretation, not an export of the Canvas renderer. |
 | `models/sample-arena.obj` | Original training layout created for this kit | MIT. No textures, logos, or third-party scene components. |
