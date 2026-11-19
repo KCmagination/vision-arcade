@@ -84,3 +84,56 @@ The finer surface-distance sweep remains unfinished. There is no completed conti
 ## Evidence and publication boundary
 
 This text summarizes retained structural, collision, runtime and iteration reports. Raw assets, private source, internal repository locations, account identifiers and unlicensed imagery are intentionally excluded. No video is claimed or supplied. Publication of this narrative does not authorize distribution of the research assets.
+
+---
+
+## Follow-up research record • 19 November 2026
+### Correct the test, then improve the silhouette
+
+This dated follow-up preserves the 18 November entry as a historical record. It covers subsequent isolated candidates, not an update to the public character or a declaration that every equipment combination is safe.
+
+### 1. A hip overlap the earlier filter missed
+
+A later audit included same-joint mesh pairs and found overlapping cobalt and silver pieces on the right hip plate. The earlier pair filter had missed this: sharing a joint does not make an overlap intentional.
+
+Correcting the mirrored geometry left the rig unchanged. Independent Blender checks recorded **nine intersecting face pairs before correction and zero afterward**, with approximately **1.05 mm seams on both sides**.
+
+The corrected candidate then received a **separate 3,396-sample clearance sweep over 562 primitive pairs** and a **separate 6,600-pose weapon check across 50 sword/shield combinations**. These are new tests on the corrected candidate, not a reinterpretation of the similarly numbered audits in the historical entry. A later targeted thumb check sampled 401 poses across a short near-contact interval and measured a minimum separation of **6.46 mm**.
+
+**What changed:** Both the geometry and the scope of the pair audit were corrected.
+
+**What remains unproved:** Continuous clearance between samples, arbitrary animation blends and actual device behavior. The correction is not permission to combine the rejected lower-thigh guards with this candidate.
+
+### 2. A shoulder that clears a guard can still fail a strike
+
+A compact fixed shoulder study improved the silhouette, but its closest sampled Shield05 separation was only **1.87 mm**. Raising the whole shell appeared promising in a cross-body guard: 721 sampled poses passed. The same moving shell intersected the shield during the low grounded strike, confirmed independently in Blender. Reducing the lift did not resolve that tested failure.
+
+**Decision:** Reject the animated whole-shell approach. A successful guard-only test was not sufficient evidence for the supported move set.
+
+The replacement keeps the upper shell fixed and moves a smaller lower lamella, a sliding armor plate, beneath it. This preserved the layered motion while increasing the measured closest Shield05 separation to **10.03 mm**. The study recorded no unintended contacts in **4,130 dense poses** and **6,600 weapon-loadout poses** within its selected test scope.
+
+These counts describe two different audits; they are not a full outfit-combination certification. Standard loader checks established that the candidate could be loaded, not that it performed correctly on a live GPU.
+
+### 3. Broader Crest shoulders without enlarging the moving plate
+
+The next Crest study used the recommended **15–20 mm fixed-shell flare range**, leaving the lower moving plate unchanged. The measured top-projection area increased from **192.3 to 216.9 cm², about 12.8%**. This is a projected-area change, not a claim that the entire character became 12.8% larger.
+
+The change added **72 triangles and no new draw primitives**. The fixed roof retained **35.18 mm** sampled Shield05 clearance; the lower plate retained approximately **10.03 mm**. No unintended contacts were recorded in 4,130 tested poses, including 357 refined samples, with three independent Blender checks.
+
+**Boundary:** This result applies to the tested tapered contour. It does not establish that any arbitrary shell inside the same dimensions will clear, nor does a primitive count establish actual renderer draw calls or frame rate.
+
+### 4. Field, Patrol and Crest: progress is not release readiness
+
+The three featured tiers now provide a clearer visual progression, but each still has explicit limits:
+
+- **Field:** Remained the lower-complexity visual baseline during the later Patrol and Crest edits. It was not silently rebuilt to make the comparisons look better.
+- **Patrol:** Chest ridges and a lower keel improved the small-scale silhouette without adding triangles, material draws or textures. The selected changed-chest audit covered 2,420 samples. A moving-light Blender comparison found no new visible seam flash or outline break in its tested views; reduced depth precision and phone rendering remain unverified.
+- **Crest:** The wider fixed shell and sliding lower plate are preferred research candidates, not public game equipment. A separate top-sword crossguard graze was corrected and rechecked in its tight recovery interval, rather than dismissed because the shoulder tests passed.
+
+The opt-in tier harness exercised **117 selected states and 15,776 CPU animation updates** while preserving the 44-bone rig and an unchanged default. That is runtime-preservation evidence, **not collision coverage for every combination**. Its tested peak of 22,610 triangles and 144 primitives is not a mobile-performance result.
+
+### Next acceptance gate
+
+Keep exact candidates pinned, compare appearance at matching cameras and timestamps, and test the assembled character in actual WebGL on representative hardware. Measure loading and frame time, inspect moving seams and close approaches, and exercise physical touch where relevant. Studio renders, sampled geometric distances and CPU skinning checks answer different questions; none substitutes for that device gate.
+
+This follow-up publishes research findings only. It includes no raw assets, rig reconstruction data, private source or calculator implementation, and grants no asset license. It does not release the character, change the public game or certify it as game-ready.
