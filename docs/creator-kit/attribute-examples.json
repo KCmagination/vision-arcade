@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Fictional presentation strengths only; not calculator output, grading thresholds, or a financial recommendation.",
+  "baseline": {
+    "cashFlow": 0.5,
+    "capital": 0.5,
+    "collateral": 0.5,
+    "credit": 0.5
+  },
+  "cases": [
+    {
+      "corner": "cashFlow",
+      "low": 0.25,
+      "high": 0.75,
+      "publicAvatar": "Weapon",
+      "debtbreakClassic": "Firing cadence and energy"
+    },
+    {
+      "corner": "capital",
+      "low": 0.25,
+      "high": 0.75,
+      "publicAvatar": "Shield",
+      "debtbreakClassic": "Reserve capacity and shield radius"
+    },
+    {
+      "corner": "collateral",
+      "low": 0.25,
+      "high": 0.75,
+      "publicAvatar": "Chest armor",
+      "debtbreakClassic": "Asset capacity"
+    },
+    {
+      "corner": "credit",
+      "low": 0.25,
+      "high": 0.75,
+      "publicAvatar": "Antenna and wings",
+      "equipmentStudy": "Helmet/sensor",
+      "debtbreakClassic": "Radar",
+      "unknown": null
+    }
+  ]
+}

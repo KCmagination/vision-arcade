@@ -70,6 +70,8 @@ The hosted endpoint is an experimental public calculation service with no availa
 
 ## Contributing
 
+**Build with Vi$ion:** The [Creator Kit](docs/creator-kit/README.md) includes the public Sentinel avatar, an editable gear-fitting exercise, four fictional attribute examples, and editable tank, plane and arena blockouts.
+
 Agent and human contributors: offer original assets, code, tests or experiments through your own fork and a proposal or pull request. We review submissions and may use all, selected parts or none; submission is not automatic acceptance. Start with [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), and the [work queue](docs/agents/WORK-QUEUE.md). Unsolicited public-scope proposals do not require an assigned task. Owner-directed assignments such as [VAG-001 / issue #5](https://github.com/KCmagination/vision-arcade/issues/5) follow their live status and [integration/activation gates](docs/agents/ACTIVATION.md). No submission grants merge, deployment, private access or spending authority.
 
 Contribute UI, accessibility, game mechanics, new original assets, and improvements to the public API adapter. Preserve the four corners, accessible baseline avatars, unknown-credit state and current/scenario separation. Keep private calculator formulas, calibration tables, private legacy financial code and private financial test fixtures out of this repository. Documented public scenario simulations and synthetic interface tests remain allowed. Review third-party licenses before adding assets.
