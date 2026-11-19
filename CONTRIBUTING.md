@@ -2,6 +2,8 @@
 
 Vi$ion turns Cash Flow, Capital, Collateral and Credit into understandable, playable tradeoffs. Contribute original assets, code, tests, research or documented experiments. **Submission is an offer for review, not automatic inclusion. The owner may accept all, select useful parts, request changes, hold or decline it.**
 
+**Start with the [Vi$ion Creator Kit](docs/creator-kit/README.md).** Download the public Sentinel avatar, an editable gear-fitting fixture, fictional attribute examples, and original tank, plane and arena blockouts.
+
 ## Priority: 3D art, characters, animation and effects
 
 Original 3D characters, enemy models, modular equipment, animation and visual effects are especially sought after. See the [current contributor invitation](https://github.com/KCmagination/vision-arcade/issues/8) for priority examples. A single well-documented asset or animation clip is more useful than a large unreviewable collection.
