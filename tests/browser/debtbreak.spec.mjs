@@ -9,7 +9,7 @@ test('battlefield loads real art and keeps mouse/touch controls reachable', asyn
     return { width: el.width, height: el.height, colors: colors.size };
   });
   expect(paint.width).toBeGreaterThan(300); expect(paint.height).toBeGreaterThan(300); expect(paint.colors).toBeGreaterThan(100);
-  expect(await page.evaluate(() => window.__siegeDraw.text)).toEqual(expect.arrayContaining(['SENTINEL', 'CAPITAL SHIELD · CHARGED', 'COLLATERAL', 'CREDIT RADAR']));
+  expect(await page.evaluate(() => window.__siegeDraw.text)).toEqual(expect.arrayContaining(['SENTINEL', expect.stringMatching(/^GOAL SHIELD.*ON$/), 'COLLATERAL', 'CREDIT RADAR']));
   for (const selector of ['.siege-fire', '.siege-weapons > button:nth-child(1)', '.siege-weapons > button:nth-child(2)', '.siege-weapons > button:nth-child(4)']) {
     const control = shell(page).locator(selector); await control.scrollIntoViewIfNeeded();
     const box = await control.boundingBox(); expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44);
@@ -40,7 +40,7 @@ test('battlefield loads real art and keeps mouse/touch controls reachable', asyn
 
 test('Intercept pays once per press; Rapid Fire repeats and releases', async ({ page }, testInfo) => {
   await openGame(page);
-  await shell(page).getByRole('button',{name:'Reserve protection ON',exact:true}).click();
+  await openPlan(page);await page.getByRole('checkbox',{name:'Automatic reserve protection',exact:true}).uncheck();await closePlan(page);
   // Exercise rapid hits while the formation is still moving slowly. Later in
   // a sweep the player must lead a moving tank; a deliberate miss is valid.
   await tapOrClick(page, shell(page).getByRole('button', { name: /2 · RAPID FIRE/ }));
@@ -79,8 +79,8 @@ test('a missed payment projectile returns funds to the selected wallet', async (
 
 test('Pause / Plan freezes time, deposits once and enforces expansion surplus', async ({ page }) => {
   await openGame(page, { reserves: 0 });
-  await expect(shell(page).getByRole('button', { name: /^EXPAND WALL/ })).toBeDisabled();
   await openPlan(page);
+  await expect(page.getByRole('button', {name:/^Expand wall/})).toBeDisabled();
   const cycle = await shell(page).locator('.siege-objective').innerText();
   const beforeIncome = await balance(page), beforeReserve = await balance(page, 'reserve');
   await page.clock.runFor(10_000);
@@ -199,12 +199,12 @@ test('three Utilitank rows and double Want-bots render at mission start',async({
 test('five sword clears charge a real multi-ad power sweep on mouse and touch',async({page},testInfo)=>{
  await openGame(page,{income:0,living:0,debt:0,reserves:0});
  for(let n=1;n<=5;n++){
-  await tapOrClick(page,shell(page).getByRole('button',{name:'E · SLASH AD',exact:true}));await page.clock.runFor(4000);
+  await hold(page,await renderedPoint(page,'want'),100);await page.clock.runFor(4000);
   if(n<5)await expect(shell(page).locator('.siege-sentinel')).toContainText(`${n} cleared`);
  }
  await expect(shell(page).locator('.siege-sentinel')).toHaveAttribute('data-power-ready','true');
  await testInfo.attach('power-sweep-ready.png',{body:await page.screenshot(),contentType:'image/png'});
- await tapOrClick(page,shell(page).getByRole('button',{name:'E · POWER SWEEP',exact:true}));await page.clock.runFor(3000);
+ await hold(page,await renderedPoint(page,'want'),100);await page.clock.runFor(3000);
  const status=await shell(page).locator('.siege-footer [role="status"]').innerText();expect(Number(status.match(/Power sweep cleared (\d+) ads/)?.[1]??0)).toBeGreaterThanOrEqual(2);
  expect(Number((await shell(page).locator('.siege-sentinel').innerText()).match(/(\d+) cleared/)?.[1]??0)).toBeGreaterThanOrEqual(7);
  expect(await balance(page)).toBe(0);expect(await balance(page,'reserve')).toBe(0);await openPlan(page);await accountCheck(page);

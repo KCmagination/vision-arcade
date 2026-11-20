@@ -6,3 +6,8 @@
 .db31-account-reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin:20px 0}.db31-account-reviews article{border:1px solid #365967;padding:18px;background:#112936}.db31-extra{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-top:12px}.db31-extra label{display:grid;gap:6px;font-size:.875rem}.db31-extra input{width:130px;min-height:44px;background:#10232f;border:1px solid #64808b;padding:8px;color:white}
 .db31-shell .db31-targets{display:flex;flex-wrap:nowrap;overflow-x:auto;max-height:145px;flex-shrink:0}.db31-shell .db31-targets>button{flex:0 0 180px;min-width:150px}.db31-targets strong{white-space:nowrap}
 @media(max-width:640px){.advanced-dialog{padding:18px 14px;max-height:96dvh}.adv-scroll{padding-right:3px}.adv-heading{align-items:flex-start;flex-wrap:wrap}.adv-fields,.adv-total{grid-template-columns:1fr}.adv-cost{grid-template-columns:1fr auto}.adv-cost>.adv-field:first-child{grid-column:1/-1}.adv-footer>button{flex:1;white-space:normal}.adv-row{padding:12px}.adv-date{align-items:flex-start;flex-direction:column;gap:6px}.adv-date input{width:100%}}
+
+/* Reserve the close hit area independently of the wrapping title. */
+.advanced-dialog [data-slot=dialog-header]{padding-right:42px;text-align:left}
+.advanced-dialog [data-slot=dialog-title]{line-height:1.3;overflow-wrap:anywhere}
+.advanced-dialog>[data-slot=dialog-close]{width:44px;height:44px;top:8px;right:8px;display:grid;place-items:center}
