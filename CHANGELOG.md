@@ -1,5 +1,9 @@
 # Changelog
 
+## Hosted Site v67 — 2026-11-20
+
+[The hosted release record](docs/HOSTED-RELEASES.md) covers one-click Debtbreak entry, the revised Sentinel and the close-range sword spin. This is a hosted release only; the repository package and contributor asset kit remain on the existing baseline.
+
 ## 0.6.0 — 2026-09-28
 
 Owner-approved sync of Site v51 (`6fc8e788e927381e6c199aa41aa2fed9267558a4`), based on public commit `cb72495ee12b0034e92ae8878a779387a1bdb2df`. Recovery branch: `release/debtbreak-v51`.

@@ -6,7 +6,7 @@ Start with one piece: fit an equipment blank, redesign a utility tank, turn the 
 
 | Item | Download or source | What it is |
 | --- | --- | --- |
-| Sentinel avatar | [Download the public Sentinel GLB](https://github.com/KCmagination/vision-arcade/raw/refs/heads/main/public/models/sentinel.glb) · [Editable generator](../../scripts/assets/build-sentinel.mjs) | Original public MVP avatar. Not the unreleased modular rig. |
+| Sentinel avatar | [Download the public Sentinel GLB](https://github.com/KCmagination/vision-arcade/raw/refs/heads/main/public/models/sentinel.glb) · [Editable generator](../../scripts/assets/build-sentinel.mjs) | Original public MVP avatar. The modular Sentinel rig, gear, and motion shown in the [hosted game](../HOSTED-RELEASES.md) are not part of this kit. |
 | Gear fitting | [Editable gear-fit OBJ](models/gear-fit.obj) | Original training fixture: separate pivot, bracket and equipment blank. Not a Sentinel socket or a production clearance envelope. |
 | Four attributes | [Fictional JSON examples](attribute-examples.json) · [Public showcase source](../../lib/sentinel-showcase-cycle.js) | Compare one corner at 0.25 and 0.75 while the others stay at 0.50. Unknown Credit is `null`, not a low score. These are presentation examples, not grade boundaries. |
 | Utilitank (gameplay models) | [Electric GLB](models/utilitank-electric.glb) · [Water GLB](models/utilitank-water.glb) | The two original Blender models used by the connected Debtbreak playtest. The [editable tank OBJ](models/utilitank-blockout.obj) remains an optional training blockout, not an in-game mesh. |

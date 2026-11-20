@@ -4,6 +4,14 @@
   "siteVersion": 51,
   "siteSourceCommit": "6fc8e788e927381e6c199aa41aa2fed9267558a4",
   "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
+  "hostedRelease": {
+    "siteVersion": 67,
+    "siteSourceCommit": "d14c721b1f53156445ae47b3fd0a1b55fd4de0cc",
+    "deployedOn": "2026-11-20",
+    "siteUrl": "https://vision-financial-map.rettke75.chatgpt.site",
+    "relationship": "hosted-only",
+    "notes": "docs/HOSTED-RELEASES.md"
+  },
   "syncMethod": "Reviewed public application copy; no Site history imported",
   "futureUpdatesRequireOwnerApproval": true,
   "calculatorBoundary": "Hosted API adapter only; proprietary implementation excluded",

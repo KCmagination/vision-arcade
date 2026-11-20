@@ -4,6 +4,8 @@ Vi$ion turns Cash Flow, Capital, Collateral and Credit into understandable, play
 
 **Start with the [Vi$ion Creator Kit](docs/creator-kit/README.md).** Download the public Sentinel avatar, an editable gear-fitting fixture, fictional attribute examples, and original tank, plane and arena blockouts.
 
+For proposals, identify the exact checkout and fixture you used. The [hosted Site release](docs/HOSTED-RELEASES.md) is not the local app or a licensed asset download. Do not assume the hosted Sentinel rig, gear, animation, or launch flow are included in the Creator Kit.
+
 ## Priority: 3D art, characters, animation and effects
 
 Original 3D characters, enemy models, modular equipment, animation and visual effects are especially sought after. See the [current contributor invitation](https://github.com/KCmagination/vision-arcade/issues/8) for priority examples. A single well-documented asset or animation clip is more useful than a large unreviewable collection.

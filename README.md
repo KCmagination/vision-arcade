@@ -4,9 +4,11 @@ Financial awareness, built for play. Choose a Mech or Tree, shape your avatar wi
 
 [Try the live MVP](https://vision-financial-map.rettke75.chatgpt.site)
 
+**Two different versions:** The hosted app is **Site v67**. This repository remains the standalone **0.6.0 / Site v51** baseline. See [Hosted releases](docs/HOSTED-RELEASES.md) for what’s live, what’s in this checkout, and what hasn’t been ported.
+
 ## What's open source
 
-The hangar, mobile interface, original character artwork and models, model generators, animation, game simulations, input forms, and calculator API client are MIT licensed. The proprietary financial calculator runs as a separate hosted service. Its formulas, calibration and implementation are absent from this repository and its history.
+The hangar, mobile interface, original character artwork and models, model generators, animation, game simulations, input forms, and calculator API client included in this checkout are MIT licensed, subject to [third-party notices](THIRD_PARTY_NOTICES.md). Hosted-only assets are not relicensed by this repository. The proprietary financial calculator runs as a separate hosted service. Its formulas, calibration and implementation are absent from this repository and its history.
 
 | Financial corner | Sentinel / Mech | Verdant / Tree |
 | --- | --- | --- |
